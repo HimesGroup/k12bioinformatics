@@ -20,9 +20,12 @@ shinyUI(fluidPage(
                this experiment can be found",
                a(href="https://www.ncbi.nlm.nih.gov/pubmed/18587056", "here.", target="_blank")),
              br(),
+             p(h4("Subject Characteristics")),
+             p("We used the information deposited by study authors into GEO to learn some basics about the experiment's study design, including what tissue was studied, 
+               the characteristics of individuals selected for the study."),
+             br(),
              p(h4("Raw Gene Expression Microarray Data")),
-             p("We used GEO to learn some basics about the experiment's study design, including what tissue was studied, 
-               the characteristics of individuals selected for the study, and what microarray chip was used (it was one called 
+             p("From GEO, we also found out what microarray chip was used to obtain gene expression data (it was one called 
                Affymetrix HG-U133 Plus 2.0). Next, we obtained 24 files, each corresponding to the image intensities 
                captured across each chip for each individual."),
              br(),
@@ -41,10 +44,17 @@ shinyUI(fluidPage(
     
     tabPanel("Quality Control",
              br(),
-             p(h4("Normalizing Raw Data"))
+             p(h4("Normalizing Raw Expression Data")),
+             br(),
+             p(h4("Identifying Potential Outliers"))
              ),
 
     tabPanel("Differential Expression Results",
+             br(),
+             p(h4("Identifying Differentially Expressed Genes")),
+             p("Volcano Plot, Table of Top DE Results"),
+             br(),
+             p(h4("Checking Normalized Intensity Distribution of Single Genes")),
              # Sidebar with a slider input for number of bins 
              sidebarLayout(
                sidebarPanel(
@@ -57,7 +67,10 @@ shinyUI(fluidPage(
                mainPanel(
                  # Show a plot of the generated distribution
                  plotOutput("distPlot"))
-             )
+             ),
+             br(),
+             p(h4("Heatmap of Top Differentially Expressed Genes"))
+
     )
   )
 ))
