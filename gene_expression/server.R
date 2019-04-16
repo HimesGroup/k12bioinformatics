@@ -1,7 +1,17 @@
 library(shiny)
+library(ggplot2)
+library(dplyr)
 
-# Define server logic required to draw a histogram
+#Load phenotype and results data
+pheno <- read.table("./databases/GSE8823_Phenotype_withoutQC.txt", sep="\t", header=TRUE, as.is=TRUE)
+
 shinyServer(function(input, output) {
+
+  output$phenoTable <- renderDataTable({
+    pheno %>%
+      dplyr::select(GEO_ID, Smoking_status, Sex, Age, Ancestry)
+  }, options = list(pageLength=10, searching=FALSE)
+  )
    
   output$distPlot <- renderPlot({
     

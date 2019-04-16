@@ -23,6 +23,7 @@ shinyUI(fluidPage(
              p(h4("Subject Characteristics")),
              p("We used the information deposited by study authors into GEO to learn some basics about the experiment's study design, including what tissue was studied, 
                the characteristics of individuals selected for the study."),
+             dataTableOutput("phenoTable"),
              br(),
              p(h4("Raw Gene Expression Microarray Data")),
              p("From GEO, we also found out what microarray chip was used to obtain gene expression data (it was one called 
