@@ -6,6 +6,8 @@ Authors: Blanca Himes, Ryan Urbanowicz, Michael Gonzalez, Susan Yoon
 
 Web apps for:
 
-1) Gene expression microarray analysis
+1) Exploratory data analysis
 
-2) Pollution measure analysis
+2) Gene expression microarray analysis
+
+3) Pollution measure analysis
