@@ -54,7 +54,7 @@ shinyUI(fluidPage(
              p(h4("Identifying Differentially Expressed Genes")),
              p("Volcano Plot, Table of Top DE Results"),
              br(),
-             p(h4("Checking Normalized Intensity Distribution of Single Genes")),
+             p(h4("Checking Results of Top Genes")),
              # Sidebar with a slider input for number of bins 
              sidebarLayout(
                sidebarPanel(
