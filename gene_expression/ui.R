@@ -52,26 +52,30 @@ shinyUI(fluidPage(
 
     tabPanel("Differential Expression Results",
              br(),
-             p(h4("Identifying Differentially Expressed Genes")),
-             p("Volcano Plot, Table of Top DE Results"),
-             br(),
-             p(h4("Checking Results of Top Genes")),
-             # Sidebar with a slider input for number of bins 
+             p(h3("Identifying Differentially Expressed Genes")),
+             fluidRow(column(12,p(h4("Volcano Plots")),
+             p("Volcano plot (probes with a q-value <0.05 are present in red)"),
+             imageOutput("volcanoPlot"))),
+             br(),hr(),
+             fluidRow(column(12,p(h4("Top 50 Differentially Expressed Genes")),
+             p("Show top 50 probes sorted by un-adjusted p-values"),
+             dataTableOutput("DEtable"))),
+             br(),hr(),
+             fluidRow(column(12,p(h4("Checking Results of Top Genes")),
+             uiOutput("genesAvail"), tags$head(tags$style(type="text/css", "#curr_gene {width: 190px}")),
+             plotOutput("barPlot"))),
+             br(),br(),br(),hr(),
+             fluidRow(column(12,p(h4("Heatmap of Top Differentially Expressed Genes")), # # Sidebar with a slider input for number of bins 
              sidebarLayout(
                sidebarPanel(
-                 sliderInput("bins",
-                             "Number of bins:",
-                             min = 1,
-                             max = 50,
-                             value = 30)
-                 ),
-               mainPanel(
-                 # Show a plot of the generated distribution
-                 plotOutput("distPlot"))
-             ),
-             br(),
-             p(h4("Heatmap of Top Differentially Expressed Genes"))
-
+                 sliderInput("probes",
+                             "Number of top probes/genes:",
+                             min = 50,
+                             max = 500,
+                             value = 250)),
+                 
+            plotOutput("heatMap")))), 
+            br()
     )
   )
 ))
