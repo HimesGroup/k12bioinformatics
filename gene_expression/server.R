@@ -2,8 +2,10 @@ library(shiny)
 library(ggplot2)
 library(plyr)
 library(dplyr)
-library(reshape)
+library(reshape2)
 library(feather)
+library(viridis)
+library(gplots)
 source("functions.R")
 
 #Load phenotype and results data
@@ -42,7 +44,15 @@ shinyServer(function(input, output) {
     #Selected gene
     gene_de <- de_results %>% dplyr::filter(SYMBOL == curr_gene())
     topgene_boxplot_func(gene_de)
-  },height=500, width=800) #increase width depending on facets
+  },height=400, width=800) #increase width depending on facets
 
-  
+  #Heatmap
+  output$heatMap <- renderPlot({
+    top_probes <- as.vector(unique(de_results$ID[1:input$probes]))
+    corplot_func(top_probes)
+  },height=1100, width=900)
 })
+
+
+
+
