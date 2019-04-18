@@ -1,7 +1,16 @@
 
+
+#########################
+## Read in data files ##
+########################
 rma.data <- read_feather("./databases/GSE8823_pheno+rma_counts.feather")
-pheno_QC <- read.table("./databases/GSE8823_Phenotype_withQC.txt", sep="\t", header=TRUE, as.is=TRUE)
+pheno_QC <- read.table("./databases/GSE8823_Phenotype_withQC.txt", sep="\t", header=TRUE)
 pheno_QC <- pheno_QC %>% dplyr::filter(QC_Pass!=0)
+pheno_QC$Donor <- paste0("D",pheno_QC$Donor)
+
+###################################
+## Dataframe formatting function ##
+###################################
 
 # The datreform_func function reformats the DE table
 datreform_func <- function(dt,topnum=200) {
@@ -13,6 +22,10 @@ datreform_func <- function(dt,topnum=200) {
   dt[,c("P.Value","adj.P.Val","pValuesBatch","qValuesBatch")] <- sapply(dt[,c("P.Value","adj.P.Val","pValuesBatch","qValuesBatch")],sciform)
   dt
 }
+
+#######################
+## Top Gene Boxplot ##
+######################
 
 # function for top gene boxplot
 topgene_boxplot_func <- function(tb) { # comp: comparison status
@@ -37,6 +50,10 @@ topgene_boxplot_func <- function(tb) { # comp: comparison status
   
 }
 
+########################
+## Helper functions ##
+#######################
+
 # The shortname_func function shortens the sample name shown in the plots. To start, define shortname_func <- function(x){x}
 shortname_func <- function(x){gsub("^(.*).(cel|CEL).gz","\\1",x)} # remove .cel.gz or .CEL.gz from sample
 
@@ -44,8 +61,13 @@ shortname_func <- function(x){gsub("^(.*).(cel|CEL).gz","\\1",x)} # remove .cel.
 colour_status <- c("navy","red")
 names(colour_status) <- c("non_smoker","smoker") 
 colour_status_list <- unlist(lapply(pheno_QC$Treatment,function(x){colour_status[x]}))
+colours = c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7","#1B9E77", "#D95F02", "#7570B3", "#E7298A", "#66A61E", "#E6AB02", "#A6761D", "#666666") #CB and Dark2
 
-#Heatmap function
+
+###############
+## Heatmap ##
+##############
+
 corplot_func <- function(top_probes) {  # m: correlation matrix, colour_status_list: color assigned to each sample; colour_status: colour vector for the legend plot
   tb <- dcast(rma.data %>% dplyr::filter(Probes %in% top_probes) %>% dplyr::select(-Treatment),Probes ~ variable)
   m <- na.omit(as.matrix(tibble::column_to_rownames(tb,var="Probes")))
@@ -62,4 +84,38 @@ corplot_func <- function(top_probes) {  # m: correlation matrix, colour_status_l
   legend("bottomleft",legend=names(colour_status),fill=colour_status,cex=0.8) # use predifined colour_status
 }
 
+##################################
+## Principle Component Analysis ##
+##################################
+
+pca_plot <- function(group_var){
+  tb <- dcast(rma.data,Probes ~ variable)
+  raw.data.pca <- na.omit(as.matrix(tibble::column_to_rownames(tb,var="Probes")))
+  sd <- apply(raw.data.pca,1,sd)
+  raw.data.pca <- raw.data.pca[!sd==0,]
+  # compute pcs
+  pca <- prcomp(t(raw.data.pca), retx = TRUE, center = TRUE, scale = TRUE)
+  pc <- data.frame(pca$x)
+  
+  #group
+  group=pheno_QC[which(pheno_QC$Filename %in% row.names(pc)),group_var]
+  df <- data.frame(
+    PC1=pc$PC1,
+    PC2=pc$PC2,
+    group=group
+  )
+  
+  #colors
+  i=length(levels(group))
+  group_col <- colours[1:i]
+  names(group_col) <- levels(pheno_QC[[group_var]]) # colour to corresponding group for plot
+  #Plot
+  ggplot(df,aes(PC1,PC2,color=group)) + geom_point(size=5) +
+    theme_bw() +
+    scale_color_manual(group_var,values=group_col,na.value="grey") +
+    theme(legend.text = element_text(size=14),
+          axis.title=element_text(size=15),
+          title = element_text(size=15),
+          axis.text=element_text(size=14))
+}
 
