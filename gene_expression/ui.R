@@ -62,7 +62,7 @@ shinyUI(fluidPage(
                Outlier detection is applied by computing a Kolmogorov-Smirnov statistic (Ka) between 
                log-intensity distribution for one array and the pooled array data, 
                where an array with a Ka beyond the upper whisker is designated as an outlier."),               
-             imageOutput("QCimage")))),#br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),hr(),
+             imageOutput("QCimage")))),
   
 
     tabPanel("Differential Expression Results",
