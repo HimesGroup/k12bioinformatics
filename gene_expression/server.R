@@ -87,7 +87,7 @@ shinyServer(function(input, output,session) {
   
   #Width for plot
   get_width <- reactive({
-    800 + 50*(nrow(gene_de()))})
+    600 + 60*(nrow(gene_de()))})
   
   #Barplot output
   output$barPlot <- renderPlot({
@@ -100,7 +100,7 @@ shinyServer(function(input, output,session) {
   output$heatMap <- renderPlot({
     top_probes <- as.vector(unique(de_results$ID[1:input$probes]))
     corplot_func(top_probes)
-  },height=1100, width=900)
+  },height=900, width=900)
 })
 
 

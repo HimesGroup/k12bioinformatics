@@ -43,10 +43,11 @@ topgene_boxplot_func <- function(tb) { # comp: comparison status
           axis.title=element_blank(),
           strip.text.x = element_text(size = 15),
           title = element_text(size=15),
-          axis.text=element_text(size=14))
+          axis.text=element_text(size=14)) + facet_grid(. ~ Probes)
   
-  if (nrow(tb) > 1){ g1 + facet_grid(. ~ Probes) + labs(title=paste0("Smoker vs Non-Smoker: gene ", gene),y="Normalized Read Count") }
-  else{ g1 + labs(title=title,y="Normalized Read Count") }
+  # if (nrow(tb) > 1){ g1 + facet_grid(. ~ Probes) + labs(title=paste0("Smoker vs Non-Smoker: gene ", gene),y="Normalized Read Count") }
+  # else{ g1 + labs(title=title,y="Normalized Read Count") }
+  g1
   
 }
 
@@ -78,10 +79,10 @@ corplot_func <- function(top_probes) {  # m: correlation matrix, colour_status_l
             labCol=array_name,labRow = "", # take out gene probe id
             trace="none",
             margins=c(12,20), # (bottom margin, left margin)
-            cexRow=1,cexCol=1,
+            cexRow=1,cexCol=1.4,
             keysize=1.5,key.title=NA,key.xlab="Gene Expression Values",key.ylab="Counts",
             main="Gene expression heatmap for Smoker vs. Non-Smoker")
-  legend("bottomleft",legend=names(colour_status),fill=colour_status,cex=0.8) # use predifined colour_status
+  legend("bottomleft",legend=names(colour_status),fill=colour_status,cex=0.9) # use predifined colour_status
 }
 
 ##################################
