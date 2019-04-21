@@ -50,7 +50,7 @@ shinyUI(fluidPage(
              imageOutput("RMAimage")), 
              div(style="margin-left: 225px", column(2,actionButton("rma","Normalize with RMA",width="150px")))),
              br(),hr(),
-             fluidRow(column(12,p(h4("Principal Component Analysis(PCA")),
+             fluidRow(column(12,p(h4("Principal Component Analysis (PCA)")),
              p("PCA demonstrates information of the expression dataset in a reduced number of dimensions. 
                Clustering and PCA plots enable to assess to what extent arrays resemble each other, 
                and whether this corresponds to the known resemblances of the samples."),
