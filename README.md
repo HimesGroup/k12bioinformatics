@@ -2,7 +2,7 @@
 
 Teaching materials developed as part of NSF project to teach bioinformatics through mobile learning.
 
-Authors: Blanca Himes, Ryan Urbanowicz, Michael Gonzalez, Susan Yoon
+Authors: Blanca Himes, Avantika Diwadkar, Ryan Urbanowicz, Michael Gonzalez, Susan Yoon
 
 Web apps for:
 
