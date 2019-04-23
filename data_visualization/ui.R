@@ -5,7 +5,7 @@ library(shinyWidgets)
 
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
-  #theme = shinythemes::shinytheme("lumen"),
+  theme = shinythemes::shinytheme("cerulean"),
   
   # Application title
   titlePanel(h1("Exploratory Data Analysis Tool", align="center")),
@@ -37,16 +37,18 @@ shinyUI(fluidPage(
             
     tabPanel("Data Visualization",
               br(),
-             h4(p("BARPLOTS")),
+             h3(p("Univariate Analysis")),
+             h4(p("Categorical Variables")),
              p("Here, we can explore the phenotype data attributes. First, lets look at the distribution of all the variables using barplots. A barplot (or barchart) is one of the most common type of plot. It shows the relationship between a numerical variable and a categorical variable."),
              selectInput("feat",label="Select variable:",choices=c("Treatment","Sex","Ancestry","ScanDate_Group"),multiple=FALSE,width="220px",selected = "Treatment"),
              plotOutput("barPlot",height="500px",width="800px"),
              br(),hr(),
-             h4(p("HISTOGRAM")),
+             h4(p("Continuous Variables")),
              p("A histogram shows the distribution of any numerical data using a single variable as input.The variable is cut into multiple bins, where the height of the bin represents the number of observations per bin. Here, we are using bins of size=2."),
              plotOutput("histPlot",height="500px",width="800px"),
              br(),hr(),
-             h4(p("BOXPLOT")),
+             h3(p("Bivariate Analysis")),
+             h4(p("Continuous Variable vs. Categorical Variable")),
              p("The boxplot gives summary of numerical values. The line in the middle denotes the median while the upper and lower lines denote upper and lower quartiles."),
              plotOutput("boxPlot",height="500px",width="800px")))
 ))
