@@ -29,7 +29,10 @@ shinyUI(fluidPage(
              p("From GEO, we also found out what microarray chip was used to obtain gene expression data (it was one called 
                Affymetrix HG-U133 Plus 2.0). Next, we obtained 24 files, each corresponding to the image intensities 
                captured across each chip for each individual."),
-             br(),
+             fluidRow(column(12, align="center",
+             div(style="display: inline-block;",imageOutput("affy_image")),
+             div(style="display: inline-block;",imageOutput("raw_image")))),
+             br(),br(),hr(),
              p(h4("To Learn More")),
              p("For this tutorial, we analyzed data and provide it for you to explore gene expression data. 
                If you are interested in analyzing gene expression microarray data on your own, 
@@ -55,14 +58,19 @@ shinyUI(fluidPage(
                Clustering and PCA plots enable to assess to what extent arrays resemble each other, 
                and whether this corresponds to the known resemblances of the samples."),
              selectizeInput("var", strong("Features:"), choices=c("Treatment","Ancestry","ScanDate_Group"),width="200px",selected="Treatment"),
-             plotOutput("PCAplot",width="600px",height = "700px"))),br(),hr(),
+             plotOutput("PCAplot",width="600px",height = "400px"))),br(),hr(),
              fluidRow(column(12,p(h4("Identifying Potential Outliers")),
              p("The log2-transformed/normalized intensity distributions of all samples (arrays) are 
                expected to have the similar scale (i.e. the similar positions and widths of the boxes). 
                Outlier detection is applied by computing a Kolmogorov-Smirnov statistic (Ka) between 
                log-intensity distribution for one array and the pooled array data, 
                where an array with a Ka beyond the upper whisker is designated as an outlier."),               
-             imageOutput("QCimage")))),
+             imageOutput("QCimage",height="800px"), br(), hr(),
+             p("The intensity curves of all samples (arrays) are expected to have the similar shapes and ranges. 
+               Samples with deviated curves are likely to have problematic experiments. 
+               For example, high levels of background will shift an array’s distribution to the right. 
+               Lack of signal diminishes its right right tail. A bulge at the upper end of the intensity range often indicates signal saturation."),
+             imageOutput("DCimage",height="800px")))),
   
 
     tabPanel("Differential Expression Results",
@@ -87,7 +95,7 @@ shinyUI(fluidPage(
                              "Number of top probes/genes:",
                              min = 50,
                              max = 500,
-                             value = 250)),
+                             value = 150)),
                  
             plotOutput("heatMap")))), 
             br()

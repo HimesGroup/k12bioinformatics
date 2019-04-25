@@ -4,8 +4,10 @@
 ## Read in data files ##
 ########################
 rma.data <- read_feather("./databases/GSE8823_pheno+rma_counts.feather")
+#rma.data$Treatment <- gsub("_","-",rma.data$Treatment)
 pheno_QC <- read.table("./databases/GSE8823_Phenotype_withQC.txt", sep="\t", header=TRUE)
 pheno_QC <- pheno_QC %>% dplyr::filter(QC_Pass!=0)
+pheno_QC$Treatment <- as.factor(gsub("_","-",pheno_QC$Treatment))
 pheno_QC$Donor <- paste0("D",pheno_QC$Donor)
 
 ###################################
@@ -20,6 +22,7 @@ datreform_func <- function(dt,topnum=200) {
   dt[,c("logFC","AveExpr","t","B")] <- sapply(dt[,c("logFC","AveExpr","t","B")],round2)
   sciform <- function(x){format(x,scientific=TRUE,digits =2)}
   dt[,c("P.Value","adj.P.Val","pValuesBatch","qValuesBatch")] <- sapply(dt[,c("P.Value","adj.P.Val","pValuesBatch","qValuesBatch")],sciform)
+  dt <- dt %>% dplyr::select(ID,logFC,adj.P.Val,SYMBOL) %>% dplyr::rename("Probe ID" = ID, "Fold Change" = logFC, "Adjusted P-value" = adj.P.Val)
   dt
 }
 
@@ -59,8 +62,8 @@ topgene_boxplot_func <- function(tb) { # comp: comparison status
 shortname_func <- function(x){gsub("^(.*).(cel|CEL).gz","\\1",x)} # remove .cel.gz or .CEL.gz from sample
 
 # assign red to condition 1 and navy to condition 2
-colour_status <- c("navy","red")
-names(colour_status) <- c("non_smoker","smoker") 
+colour_status <- c("#0072B2","#D72422")
+names(colour_status) <- c("non-smoker","smoker") 
 colour_status_list <- unlist(lapply(pheno_QC$Treatment,function(x){colour_status[x]}))
 colours = c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7","#1B9E77", "#D95F02", "#7570B3", "#E7298A", "#66A61E", "#E6AB02", "#A6761D", "#666666") #CB and Dark2
 
@@ -81,8 +84,8 @@ corplot_func <- function(top_probes) {  # m: correlation matrix, colour_status_l
             margins=c(12,20), # (bottom margin, left margin)
             cexRow=1,cexCol=1.4,
             keysize=1.5,key.title=NA,key.xlab="Gene Expression Values",key.ylab="Counts",
-            main="Gene expression heatmap for Smoker vs. Non-Smoker")
-  legend("bottomleft",legend=names(colour_status),fill=colour_status,cex=0.9) # use predifined colour_status
+            main=" ")
+  legend("topright",legend=names(colour_status),fill=colour_status,cex=1.0) # use predifined colour_status
 }
 
 ##################################
@@ -114,7 +117,7 @@ pca_plot <- function(group_var){
   ggplot(df,aes(PC1,PC2,color=group)) + geom_point(size=5) +
     theme_bw() +
     scale_color_manual(group_var,values=group_col,na.value="grey") +
-    theme(legend.text = element_text(size=14),
+    theme(legend.text = element_text(size=15),
           axis.title=element_text(size=15),
           title = element_text(size=15),
           axis.text=element_text(size=14))
