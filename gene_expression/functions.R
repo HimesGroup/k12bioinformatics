@@ -4,7 +4,7 @@
 ## Read in data files ##
 ########################
 rma.data <- read_feather("./databases/GSE8823_pheno+rma_counts.feather")
-#rma.data$Treatment <- gsub("_","-",rma.data$Treatment)
+rma.data$Treatment <- gsub("_","-",rma.data$Treatment)
 pheno_QC <- read.table("./databases/GSE8823_Phenotype_withQC.txt", sep="\t", header=TRUE)
 pheno_QC <- pheno_QC %>% dplyr::filter(QC_Pass!=0)
 pheno_QC$Treatment <- as.factor(gsub("_","-",pheno_QC$Treatment))
@@ -37,10 +37,11 @@ topgene_boxplot_func <- function(tb) { # comp: comparison status
   gene <- unique(tb$SYMBOL)
   df <- rma.data %>% dplyr::filter(Probes %in% probes)
   title=paste0("Smoker vs Non-Smoker: ","probe ", probes[1], " gene ", gene)
-  g1 <- ggplot(df,aes(x=Treatment,y=value)) +
-    geom_boxplot(outlier.colour=NA,color="grey18",fill="#1B9E77") +
+  g1 <- ggplot(df,aes(x=Treatment,y=value,fill=Treatment)) +
+    geom_boxplot(outlier.colour=NA,color="grey18") + #,fill="#1B9E77"
     stat_boxplot(geom ='errorbar', color="grey18") +
     geom_jitter(size=1,position = position_jitter(width=0.3)) +
+    scale_fill_manual(values=colour_status) +
     theme_bw() +
     theme(legend.position="none",
           axis.title=element_blank(),
