@@ -4,28 +4,8 @@ library(dplyr)
 library(tidyr)
 library(tidyverse)
 library(reshape2)
+library(gsheet)
 source("../basic_functions.R")
-
-
-# df <- read.csv("../gene_expression/databases/AirQualityData.csv", stringsAsFactors = F)
-# df <- tidyr::separate(data=df,
-#                       col=Location,
-#                       into=c("Latitude", "Longitude"),
-#                       sep=",",
-#                       remove=FALSE)
-# df$Latitude <- stringr::str_replace_all(df$Latitude, "[(]", "")
-# df$Longitude <- stringr::str_replace_all(df$Longitude, "[)]", "")
-# df$Latitude <- as.numeric(df$Latitude)
-# df$Longitude <- as.numeric(df$Longitude)
-# df <- df %>% dplyr::select(-ACTION)
-# df$Date <- gsub(" .*"," ", df$Timestamp)
-# df$Time <- gsub(".* ","", df$Timestamp)
-# saveRDS(df, "../gene_expression/databases/AirQualityData.RDS")
-
-
-df <- readRDS("../gene_expression/databases/AirQualityData.RDS")
-tf <- melt(df %>% dplyr::select(Temperature,Humidity,DustPM, Name, AirQuality,Latitude,Longitude),id = c("Name","Latitude","Longitude"))
-names(tf) <- c("Name","Latitude","Longitude","Variables","Measurement")
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
@@ -47,23 +27,25 @@ shinyServer(function(input, output) {
 
   output$disHist <- renderPlot({
     data_tf <- tf %>% dplyr::filter(Variables %in% input$var)
-    hist_func("Measurement",data_tf)
+    hist_func("Measurement",data_tf, input$var)
   })
   
   ## Map
   data <- reactive({
-    x <- df %>% dplyr::filter(Date %in% input$date)
+    all_dates <- setdiff(df$Date,seq(as.Date(input$dates[1]), as.Date(input$dates[2]), by="days"))
+    x <- df %>% dplyr::filter(Date %in% all_dates,Name %in% input$name)
   })
   
-  output$Date <- renderUI({
-    selectInput("date","Select Date:",choices = unique(df$Date))
+  output$Name <- renderUI({
+    selectInput("name","Select Name:",choices=unique(tf$Name), multiple=TRUE, selected=unique(tf$Name))
   })
+  
   
   output$mymap <- renderLeaflet({
     df <- data()
-    
     m <- leaflet(data = df) %>%
       addTiles() %>%
+      setView(-78.35, 39.5, zoom = 5.8) %>%
       addMarkers(lng = ~Longitude,
                  lat = ~Latitude,
                  popup = paste("Name", df$Name, "<br>",
