@@ -2,19 +2,21 @@ library(shiny)
 library(shinythemes)
 library(leaflet)
 
-css = HTML("
-  .leaflet-top, .leaflet-bottom {
-           z-index: unset !important;
-           }
-           
-           .leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar {
-           z-index: 10000000000 !important;
-           }
-           ")
+
 
 shinyUI(fluidPage(
   theme = shinythemes::shinytheme("cerulean"),
   
+  tags$head(tags$style(HTML("
+  .leaflet-top, .leaflet-bottom {
+                            z-index: unset !important;
+                            }
+
+                            .leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar {
+                            z-index: 10000000000 !important;
+                            }
+                            "))),
+  # 
   # Application title
   titlePanel(h2("Air Pollution", align="center")),
   
@@ -31,9 +33,10 @@ shinyUI(fluidPage(
              plotOutput("distBoxplot",width = "400px"),br(),
              plotOutput("disHist",width = "1000px")),
     tabPanel("Map",br(),
-             tags$head(tags$style(css)),
-             uiOutput("Date"),br(),
-             leafletOutput("mymap",height = 1000)))
+             #tags$head(tags$style(css)),
+             dateRangeInput("dates", label = "Date Range:", start = "2019-04-17", end = Sys.Date()),
+             uiOutput("Name"),br(),
+             leafletOutput("mymap",height = 700)))
              
              
 ))
