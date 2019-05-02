@@ -33,10 +33,11 @@ shinyUI(fluidPage(
              plotOutput("distBoxplot",width = "400px"),br(),
              plotOutput("disHist",width = "1000px")),
     tabPanel("Map",br(),
-             #tags$head(tags$style(css)),
+             mainPanel(
+             leafletOutput("mymap",height = 700)),
+             sidebarPanel(
              dateRangeInput("dates", label = "Date Range:", start = "2019-04-17", end = Sys.Date()),
-             uiOutput("Name"),br(),
-             leafletOutput("mymap",height = 700)))
+             uiOutput("Name"),br())))
              
              
 ))
