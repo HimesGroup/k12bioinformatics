@@ -55,12 +55,12 @@ shinyServer(function(input, output){
   output$bcont = renderUI({if(!is.null(contents())){selectInput('bcont', 'Select continuous variable:', choices = cont_var(),multiple=FALSE,width="220px")}else{NULL}})
   
   #Plots - Univariate
-  output$barplotUP <- renderPlot({if(!is.null(contents())){barplot_func(input$disc,contents())}else{NULL}})
-  output$histPlotUP <- renderPlot({if(!is.null(contents())){hist_func(input$cont,contents())}else{NULL}})
+  output$barplotUP <- renderPlot({if(!is.null(input$disc)){barplot_func(input$disc,contents())}else{NULL}})
+  output$histPlotUP <- renderPlot({if(!is.null(input$cont)){hist_func(input$cont,contents())}else{NULL}})
   
   #Plots - Bivariate
-  output$fbarplotUP <- renderPlot({if(!is.null(contents())){barplot_both_func(input$bdisc,input$bcont,contents())}else{NULL}})
-  output$boxPlotUP <- renderPlot({if(!is.null(contents())){boxplot_func(input$bdisc,input$bcont,contents())}else{NULL}})
+  output$fbarplotUP <- renderPlot({if(!is.null(input$bdisc)){barplot_both_func(input$bdisc,input$bcont,contents())}else{NULL}})
+  output$boxPlotUP <- renderPlot({if(!is.null(input$bdisc)){boxplot_func(input$bdisc,input$bcont,contents())}else{NULL}})
   
 })
 
