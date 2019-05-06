@@ -19,30 +19,16 @@ tf <- melt(df %>% dplyr::select(Temperature,Humidity,DustPM, Name, AirQuality,La
 names(tf) <- c("Name","Latitude","Longitude","Variables","Measurement")
 
 
-#BARPLOT function
-barplot_func <- function(x,data){
-  g1 <- ggplot(data, aes_string(x=x)) + geom_bar(stat="count",aes_string(fill=x)) + scale_fill_manual(values=sample(colours, length(levels(data[[x]])))) + theme_bw() +
-    theme(legend.text = element_text(size=14),
-          axis.title=element_text(size=15),
-          title = element_text(size=15),
-          axis.text=element_text(size=14))
-  return(g1) 
-  
-}
+##Set colors
+#set colors
+color_status <- c("#56B4E9", "#009E73", "#F0E442", "#0072B2")
+names(color_status) <- as.vector(unique(tf$Variables))
 
-barplot_both_func <- function(x,y,data){
-  g1 <- ggplot(data, aes_string(x=x,y=y)) + geom_bar(stat="identity",aes_string(fill=x)) + scale_fill_manual(values=sample(colours, length(levels(data[[x]])))) + theme_bw() +
-    theme(legend.text = element_text(size=14),
-          axis.title=element_text(size=15),
-          title = element_text(size=15),
-          axis.text=element_text(size=14))
-  return(g1) 
-  
-}
 
 ##HISTOGRAM##
 #function
-hist_func <- function(Con,data,var){
+hist_func <- function(Con,var){
+  data <- tf %>% dplyr::filter(Variables %in% var)
   df <- data[[Con]]
   bw <- (2 * IQR(df)) / length(df)^(1/3) #Freedman-Diaconis rule 
   #breaks=seq(min(df), max(df)),
@@ -57,21 +43,24 @@ hist_func <- function(Con,data,var){
 
 ##BOXPLOT##
 #function
-boxplot_func <- function(var,age,data){ggplot(data, aes_string(x=var,y=age,fill=var)) + geom_boxplot(outlier.colour=NA, lwd=0.2, color="grey18") + 
+boxplot_func_ap <- function(x,y,var){
+  data <- tf %>% dplyr::filter(Variables %in% var)
+  ggplot(data, aes_string(x=x,y=y)) + geom_boxplot(outlier.colour=NA, lwd=0.2, color="grey18",fill=color_status[[var]]) + 
     stat_boxplot(geom ='errorbar', color="grey18") + 
-    labs(x=var, y=age) + geom_jitter() + theme_bw() +
+    labs(x=" ", y=y) + geom_jitter() + theme_bw() + 
+    theme(axis.title=element_text(size=15),
+          title = element_text(size=15),
+          axis.text=element_text(size=14))}
+
+#scatterplot
+
+scatterplot_func <- function(var,pvar){
+  data <- df %>% dplyr::select(var,pvar)
+  ggplot(df, aes_string(x=var, y=pvar)) + geom_point(aes(color=Date,shape = Name),size=3) + theme_bw() + scale_shape_manual(values=seq(0,length(unique(df$Name)))) + 
     theme(legend.text = element_text(size=14),
           axis.title=element_text(size=15),
           title = element_text(size=15),
-          axis.text=element_text(size=14))}
-
-boxplot_func_ap <- function(var,age,data){ggplot(data, aes_string(x=var,y=age,fill=var)) + geom_boxplot(outlier.colour=NA, lwd=0.2, color="grey18",fill="#66A61E") + 
-    stat_boxplot(geom ='errorbar', color="grey18") + 
-    labs(x=" ", y=age) + geom_jitter() + theme_bw() + 
-    theme(legend.position="none",
-          axis.title=element_text(size=15),
-          title = element_text(size=15),
-          axis.text=element_text(size=14))}
-
+          axis.text=element_text(size=14))
+}
 
 
