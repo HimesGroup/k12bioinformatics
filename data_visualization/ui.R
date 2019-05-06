@@ -57,7 +57,7 @@ shinyUI(fluidPage(
              selectInput("comp",label="Select feature:",choices=c("Sex","Ancestry","Treatment"),multiple=FALSE,width="220px",selected = "Treatment"),
              plotOutput("boxPlot",height="400px",width="550px")),
     
-    tabPanel("Data Visualization",
+    tabPanel("Univariate Analysis",
             br(),
             h3(p("Overview of data")),
             h4(p("The continuous variables in the uploaded dataset are as follows:")),
@@ -66,7 +66,7 @@ shinyUI(fluidPage(
             h4(p("The categorical variables in the uploaded dataset are as follows:")),
             dataTableOutput("vardData"),
             br(), hr(),
-            h3(p("Univariate Analysis")),
+            #h3(p("Univariate Analysis")),
             h4(p("Categorical Variables")),
             p("The distribution for the categorical variables with number of levels between 2-10 is displayed here."),
             uiOutput('disc'),
@@ -74,13 +74,19 @@ shinyUI(fluidPage(
             br(), hr(),
             h4(p("Continuous Variables")),
             uiOutput('cont'),
-            plotOutput("fbarplotUP",height="400px",width="700px"),
+            #plotOutput("fbarplotUP",height="400px",width="700px"),
             br(),
             p("Histogram showing distribution of continuous variables"),
             plotOutput("histPlotUP",height="400px",width="550px"),
-            br(),
+            br())),
+            #p("Boxplot showing summary of variables"),
+            #plotOutput("boxPlotUP",height="400px",width="550px"))),
+    tabPanel("Bivariate Analysis", br(),
+            p("Relationship between the categorical and continuous variables in the uploaded data"),
+            uiOutput('bdisc'),
+            uiOutput('bcont'),
+            plotOutput("fbarplotUP",height="400px",width="700px"),
             p("Boxplot showing summary of variables"),
-            plotOutput("boxPlotUP",height="400px",width="550px"))
-            ))
+            plotOutput("boxPlotUP",height="400px",width="550px")))
   
 ))

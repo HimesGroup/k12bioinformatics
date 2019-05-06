@@ -44,12 +44,23 @@ shinyServer(function(input, output){
   output$varcData <- renderDataTable({if(!is.null(contents())){data.frame("Continuous variables" = cont_var())}},options = list(pageLength=10, searching=FALSE))
   output$vardData <- renderDataTable({if(!is.null(contents())){data.frame("Discrete variables"= disc_var())}},options = list(pageLength=10, searching=FALSE))
   
+  #Discrete variable 
   output$disc = renderUI({if(!is.null(contents())){selectInput('disc', 'Select categorical variable:', choices = disc_var(),multiple=FALSE,width="220px")}else{NULL}})
+  #bivariate tab
+  output$bdisc = renderUI({if(!is.null(contents())){selectInput('bdisc', 'Select categorical variable:', choices = disc_var(),multiple=FALSE,width="220px")}else{NULL}})
+  
+  #Continuous variable
   output$cont = renderUI({if(!is.null(contents())){selectInput('cont', 'Select continuous variable:', choices = cont_var(),multiple=FALSE,width="220px")}else{NULL}})
+  #bivariate tab
+  output$bcont = renderUI({if(!is.null(contents())){selectInput('bcont', 'Select continuous variable:', choices = cont_var(),multiple=FALSE,width="220px")}else{NULL}})
+  
+  #Plots - Univariate
   output$barplotUP <- renderPlot({if(!is.null(contents())){barplot_func(input$disc,contents())}else{NULL}})
-  output$fbarplotUP <- renderPlot({if(!is.null(contents())){barplot_both_func(input$disc,input$cont,contents())}else{NULL}})
   output$histPlotUP <- renderPlot({if(!is.null(contents())){hist_func(input$cont,contents())}else{NULL}})
-  output$boxPlotUP <- renderPlot({if(!is.null(contents())){boxplot_func(input$disc,input$cont,contents())}else{NULL}})
+  
+  #Plots - Bivariate
+  output$fbarplotUP <- renderPlot({if(!is.null(contents())){barplot_both_func(input$bdisc,input$bcont,contents())}else{NULL}})
+  output$boxPlotUP <- renderPlot({if(!is.null(contents())){boxplot_func(input$bdisc,input$bcont,contents())}else{NULL}})
   
 })
 
