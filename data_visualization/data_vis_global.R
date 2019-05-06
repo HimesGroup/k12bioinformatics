@@ -83,7 +83,6 @@ color_status <- colours <- c("#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E0
 
 set_colors <- function(data){
   choices = get_discrete_var(data)
-  count = 0 
   color_list = list()
   for (i in choices) { 
     color_list =  append(color_list,levels(data[[i]]))

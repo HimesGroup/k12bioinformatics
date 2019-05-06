@@ -5,7 +5,7 @@ library(tidyr)
 library(tidyverse)
 library(reshape2)
 library(gsheet)
-source("../basic_functions.R")
+source("air_pollution_global.R")
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
@@ -15,24 +15,49 @@ shinyServer(function(input, output) {
       dplyr::select(-Timestamp,-Location)
   }, options = list(pageLength=10, searching=FALSE))
     
-  #Measurement
+  #Measurement I
   output$var <- renderUI({
-    selectInput("var","Select Measurement Type:",choices = unique(tf$Variables))
+    selectInput("var","Select Measurement Types:",choices = unique(tf$Variables))
   })
   
+  #Output
   output$distBoxplot <- renderPlot({
-    data_tf <- tf %>% dplyr::filter(Variables %in% input$var)
-    boxplot_func_ap("Variables","Measurement",data_tf)
+    if(!is.null(input$var)){
+      boxplot_func_ap("Variables","Measurement",input$var)
+    } else {NULL}
   })
 
   output$disHist <- renderPlot({
-    data_tf <- tf %>% dplyr::filter(Variables %in% input$var)
-    hist_func("Measurement",data_tf, input$var)
+    if(!is.null(input$var)){hist_func("Measurement",input$var)}else{NULL}})
+  
+  #Measurement II
+  output$pvar <- renderUI({
+    selectInput("pvar"," ",choices = setdiff(as.vector(unique(tf$Variables)),input$var))
   })
+  
+  #Output
+  output$pdistBoxplot <- renderPlot({
+    if(!is.null(input$pvar)){
+      boxplot_func_ap("Variables","Measurement",input$pvar)
+    }else{NULL}
+  })
+  
+  output$pdisHist <- renderPlot({
+    if(!is.null(input$pvar)){
+      hist_func("Measurement",input$pvar)
+    }else{NULL}
+  })
+  
+  #Scatterplot
+  output$Scatplot <- renderPlot({
+    if((!is.null(input$var)) & (!is.null(input$pvar))){scatterplot_func(input$var,input$pvar)}else{NULL}})
+  
+  
   
   ## Map
   data <- reactive({
-    all_dates <- setdiff(df$Date,seq(as.Date(input$dates[1]), as.Date(input$dates[2]), by="days"))
+    #all_dates <- setdiff(df$Date,seq(as.Date(input$dates[1]), as.Date(input$dates[2]), by="days"))
+    all_dates <- as.character(seq(as.Date(input$dates[1]), as.Date(input$dates[2]), by="days"))
     x <- df %>% dplyr::filter(Date %in% all_dates,Name %in% input$name)
   })
   
@@ -40,22 +65,24 @@ shinyServer(function(input, output) {
     selectInput("name","Select Name:",choices=unique(tf$Name), multiple=TRUE, selected=unique(tf$Name))
   })
   
-  
+  #pal <- colorFactor(c("navy", "red"), domain = c("ship", "pirate"))
   output$mymap <- renderLeaflet({
+    col <- c("#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7","#7570B3", "#E7298A", "#66A61E", "#E6AB02", "#A6761D", "#666666","#8DD3C7","#BEBADA") #CB and Dark2
+    color_status <- col[1:length(unique(tf$Name))]
+    names(color_status) <- unique(tf$Name)
     df <- data()
-    m <- leaflet(data = df) %>%
+    m <- leaflet(data=df) %>%
       addTiles() %>%
       setView(-78.35, 39.5, zoom = 5.8) %>%
-      addMarkers(lng = ~Longitude,
-                 lat = ~Latitude,
+      #fitBounds(~min(df$Longitude), ~min(df$Latitude), ~max(df$Longitude), ~max(df$Latitude)) %>% 
+      addCircleMarkers(lng = ~Longitude,lat = ~Latitude,color = lapply(input$name,function(x) color_status[[x]]),stroke = FALSE, fillOpacity = 0.5,
                  popup = paste("Name", df$Name, "<br>",
                                "Timestamp:", df$Timestamp, "<br>",
-                               "Temperature:", df$Temperature, "<br>",
-                               "Humidity:", df$Humidity, "<br>",
-                               "DustPM:",df$DustPM, "<br>",
-                               "AirQuality:", df$AirQuality, "<br>"))
-      
+                                paste0(input$type,":"), df[[input$type]], "<br>")) 
+    
     m
   })
   
 })
+
+
