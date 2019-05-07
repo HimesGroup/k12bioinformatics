@@ -3,10 +3,10 @@
 #########################
 ## Read in data files ##
 ########################
-rma.data <- read_feather("./databases/GSE8823_pheno+rma_counts.feather")
+rma.data <- read_feather("../databases/GSE8823_pheno+rma_counts.feather")
 rma.data$Treatment <- gsub("_","-",rma.data$Treatment)
-pheno_QC <- read.table("./databases/GSE8823_Phenotype_withQC.txt", sep="\t", header=TRUE)
-pheno_QC <- pheno_QC %>% dplyr::filter(QC_Pass!=0)
+pheno_QC <- read.table("../databases/GSE8823_Phenotype_withQC.txt", sep="\t", header=TRUE)
+pheno_QC <- pheno_QC %>% dplyr::filter(QC_Pass!=0) %>% rename(ScanDate = ScanDate_Group)
 pheno_QC$Treatment <- as.factor(gsub("_","-",pheno_QC$Treatment))
 pheno_QC$Donor <- paste0("D",pheno_QC$Donor)
 
@@ -41,13 +41,13 @@ topgene_boxplot_func <- function(tb) { # comp: comparison status
     geom_boxplot(outlier.colour=NA,color="grey18") + #,fill="#1B9E77"
     stat_boxplot(geom ='errorbar', color="grey18") +
     geom_jitter(size=1,position = position_jitter(width=0.3)) +
-    scale_fill_manual(values=colour_status) +
+    scale_fill_manual(values=colour_status) + labs(x = "", y="Normalized Read Count") +
     theme_bw() +
     theme(legend.position="none",
           axis.title=element_blank(),
           strip.text.x = element_text(size = 15),
           title = element_text(size=15),
-          axis.text=element_text(size=14)) + facet_grid(. ~ Probes)
+          axis.text=element_text(size=14)) + facet_grid(. ~ Probes) 
   
   # if (nrow(tb) > 1){ g1 + facet_grid(. ~ Probes) + labs(title=paste0("Smoker vs Non-Smoker: gene ", gene),y="Normalized Read Count") }
   # else{ g1 + labs(title=title,y="Normalized Read Count") }
@@ -80,7 +80,7 @@ corplot_func <- function(top_probes) {  # m: correlation matrix, colour_status_l
   # heatmap plot
   heatmap.2(m, col=viridis(256, option="B"),
             ColSideColors=colour_status_list, # use predefined colour_status_list, assign colors to status
-            labCol=array_name,labRow = "", # take out gene probe id
+            labCol=array_name,labRow = " ", # take out gene probe id
             trace="none",
             margins=c(12,20), # (bottom margin, left margin)
             cexRow=1,cexCol=1.4,
