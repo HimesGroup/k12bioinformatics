@@ -10,12 +10,13 @@ library(devtools)
 source("functions.R")
 
 #Load phenotype and results data
-pheno <- read.table("./databases/GSE8823_Phenotype_withoutQC.txt", sep="\t", header=TRUE, as.is=TRUE)
+pheno <- read.table("../databases/GSE8823_Phenotype_withoutQC.txt", sep="\t", header=TRUE, as.is=TRUE)
+pheno <- pheno %>% dplyr::rename(ScanDate = ScanDate_Group)
 #pheno$Treatment <- as.factor(gsub("_","-",pheno$Treatment))
-de_results <- na.omit(read.csv("./databases/GSE8823_alveolar_macrophages_healthy_smoker_vs_non_smoker.csv",header=TRUE))
+de_results <- na.omit(read.csv("../databases/GSE8823_alveolar_macrophages_healthy_smoker_vs_non_smoker.csv",header=TRUE))
 all_genes <- as.vector(unique(de_results$SYMBOL)[1:500]) #first 500 genes
-image1 <- "./databases/Raw_Probe_Intensities.tiff"
-image2 <- "./databases/Normalized_Probe_Intensities.tiff"
+image1 <- "../databases/Raw_Probe_Intensities.tiff"
+image2 <- "../databases/Normalized_Probe_Intensities.tiff"
 
 shinyServer(function(input, output,session) {
   genes <- reactive({selectizeInput("gene", "Official Gene Symbol:", all_genes, selected="SMAD7", width="185px", options = list(create = TRUE))})
@@ -31,7 +32,7 @@ shinyServer(function(input, output,session) {
   #raw data image
   output$affy_image <- renderImage({
     return(list(
-      src = "./databases/affymetrix_chip.png",
+      src = "../databases/affymetrix_chip.png",
       height= 420,
       width = 400,
       filetype = "image/png",
@@ -39,7 +40,7 @@ shinyServer(function(input, output,session) {
   
   output$raw_image <- renderImage({
     return(list(
-      src = "./databases/Raw_Data_GSE8823.png",
+      src = "../databases/Raw_Data_GSE8823.png",
       height= 400,
       width = 400,
       filetype = "image/png",
@@ -54,11 +55,11 @@ shinyServer(function(input, output,session) {
       updateActionButton(session, "rma", label="Normalize with RMA") # change action button label based on user input
     } else { # else is 1, 3, 5 etc.
       fi = image2
-      updateActionButton(session, "rma", label="Go Back")
+      updateActionButton(session, "rma", label="See Raw Data")
     }
     return(list(
       src = fi,
-      height= 400,
+      height= 300,
       width = 550,
       filetype = "image/tiff",
       alt = "Normalize data with RMA"))}, deleteFile = FALSE)
@@ -68,7 +69,7 @@ shinyServer(function(input, output,session) {
   #Boxplots for outliers
   output$QCimage <- renderImage({
     return(list(
-      src = "./databases/Outlier_barplot.tiff",
+      src = "../databases/Outlier_barplot.tiff",
       height= 800,
       width = 550,
       filetype = "image/tiff",
@@ -76,7 +77,7 @@ shinyServer(function(input, output,session) {
   
   output$DCimage <- renderImage({
     return(list(
-      src = "./databases/Density_curves.tiff",
+      src = "../databases/Density_curves.tiff",
       height= 480,
       width = 610,
       filetype = "image/tiff",
@@ -93,9 +94,9 @@ shinyServer(function(input, output,session) {
   #Volcano plot image
   output$volcanoPlot <- renderImage({ 
     return(list(
-      src = "./databases/Volcano_plot.tiff",
-      height=400,
-      width = 800,
+      src = "../databases/Volcano_plot_edited.tiff",
+      height=310,
+      width = 390,
       filetype = "image/tiff",
       alt = "Volcano Plot"))}, deleteFile = FALSE)
   
