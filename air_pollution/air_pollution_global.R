@@ -47,7 +47,7 @@ boxplot_func_ap <- function(x,y,var){
   data <- tf %>% dplyr::filter(Variables %in% var)
   ggplot(data, aes_string(x=x,y=y)) + geom_boxplot(outlier.colour=NA, lwd=0.2, color="grey18",fill=color_status[[var]]) + 
     stat_boxplot(geom ='errorbar', color="grey18") + 
-    labs(x=" ", y=y) + geom_jitter() + theme_bw() + 
+    labs(x=" ", y=y) + geom_jitter(size=1,position = position_jitter(width=0.2)) + theme_bw() + 
     theme(axis.title=element_text(size=15),
           title = element_text(size=15),
           axis.text=element_text(size=14))}
