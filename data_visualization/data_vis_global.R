@@ -44,7 +44,7 @@ boxplot_func <- function(x,y,data){
   color_status <- set_colors(data)
   ggplot(data, aes_string(x=x,y=y,fill=x)) + geom_boxplot(outlier.colour=NA, lwd=0.2, color="grey18") + 
     stat_boxplot(geom ='errorbar', color="grey18") + 
-    labs(x=x, y=y) + geom_jitter() + 
+    labs(x=x, y=y) + geom_jitter(size=1,position = position_jitter(width=0.2)) + 
     scale_fill_manual(values=unlist(lapply(levels(data[[x]]), function(m) color_status[[m]]))) + theme_bw() +
     theme(legend.text = element_text(size=14),
           axis.title=element_text(size=15),

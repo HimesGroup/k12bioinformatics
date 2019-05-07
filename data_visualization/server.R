@@ -10,7 +10,7 @@ source("data_vis_global.R")
 shinyServer(function(input, output){
   #output$barPlot <- renderChart({rPlot(Age ~ Ancestry | Treatment, data = pheno_QC, color = 'Treatment', type = 'bar')})
 
-  output$phenoData <- renderDataTable({pheno_QC %>% dplyr::select(GEO_ID, Smoking_status, Sex, Age, Ancestry,Donor)},options = list(pageLength=10, searching=FALSE))
+  output$phenoData <- renderDataTable({pheno_QC %>% dplyr::select(GEO_ID, Smoking_status, Sex, Age, Ancestry)},options = list(pageLength=10, searching=FALSE))
   
   
   #output

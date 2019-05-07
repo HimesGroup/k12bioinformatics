@@ -98,7 +98,7 @@ shinyUI(fluidPage(
                              value = 150)),
                  
             plotOutput("heatMap")))), 
-            br()
+            br(),br(),br(),br()
     )
   )
 ))

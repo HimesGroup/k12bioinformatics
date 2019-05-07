@@ -40,11 +40,11 @@ topgene_boxplot_func <- function(tb) { # comp: comparison status
   g1 <- ggplot(df,aes(x=Treatment,y=value,fill=Treatment)) +
     geom_boxplot(outlier.colour=NA,color="grey18") + #,fill="#1B9E77"
     stat_boxplot(geom ='errorbar', color="grey18") +
-    geom_jitter(size=1,position = position_jitter(width=0.3)) +
-    scale_fill_manual(values=colour_status) + labs(x = "", y="Normalized Read Count") +
+    geom_jitter(size=1,position = position_jitter(width=0.2)) +
+    scale_fill_manual(values=colour_status)  + scale_y_continuous("Normalized Read Counts") + 
     theme_bw() +
     theme(legend.position="none",
-          axis.title=element_blank(),
+          axis.title.x = element_blank(),
           strip.text.x = element_text(size = 15),
           title = element_text(size=15),
           axis.text=element_text(size=14)) + facet_grid(. ~ Probes) 
@@ -78,13 +78,13 @@ corplot_func <- function(top_probes) {  # m: correlation matrix, colour_status_l
   m <- na.omit(as.matrix(tibble::column_to_rownames(tb,var="Probes")))
   array_name <- shortname_func(colnames(m)) # shorten the sample id
   # heatmap plot
-  heatmap.2(m, col=viridis(256, option="B"),
+  heatmap.2(m, col=viridis(256, option="B"),xlab="Samples",ylab="Probes",
             ColSideColors=colour_status_list, # use predefined colour_status_list, assign colors to status
-            labCol=array_name,labRow = " ", # take out gene probe id
+            labCol=FALSE,labRow = FALSE, # take out gene probe id
             trace="none",
-            margins=c(12,20), # (bottom margin, left margin)
-            cexRow=1,cexCol=1.4,
-            keysize=1.5,key.title=NA,key.xlab="Gene Expression Values",key.ylab="Counts",
+            margins=c(2,2), # (bottom margin, left margin)
+            #cexRow=1,cexCol=1.4,
+            keysize=1.8,key.title=NA,key.xlab="Gene Expression Values",key.ylab="Counts",
             main=" ")
   legend("topright",legend=names(colour_status),fill=colour_status,cex=1.0) # use predifined colour_status
 }
