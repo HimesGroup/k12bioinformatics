@@ -15,8 +15,8 @@ df <- df %>% dplyr::select(-ACTION)
 df$Date <- gsub(" .*"," ", df$Timestamp)
 df$Time <- gsub(".* ","", df$Timestamp)
 df$Date <-  gsub("*.EDT","",strptime(as.character(df$Date), "%m/%d/%Y"))
-tf <- melt(df %>% dplyr::select(Temperature,Humidity,DustPM, Name, AirQuality,Latitude,Longitude),id = c("Name","Latitude","Longitude"))
-names(tf) <- c("Name","Latitude","Longitude","Variables","Measurement")
+tf <- melt(df %>% dplyr::select(Temperature,Humidity,DustPM, Name, AirQuality,Latitude,Longitude,Date,Timestamp),id = c("Name","Latitude","Longitude","Date","Timestamp"))
+names(tf) <- c("Name","Latitude","Longitude","Date","Timestamp","Variables","Measurement")
 
 
 ##Set colors

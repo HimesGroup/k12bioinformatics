@@ -1,11 +1,15 @@
 library(shiny)
 library(leaflet)
 library(dplyr)
+library(viridis)
+library(RColorBrewer)
 library(tidyr)
 library(tidyverse)
 library(reshape2)
 library(gsheet)
 source("air_pollution_global.R")
+
+#col <- c("#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7","#7570B3", "#E7298A", "#66A61E", "#E6AB02", "#A6761D", "#666666","#8DD3C7","#BEBADA") #CB and Dark2
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
@@ -58,27 +62,30 @@ shinyServer(function(input, output) {
   data <- reactive({
     #all_dates <- setdiff(df$Date,seq(as.Date(input$dates[1]), as.Date(input$dates[2]), by="days"))
     all_dates <- as.character(seq(as.Date(input$dates[1]), as.Date(input$dates[2]), by="days"))
-    x <- df %>% dplyr::filter(Date %in% all_dates,Name %in% input$name)
+    x <- tf %>% dplyr::filter(Date %in% all_dates,Name %in% input$name,Variables == input$type)
   })
   
   output$Name <- renderUI({
     selectInput("name","Select Name:",choices=unique(tf$Name), multiple=TRUE, selected=unique(tf$Name))
   })
   
+  
   #pal <- colorFactor(c("navy", "red"), domain = c("ship", "pirate"))
   output$mymap <- renderLeaflet({
-    col <- c("#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7","#7570B3", "#E7298A", "#66A61E", "#E6AB02", "#A6761D", "#666666","#8DD3C7","#BEBADA") #CB and Dark2
-    color_status <- col[1:length(unique(tf$Name))]
-    names(color_status) <- unique(tf$Name)
-    df <- data()
-    m <- leaflet(data=df) %>%
+    mdata <- data()
+    col_status = rev(viridis(256, option = "B"))
+    #col_status = brewer.pal(9,"Reds")
+    #pal <- colorFactor(palette = col_status,levels = unique(mdata$Measurement))
+    pal <- colorNumeric(palette = col_status,domain = c(mdata$Measurement))
+    m <- leaflet(data=mdata) %>%
       addTiles() %>%
       setView(-78.35, 39.5, zoom = 5.8) %>%
-      #fitBounds(~min(df$Longitude), ~min(df$Latitude), ~max(df$Longitude), ~max(df$Latitude)) %>% 
-      addCircleMarkers(lng = ~Longitude,lat = ~Latitude,color = lapply(input$name,function(x) color_status[[x]]),stroke = FALSE, fillOpacity = 0.5,
-                 popup = paste("Name", df$Name, "<br>",
-                               "Timestamp:", df$Timestamp, "<br>",
-                                paste0(input$type,":"), df[[input$type]], "<br>")) 
+      #fitBounds(~min(mdata$Longitude), ~min(mdata$Latitude), ~max(mdata$Longitude), ~max(mdata$Latitude)) %>% 
+      addLegend(pal = pal,values = unique(mdata$Measurement),position = "bottomleft",title = input$type,opacity = 1) %>%
+      addCircleMarkers(lng = ~Longitude,lat = ~Latitude,color = ~pal(Measurement),stroke = FALSE, fillOpacity = 1,  #lapply(input$name,function(x) color_status[[x]])
+                 popup = paste("Name", mdata$Name, "<br>",
+                               "Timestamp:", mdata$Timestamp, "<br>",
+                                paste0(input$type,":"),mdata$Measurement, "<br>")) 
     
     m
   })
