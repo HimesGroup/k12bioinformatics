@@ -6,16 +6,6 @@ library(leaflet)
 
 shinyUI(fluidPage(
   theme = shinythemes::shinytheme("cerulean"),
-  
-  tags$head(tags$style(HTML("
-  .leaflet-top, .leaflet-bottom {
-                            z-index: unset !important;
-                            }
-
-                            .leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar {
-                            z-index: 10000000000 !important;
-                            }
-                            "))),
   # 
   # Application title
   titlePanel(h2("Air Pollution", align="center")),
