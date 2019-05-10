@@ -17,7 +17,12 @@ df$Time <- gsub(".* ","", df$Timestamp)
 df$Date <-  gsub("*.EDT","",strptime(as.character(df$Date), "%m/%d/%Y"))
 tf <- melt(df %>% dplyr::select(Temperature,Humidity,DustPM, Name, AirQuality,Latitude,Longitude,Date,Timestamp),id = c("Name","Latitude","Longitude","Date","Timestamp"))
 names(tf) <- c("Name","Latitude","Longitude","Date","Timestamp","Variables","Measurement")
+clrs <- c("#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7","#7570B3", "#E7298A", "#66A61E", "#E6AB02", "#A6761D", "#666666","#8DD3C7","#BEBADA") #CB and Dark2
 
+
+#Get PM2.5 data from EPA file
+k12_df <- read.csv("../databases/k12_sites.csv")
+ph_df <- read.csv("../databases/philadelphia_PM.csv")
 
 ##Set colors
 #set colors
@@ -62,5 +67,49 @@ scatterplot_func <- function(var,pvar){
           title = element_text(size=15),
           axis.text=element_text(size=14))
 }
+
+#Barplot I
+barplot_func <- function(data){
+  ggplot(data, aes(x=State, y=PM, fill=PM)) + geom_bar(stat="identity") + scale_fill_viridis_c(option = "inferno",direction = -1) + 
+    labs(x="",y="PM 2.5 (Sept 2017)") + 
+    theme_bw() + theme(legend.position = "none",axis.title=element_text(size=12),axis.text=element_text(size=12))
+}
+
+#Barplot II
+barplot_func_ph <- function(data){
+  ggplot(data, aes(x=Month, y=PM2.5, fill=Month)) + geom_bar(stat="identity") + 
+    scale_fill_manual(values = clrs[1:nrow(ph_df)]) + labs(x="",y="PM 2.5 (2017)") + 
+    theme_bw() + theme(legend.position = "none",axis.title=element_text(size=12),axis.text=element_text(size=12))
+}
+
+# library(pargasite)
+# k12 <- read.table("k12_sites.txt",header=TRUE, sep="\t")
+# long <- k12$Longitude
+# lat <- k12$Latitude
+# pm_list <- list()
+# 
+# for (i in seq(1,nrow(k12))){
+#   pm <- getMonthPollutionEstimate(long[i], lat[i], pollutant = "PM2.5", monthyear="09-2017")
+#   pm_list[[i]] <- pm
+# }
+# 
+# k12$PM <- unlist(pm_list)
+# k12$Location <- paste0(k12$City,",",k12$State)
+# write.csv(k12,"k12_sites.csv",row.names = FALSE)
+
+# library(pargasite)
+# k12 <- read.table("k12_sites.txt",header=TRUE, sep="\t")
+# pk12 <- k12 %>% dplyr::filter(State == "PA") %>% dplyr::select(Longitude,Latitude)
+# dates <- c("01-2017","02-2017","03-2017","04-2017","05-2017","06-2017","07-2017","08-2017","09-2017","10-2017","11-2017","12-2017")
+# pm_list <- list()
+# 
+# for (i in seq(1,12)){
+#   pm <- getMonthPollutionEstimate(pk12$Longitude, pk12$Latitude, pollutant="PM2.5", monthyear = dates[i])
+#   pm_list[[i]] <- pm
+# }
+# 
+# ph_df <- data.frame("Month" = dates, "PM2.5" = unlist(pm_list))
+# write.csv(ph_df,"philadelphia_PM.csv", row.names = FALSE)
+
 
 
