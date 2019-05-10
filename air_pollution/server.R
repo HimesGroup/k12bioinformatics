@@ -2,14 +2,11 @@ library(shiny)
 library(leaflet)
 library(dplyr)
 library(viridis)
-library(RColorBrewer)
 library(tidyr)
 library(tidyverse)
 library(reshape2)
 library(gsheet)
 source("air_pollution_global.R")
-
-#col <- c("#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7","#7570B3", "#E7298A", "#66A61E", "#E6AB02", "#A6761D", "#666666","#8DD3C7","#BEBADA") #CB and Dark2
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
@@ -134,16 +131,6 @@ shinyServer(function(input, output) {
     barplot_func_ph(ph_df)
   })
   
-  output$City <- renderUI({
-    countries=c("Philadelphia, PA"="PA", "Midtown Manhattan, NY"="NY", "Los Angeles, CA"="CA", "Miami, FL"="FL", 
-                "Pierre, SD"="SD", "Billings, MO"="MO", "Standing Rock, NM"="NM")
-    
-    flags <- c("../databases/upenn.tiff","../databases/Midtown_Manhattan.tiff","../databases/Los_Angeles_CA.tiff","../databases/Miami_Florida.tiff",
-               "../databases/Pierre_SD.tiff","../databases/billings_montana.tiff","../databases/Shiprock_New Mexico.tiff")
-    
-    #checkboxGroupInput("kcity", "Select Location:",
-   #choiceNames = mapply(countries, flags, FUN = function(country, flagUrl){tagList(tags$img(src=flagUrl, width=20, height=15),country)},SIMPLIFY = FALSE, USE.NAMES = FALSE),choiceValues = countries)
-  })
   
   #pal <- colorFactor(c("navy", "red"), domain = c("ship", "pirate"))
   output$mymap <- renderLeaflet({
