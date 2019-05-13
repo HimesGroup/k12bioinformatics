@@ -16,7 +16,10 @@ shinyServer(function(input, output){
   #output
   output$barPlot <- renderPlot({barplot_func(input$feat,pheno_QC)})
   
-  output$fbarPlot <- renderPlot({barplot_func(input$var,pheno_QC) + facet_grid(.~Treatment) + theme(strip.text = element_text(size=15))})
+  output$fbarPlot <- renderPlot({
+    barplot_func_dodge(input$var,'Treatment',pheno_QC)
+    #barplot_func(input$var,pheno_QC) + facet_grid(.~Treatment) + theme(strip.text = element_text(size=15))
+    })
   
   
   #output
