@@ -24,19 +24,20 @@ shinyUI(fluidPage(
              #radioButtons(input="sep", label="Separator",choices = c(Comma = ",",Semicolon = ";",Tab = "\t"),selected = ",")),
              br(),
              dataTableOutput("contents")),
-             br(),hr(),
-             h4(p("Example Dataset:")),
+             br(),hr()),
+             #h4(p("Example Dataset:")),
+             
+            
+    tabPanel("Example Dataset",
+              br(),
              p("Here, as an example, we have the phenotype information for the Gene Expression Omnibus (GEO) dataset : ", 
                a(href="http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE8823", "GSE8823.", target="_blank"),"This dataset was for an experiment in which
                investigators compared gene expression profiles of bronchoalveolar lavage fluid obtained from 11 non-smokers
                versus 13 smokers (mean smoking use was 36 pack-years). The scientific paper published to report the results of
                this experiment can be found",
                a(href="https://www.ncbi.nlm.nih.gov/pubmed/18587056", "here.", target="_blank")),
-             br(),
-             dataTableOutput("phenoData")),
-            
-    tabPanel("Example Dataset",
-              br(),
+             dataTableOutput("phenoData"),
+             br(),br(),
              h3(p("Univariate Analysis")),
              h4(p("Categorical Variables")),
              p("Here, we can explore the phenotype data attributes. First, lets look at the distribution of all the variables using barplots. A barplot (or barchart) is one of the most common type of plot. It shows the relationship between a numerical variable and a categorical variable."),

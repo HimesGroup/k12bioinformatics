@@ -26,6 +26,18 @@ barplot_func <- function(x,data){
   
 }
 
+barplot_func_dodge <- function(x,a,data){
+  color_status <- set_colors(data)
+  g1 <- ggplot(data, aes_string(x=x,fill=a)) + geom_bar(stat="count",position=position_dodge()) + 
+    scale_fill_manual(values=unlist(lapply(levels(data[[a]]), function(y) color_status[[y]]))) + theme_bw() +
+    theme(legend.text = element_text(size=14),
+          axis.title=element_text(size=15),
+          title = element_text(size=15),
+          axis.text=element_text(size=14))
+  return(g1) 
+  
+}
+
 #sample(colours, length(levels(data[[x]])))
 barplot_both_func <- function(x,y,data){
   color_status <- set_colors(data)
