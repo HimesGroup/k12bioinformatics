@@ -6,7 +6,6 @@ library(tidyr)
 library(tidyverse)
 library(reshape2)
 library(gsheet)
-library(ggiraph)
 source("air_pollution_global.R")
 
 # Define server logic required to draw a histogram
@@ -69,7 +68,7 @@ shinyServer(function(input, output) {
   #Images
   output$PhImage <- renderImage({
     return(list(
-      src = "../databases/philadelphia_PM.tiff",
+      src = "../databases/upenn.tiff",
       height= 200,
       width = 250,
       filetype = "image/tiff",
@@ -123,21 +122,13 @@ shinyServer(function(input, output) {
       filetype = "image/tiff",
       alt = "Standing Rock, New Mexico"))}, deleteFile = FALSE)
   
-  output$POImage <- renderImage({
-    return(list(
-      src = "../databases/Portland_Oregon.tiff",
-      height= 200,
-      width = 250,
-      filetype = "image/tiff",
-      alt = "Portland, Oregon"))}, deleteFile = FALSE)
-  
   output$kbarPlot <- renderPlot({
     data <- k12_df %>% dplyr::filter(State %in% input$kcity)
     barplot_func(data)
   })
   
-  output$PhPlot <- renderggiraph({
-    girafe(ggobj = scatplot_func_ph(ph_df))
+  output$PhPlot <- renderPlot({
+    barplot_func_ph(ph_df)
   })
   
   
