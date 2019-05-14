@@ -23,10 +23,6 @@ clrs <- c("#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7","#757
 #Get PM2.5 data from EPA file
 k12_df <- read.csv("../databases/k12_sites.csv")
 ph_df <- read.csv("../databases/philadelphia_PM.csv")
-months <- c("Jan","Feb","Mar","Apr","May","June","Jul","Aug","Sept","Oct","Nov","Dec")
-ph_df$Year <- as.factor(ph_df$Year)
-ph_df$Month <- factor(ph_df$Month,levels=months)
-
 
 ##Set colors
 #set colors
@@ -80,55 +76,40 @@ barplot_func <- function(data){
 }
 
 #Barplot II
-scatplot_func_ph <- function(data){
-  data$PM <- round(data$PM2.5,2)
-  ggplot(data, aes(x=Month, y=PM2.5, group=Year,colour=Year,tooltip = PM)) + geom_point_interactive() + geom_line() + 
-    labs(x="",y="PM 2.5 (2017)") + scale_color_manual(values = clrs[1:12]) +
-    theme_bw() + 
-    theme(legend.text = element_text(size=10),
-          axis.title=element_text(size=10),
-          axis.text=element_text(size=10))
+barplot_func_ph <- function(data){
+  ggplot(data, aes(x=Month, y=PM2.5, fill=Month)) + geom_bar(stat="identity") + 
+    scale_fill_manual(values = clrs[1:nrow(ph_df)]) + labs(x="",y="PM 2.5 (2017)") + 
+    theme_bw() + theme(legend.position = "none",axis.title=element_text(size=12),axis.text=element_text(size=12))
 }
 
 # library(pargasite)
-# k12 <- read.table("k12_sites.txt",header=TRUE,sep="/t")
+# k12 <- read.table("k12_sites.txt",header=TRUE, sep="\t")
 # long <- k12$Longitude
 # lat <- k12$Latitude
 # pm_list <- list()
-#
+# 
 # for (i in seq(1,nrow(k12))){
 #   pm <- getMonthPollutionEstimate(long[i], lat[i], pollutant = "PM2.5", monthyear="09-2017")
 #   pm_list[[i]] <- pm
 # }
-#
+# 
 # k12$PM <- unlist(pm_list)
 # k12$Location <- paste0(k12$City,",",k12$State)
 # write.csv(k12,"k12_sites.csv",row.names = FALSE)
 
 # library(pargasite)
-# k12 <- read.csv("../databases/k12_sites.csv")
+# k12 <- read.table("k12_sites.txt",header=TRUE, sep="\t")
 # pk12 <- k12 %>% dplyr::filter(State == "PA") %>% dplyr::select(Longitude,Latitude)
-# dates <- seq(1,12)
-# months <- c("Jan","Feb","Mar","Apr","May","June","Jul","Aug","Sept","Oct","Nov","Dec")
-# years <- seq(2007,2017)
-# fdates <- unlist(lapply(years, function(x) paste0(dates,"-",x)))
+# dates <- c("01-2017","02-2017","03-2017","04-2017","05-2017","06-2017","07-2017","08-2017","09-2017","10-2017","11-2017","12-2017")
 # pm_list <- list()
-# y_list <- list()
-# count = 1
 # 
-# for (i in seq(1,length(fdates))){
-#   pm <- getMonthPollutionEstimate(pk12$Longitude, pk12$Latitude, pollutant="PM2.5", monthyear = fdates[i])
+# for (i in seq(1,12)){
+#   pm <- getMonthPollutionEstimate(pk12$Longitude, pk12$Latitude, pollutant="PM2.5", monthyear = dates[i])
 #   pm_list[[i]] <- pm
-#   if (i %% 12 == 0){
-#     y_list[[i]] <- years[count]
-#     count = count + 1
-#   } else {
-#     y_list[[i]] <- years[count]
-#     }
 # }
 # 
-# ph_df <- data.frame("Dates" = fdates, "PM2.5" = unlist(pm_list),"Year" = unlist(y_list),"Month"= months)
-# write.csv(ph_df,"../databases/philadelphia_PM.csv", row.names = FALSE)
+# ph_df <- data.frame("Month" = dates, "PM2.5" = unlist(pm_list))
+# write.csv(ph_df,"philadelphia_PM.csv", row.names = FALSE)
 
 
 
