@@ -7,6 +7,7 @@ pheno_QC <- pheno_QC %>% dplyr::filter(QC_Pass!=0) %>% rename(ScanDate=ScanDate_
 pheno_QC$ScanDate <- as.factor(gsub("/([^/]*)$", " ", pheno_QC$ScanDate))
 pheno_QC$Treatment <- as.factor(gsub("_","-",pheno_QC$Treatment))
 pheno_QC$Donor <- as.factor(paste0("D",pheno_QC$Donor))
+iris_data <- read.csv("../databases/iris_dataset.csv")
 
 
 ###############
@@ -28,7 +29,7 @@ barplot_func <- function(x,data){
 
 barplot_func_dodge <- function(x,a,data){
   color_status <- set_colors(data)
-  g1 <- ggplot(data, aes_string(x=x,fill=a)) + geom_bar(stat="count",position=position_dodge()) + 
+  g1 <- ggplot(data, aes_string(x=x,fill=a)) + geom_bar(stat="count",position=position_dodge(preserve = "single")) + 
     scale_fill_manual(values=unlist(lapply(levels(data[[a]]), function(y) color_status[[y]]))) + theme_bw() +
     theme(legend.text = element_text(size=14),
           axis.title=element_text(size=15),

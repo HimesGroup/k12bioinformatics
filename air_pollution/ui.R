@@ -39,7 +39,7 @@ shinyUI(fluidPage(
              div(style="display: inline-block;",imageOutput("BLImage",height= "200px")),
              div(style="display: inline-block;",imageOutput("SRImage",height= "200px")),
              div(style="display: inline-block;",imageOutput("POImage",height= "200px")),br(), br(),
-             mainPanel(leafletOutput("kmap",height = 700)),
+             mainPanel(leafletOutput("kmap",height = 500)),
              sidebarPanel(checkboxGroupInput("kcity", "Select Location:",
                 choices = c("Philadelphia, PA"="PA", "Midtown Manhattan, NY"="NY", "Los Angeles, CA"="CA", "Miami, FL"="FL", 
                             "Pierre, SD"="SD", "Billings, MO"="MO", "Standing Rock, NM"="NM","Portland, OR"="OR"), selected=c("PA","MO")), 

@@ -144,7 +144,7 @@ shinyServer(function(input, output) {
   #pal <- colorFactor(c("navy", "red"), domain = c("ship", "pirate"))
   output$mymap <- renderLeaflet({
     mdata <- data()
-    col_status = rev(viridis(256, option = "B"))
+    col_status = viridis(256, option = "B")
     #col_status = brewer.pal(9,"Reds")
     #pal <- colorFactor(palette = col_status,levels = unique(mdata$Measurement))
     pal <- colorNumeric(palette = col_status,domain = c(mdata$Measurement))
@@ -164,11 +164,12 @@ shinyServer(function(input, output) {
   output$kmap <- renderLeaflet({
     mdata <- k12_df %>% dplyr::filter(State %in% input$kcity)
     mdata$PM <- round(mdata$PM,2)
-    col_status = rev(viridis(256, option = "B"))
+    col_status = viridis(256, option = "B")
     pal <- colorNumeric(palette = col_status,domain = c(mdata$PM))
     m <- leaflet(data=mdata) %>%
       addTiles() %>%
-      setView(-98.35, 39.5, zoom = 4) %>%
+      setView(-98.35, 39.5, zoom = 4.1) %>%
+      #setView(lng = mean(mdata$Longitude),lat = mean(mdata$Latitude),zoom=4.4) %>%
       addLegend(pal = pal,values = unique(mdata$PM),position = "bottomleft",title = "PM 2.5",opacity = 1) %>%
       addCircleMarkers(lng = ~Longitude,lat = ~Latitude,color = ~pal(PM),stroke = FALSE, fillOpacity = 1,
                        popup = paste("Name:", mdata$City, "<br>",

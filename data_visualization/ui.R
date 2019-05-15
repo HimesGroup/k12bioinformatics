@@ -1,7 +1,6 @@
 library(shiny)
 library(shinythemes)
 library(shinyWidgets)
-#library(rCharts)
 
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
@@ -14,18 +13,17 @@ shinyUI(fluidPage(
   tabsetPanel(
     tabPanel("Introduction",
              br(),
-             p("This app helps elaborate on basic concepts of data analysis and visualization. You can upload a csv file with data of your choice and carry out basic data analysis."),
+             p("This app helps elaborate on basic concepts of data analysis and visualization. 
+               You can upload a csv file with data of your choice and carry out basic data analysis. 
+               In absence of a user provided file, an example csv file of 'iris' R dataset is available to be uploaded and explore the analysis features."),
              # Input: Select a file ----
+             column(12, downloadButton(outputId="iris_data_download",label="Download iris dataset file"), align="left"), 
+             br(),br(),hr(),
              column(12,
              fluidRow(fileInput("file1", "Upload CSV File:",multiple = TRUE,accept = c("text/csv","text/comma-separated-values,text/plain",".csv"))),
-             # Input: Checkbox if file has header ----
-             #fluidRow(checkboxInput(input="header", label="Header"))),
-             # Input: Select separator ----
-             #radioButtons(input="sep", label="Separator",choices = c(Comma = ",",Semicolon = ";",Tab = "\t"),selected = ",")),
              br(),
              dataTableOutput("contents")),
              br(),hr()),
-             #h4(p("Example Dataset:")),
              
             
     tabPanel("Example Dataset",
@@ -40,7 +38,9 @@ shinyUI(fluidPage(
              br(),br(),
              h3(p("Univariate Analysis")),
              h4(p("Categorical Variables")),
-             p("Here, we can explore the phenotype data attributes. First, lets look at the distribution of all the variables using barplots. A barplot (or barchart) is one of the most common type of plot. It shows the relationship between a numerical variable and a categorical variable."),
+             p("Here, we can explore the phenotype data attributes. First, lets look at the distribution of all the variables using barplots. 
+               A barplot (or barchart) is one of the most common type of plot. 
+               It shows the relationship between a numerical variable and a categorical variable."),
              selectInput("feat",label="Select variable:",choices=c("Treatment","Sex","Ancestry","ScanDate"),multiple=FALSE,width="220px",selected = "Treatment"),
              plotOutput("barPlot",height="400px",width="550px"),
              br(),hr(),
@@ -49,12 +49,15 @@ shinyUI(fluidPage(
              plotOutput("fbarPlot",height="400px",width="750px"),
              hr(),
              h4(p("Continuous Variables")),
-             p("A histogram shows the distribution of any numerical data using a single variable as input.The variable is cut into multiple bins, where the height of the bin represents the number of observations per bin. Here, we are using bins of size=2."),
+             p("A histogram shows the distribution of any numerical data using a single variable as input.
+               The variable is cut into multiple bins, where the height of the bin represents the number of observations per bin. 
+               Here, we are using bins of size=2."),
              plotOutput("histPlot",height="400px",width="550px"),
              br(),hr(),
              h3(p("Bivariate Analysis")),
              h4(p("Continuous Variable vs. Categorical Variable")),
-             p("The boxplot gives summary of numerical values. The line in the middle denotes the median while the upper and lower lines denote upper and lower quartiles."),
+             p("The boxplot gives summary of numerical values. The line in the middle denotes the median while the upper 
+               and lower lines denote upper and lower quartiles."),
              selectInput("comp",label="Select feature:",choices=c("Sex","Ancestry","Treatment"),multiple=FALSE,width="220px",selected = "Treatment"),
              plotOutput("boxPlot",height="400px",width="550px")),
     
@@ -67,7 +70,6 @@ shinyUI(fluidPage(
             h4(p("The categorical variables in the uploaded dataset are as follows:")),
             dataTableOutput("vardData"),
             br(), hr(),
-            #h3(p("Univariate Analysis")),
             h4(p("Categorical Variables")),
             p("The distribution for the categorical variables with number of levels between 2-10 is displayed here."),
             uiOutput('disc'),
@@ -75,16 +77,12 @@ shinyUI(fluidPage(
             br(), hr(),
             h4(p("Continuous Variables")),
             uiOutput('cont'),
-            #plotOutput("fbarplotUP",height="400px",width="700px"),
             br(),
             p("Histogram showing distribution of continuous variables"),
             plotOutput("histPlotUP",height="400px",width="550px"),
             br()),
-            #p("Boxplot showing summary of variables"),
-            #plotOutput("boxPlotUP",height="400px",width="550px"))),
     tabPanel("Bivariate Analysis", br(),
             p("Relationship between the categorical and continuous variables in the uploaded data"),
-            #conditionalPanel(condition = "!is.null(output.contents)",
             uiOutput('bdisc'),
             uiOutput('bcont'),
             plotOutput("fbarplotUP",height="400px",width="700px"),
