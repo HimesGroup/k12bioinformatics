@@ -8,7 +8,6 @@ source("data_vis_global.R")
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output){
-  #output$barPlot <- renderChart({rPlot(Age ~ Ancestry | Treatment, data = pheno_QC, color = 'Treatment', type = 'bar')})
 
   output$phenoData <- renderDataTable({pheno_QC %>% dplyr::select(GEO_ID, Smoking_status, Sex, Age, Ancestry)},options = list(pageLength=10, searching=FALSE))
   
@@ -64,6 +63,13 @@ shinyServer(function(input, output){
   #Plots - Bivariate
   output$fbarplotUP <- renderPlot({if(!is.null(input$bdisc)){barplot_both_func(input$bdisc,input$bcont,contents())}else{NULL}})
   output$boxPlotUP <- renderPlot({if(!is.null(input$bdisc)){boxplot_func(input$bdisc,input$bcont,contents())}else{NULL}})
+  
+  #IRIS data download
+  output$iris_data_download <- downloadHandler(
+    filename= function(){paste0("iris_dataset.csv")},
+    content=function(file){
+      write.csv(iris_data, file, row.names = FALSE, quote = FALSE)})
+  
   
 })
 
