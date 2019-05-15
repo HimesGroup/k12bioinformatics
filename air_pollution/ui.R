@@ -1,6 +1,7 @@
 library(shiny)
 library(shinythemes)
 library(leaflet)
+library(ggiraph)
 
 
 shinyUI(fluidPage(
@@ -13,25 +14,29 @@ shinyUI(fluidPage(
     tabPanel("Introduction",
              br(),
              h4(p("Overview of Air Pollution Data")), 
-             p("This app provides spatial visualization of air quality levels in Philadelphia. We used publicly available data from the United States Environmental Protection Agency (EPA). The data is available", 
-               a(href = "https://docs.google.com/spreadsheets/d/1V5J_TuhfZTFBfPcg1JMavzFrbB2vavd3JMNX1f1oAQw/edit#gid=420394624","here.",target="_blank")),br(),
+             p("Exposure to pollutants impacts human health and is associated with multiple respiratory and other chronic diseases. 
+               The major pollutant used to infer air quality index of any location is the particulate matter (PM 2.5). These are inhalable particles of diameters 2.5 micrometers or smaller.
+              Other pollutants like ozone, SO2, NO2 and CO are hazardous to health, and the United States Environmental Protection Agency (EPA) is in-charge of monitoring their rising levels."), 
+              p("Philadelphia is one of the most polluted cities in the Unites States, 
+               and effective monitoring of its pollutant levels is crucial to maintain healthy air-quality standards in the city.
+               This app provides spatial visualization of air quality levels in the United States, 
+                with special focus on Philadelphia. Here, we are using the data acquired by students via pollution monitors at different locations in the USA. 
+                The student-acquired data is available", 
+               a(href = "https://docs.google.com/spreadsheets/d/1V5J_TuhfZTFBfPcg1JMavzFrbB2vavd3JMNX1f1oAQw/edit#gid=420394624","here.",target="_blank"),
+               "Along with this, we are also using publicly available data from the EPA to look at trends of PM 2.5 levels at different locations 
+               over multiple time periods."),br(),
              dataTableOutput("airqdata")),
     tabPanel("EPA Measures in USA",br(),
              h3(p("PM2.5 measures across particular locations in the USA")),
-             p("The locations mapped across the country are Philadelphia, New York, Los Angeles, Miami, Pierre, Billings, Standing Rock and Portland."),
-             #p("(1). Philadelphia, PA"),
+             p("The locations mapped across the country are Philadelphia, New York, Los Angeles, Miami, Pierre, Billings, Standing Rock and Portland. 
+               The EPA PM 2.5 data was acquired from the R package", a(href="https://github.com/HimesGroup/pargasite","pargasite", target="_blank"),
+               "developed by Himes Lab. The measures shown are for the month of September 2017."),
              div(style="display: inline-block;",imageOutput("PhImage",height= "200px")),
-             #p("(2). New York, NY"),
              div(style="display: inline-block;",imageOutput("NYImage",height= "200px")),
-             #p("(3). Los Angeles, CA"),
              div(style="display: inline-block;",imageOutput("LAImage",height= "200px")),
-             #p("(4). Miami, FL"),
              div(style="display: inline-block;",imageOutput("MAImage",height= "200px")),
-             #p("(5). Pierre, SD"),
              div(style="display: inline-block;",imageOutput("PRImage",height= "200px")),
-             #p("(6). Billings, MO"),
              div(style="display: inline-block;",imageOutput("BLImage",height= "200px")),
-             #p("(7). Standing Rock, NM"),
              div(style="display: inline-block;",imageOutput("SRImage",height= "200px")),
              div(style="display: inline-block;",imageOutput("POImage",height= "200px")),br(), br(),
              mainPanel(leafletOutput("kmap",height = 700)),
