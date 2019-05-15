@@ -105,7 +105,7 @@ shinyServer(function(input, output,session) {
   
   #Width for plot
   get_width <- reactive({
-    600 + 60*(nrow(gene_de()))})
+    800 + 90*(nrow(gene_de()))})
   
   #Barplot output
   output$barPlot <- renderPlot({
