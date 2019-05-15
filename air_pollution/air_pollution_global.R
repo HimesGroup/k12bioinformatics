@@ -83,7 +83,7 @@ barplot_func <- function(data){
 scatplot_func_ph <- function(data){
   data$PM <- round(data$PM2.5,2)
   ggplot(data, aes(x=Month, y=PM2.5, group=Year,colour=Year,tooltip = PM)) + geom_point_interactive() + geom_line() + 
-    labs(x="",y="PM 2.5 (2017)") + scale_color_manual(values = clrs[1:12]) +
+    labs(x="",y="PM 2.5 levels") + scale_color_manual(values = clrs[1:12]) +
     theme_bw() + 
     theme(legend.text = element_text(size=10),
           axis.title=element_text(size=10),

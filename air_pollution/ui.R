@@ -47,7 +47,7 @@ shinyUI(fluidPage(
     
     tabPanel("Seasonality of PM 2.5",br(),
       h4(p("PM 2.5 values in Philadelphia (2017): ")),
-             p("The distribution of EPA values of PM 2.5 for University City, Philadelphia in the year 2017."),
+             p("The distribution of EPA values of PM 2.5 for University City, Philadelphia from 2007 to 2017."),
              ggiraphOutput("PhPlot",height="500px",width="700px"),br(), br()),
     
     tabPanel("Overview of sensor measures",br(),
@@ -56,10 +56,10 @@ shinyUI(fluidPage(
              p("Choose two variables to plot:"),
              div(style="display: inline-block;",uiOutput("var")),
              div(style="display: inline-block;",uiOutput("pvar")),br(),br(),
-             div(style="display: inline-block;",plotOutput("distBoxplot",height="400px",width = "400px")),
-             div(style="display: inline-block;",plotOutput("disHist",height="400px",width = "800px")),br(),br(),
-             div(style="display: inline-block;",plotOutput("pdistBoxplot",height="400px",width = "400px")),
-             div(style="display: inline-block;",plotOutput("pdisHist",height="400px",width = "800px")),br(), hr(),
+             div(style="display: inline-block;",plotOutput("distBoxplot",height="300px",width = "300px")),
+             div(style="display: inline-block;",plotOutput("disHist",height="300px",width = "500px")),br(),br(),
+             div(style="display: inline-block;",plotOutput("pdistBoxplot",height="300px",width = "300px")),
+             div(style="display: inline-block;",plotOutput("pdisHist",height="300px",width = "500px")),br(), hr(),
              h4(p("Bivariate Analysis:")),
              p("Relationship between the two selected variables:"),
              div(style="display: inline-block;",plotOutput("Scatplot",height="500px",width = "700px")),br(), hr(), br()),
