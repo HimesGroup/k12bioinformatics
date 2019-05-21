@@ -101,7 +101,6 @@ set_colors <- function(data){
     color_list =  append(color_list,levels(data[[i]]))
   }
   names(color_status) <- color_list
-  
   return(color_status)
 }
 

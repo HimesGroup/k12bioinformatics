@@ -8,10 +8,8 @@ source("data_vis_global.R")
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output){
-
   output$phenoData <- renderDataTable({pheno_QC %>% dplyr::select(GEO_ID, Smoking_status, Sex, Age, Ancestry)},options = list(pageLength=10, searching=FALSE))
-  
-  
+
   #output
   output$barPlot <- renderPlot({barplot_func(input$feat,pheno_QC)})
   
@@ -19,16 +17,13 @@ shinyServer(function(input, output){
     barplot_func_dodge(input$var,'Treatment',pheno_QC)
     #barplot_func(input$var,pheno_QC) + facet_grid(.~Treatment) + theme(strip.text = element_text(size=15))
     })
-  
-  
+
   #output
   output$histPlot <- renderPlot({hist_func("Age",pheno_QC)})
-  
-  
+
   #output
   output$boxPlot <- renderPlot({boxplot_func(input$comp,"Age",pheno_QC)})
-  
-  
+
   ##Uploaded dataset
   #Get discrete variables from uploaded dataset
   contents <- reactive({if(!is.null(input$file1)){read.csv(input$file1$datapath,header = TRUE,sep = ",")}})
@@ -69,7 +64,6 @@ shinyServer(function(input, output){
     filename= function(){paste0("iris_dataset.csv")},
     content=function(file){
       write.csv(iris_data, file, row.names = FALSE, quote = FALSE)})
-  
-  
+
 })
 
