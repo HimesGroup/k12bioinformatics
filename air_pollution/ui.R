@@ -15,7 +15,7 @@ shinyUI(fluidPage(
              br(),
              h4(p("Overview of Air Pollution Data")), 
              p("Exposure to pollutants impacts human health and is associated with multiple respiratory and other chronic diseases. 
-               The major pollutant used to infer air quality index of any location is the particulate matter (PM 2.5). These are inhalable particles of diameters 2.5 micrometers or smaller.
+               The major pollutant used to infer air quality index of a location is the particulate matter (PM 2.5). These are inhalable particles of diameters 2.5 micrometers or smaller.
               Other pollutants like ozone, SO2, NO2 and CO are hazardous to health, and the United States Environmental Protection Agency (EPA) is in-charge of monitoring their rising levels."), 
               p("Philadelphia is one of the most polluted cities in the Unites States, 
                and effective monitoring of its pollutant levels is crucial to maintain healthy air-quality standards in the city.

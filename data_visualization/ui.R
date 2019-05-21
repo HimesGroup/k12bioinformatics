@@ -15,7 +15,7 @@ shinyUI(fluidPage(
              br(),
              p("This app helps elaborate on basic concepts of data analysis and visualization. 
                You can upload a csv file with data of your choice and carry out basic data analysis. 
-               In absence of a user provided file, an example csv file of 'iris' R dataset is available to be uploaded and explore the analysis features."),
+               In absence of a user provided file, an example csv file of 'iris' R dataset is available to upload and explore the analysis features."),
              # Input: Select a file ----
              column(12, downloadButton(outputId="iris_data_download",label="Download iris dataset file"), align="left"), 
              br(),br(),hr(),

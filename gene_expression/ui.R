@@ -77,7 +77,7 @@ shinyUI(fluidPage(
              br(),
              p(h3("Identifying Differentially Expressed Genes")),
              fluidRow(column(12,p(h4("Volcano Plots")),
-             p("Volcano plot (probes with an ajusted p-value <0.05 are present in red)"),
+             p("Volcano plot (probes with an adjusted p-value <0.05 are present in red)"),
              imageOutput("volcanoPlot",height="310px"))),
              br(),hr(),
              fluidRow(column(12,p(h4("Top 50 Differentially Expressed Genes")),
