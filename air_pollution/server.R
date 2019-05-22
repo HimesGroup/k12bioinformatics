@@ -6,6 +6,7 @@ library(tidyr)
 library(tidyverse)
 library(reshape2)
 library(gsheet)
+library(RColorBrewer)
 library(ggiraph)
 source("air_pollution_global.R")
 
