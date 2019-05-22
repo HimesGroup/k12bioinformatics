@@ -27,6 +27,12 @@ months <- c("Jan","Feb","Mar","Apr","May","June","Jul","Aug","Sept","Oct","Nov",
 ph_df$Year <- as.factor(ph_df$Year)
 ph_df$Month <- factor(ph_df$Month,levels=months)
 
+#Get CO data from EPA file
+co_df <- read.csv("../databases/philadelphia_CO.csv")
+co_df$Year <- as.factor(co_df$Year)
+co_df$Month <- factor(co_df$Month,levels=months)
+
+
 
 ##Set colors
 #set colors
@@ -74,20 +80,31 @@ scatterplot_func <- function(var,pvar){
 
 #Barplot I
 barplot_func <- function(data){
-  ggplot(data, aes(x=State, y=PM, fill=PM)) + geom_bar(stat="identity") + scale_fill_viridis_c(option = "inferno",direction = -1) + 
-    labs(x="",y="PM 2.5 (Sept 2017)") + 
-    theme_bw() + theme(legend.position = "none",axis.title=element_text(size=12),axis.text=element_text(size=12))
+  ggplot(data, aes(x=State, y=PM, fill=PM)) + geom_bar(stat="identity",colour="black") + #scale_fill_viridis_c(option = "inferno",direction = 1) + 
+    scale_fill_gradientn(colours=terrain.colors(8)) +
+    labs(x="",y="PM 2.5 μg/m3 (Sept 2017)") + 
+    theme_bw() + 
+    theme(
+      legend.position = "none",
+      axis.title=element_text(size=12),
+      axis.text=element_text(size=12),
+      panel.border = element_blank(), panel.grid.major = element_blank(),
+      panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
 }
 
 #Barplot II
-scatplot_func_ph <- function(data){
+scatplot_func_ph <- function(data,title){
+  col = brewer.pal(11, "Spectral")
+  #col =  col[!col %in% "#FFFFBF"]
   data$PM <- round(data$PM2.5,2)
   ggplot(data, aes(x=Month, y=PM2.5, group=Year,colour=Year,tooltip = PM)) + geom_point_interactive() + geom_line() + 
-    labs(x="",y="PM 2.5 levels") + scale_color_manual(values = clrs[1:12]) +
+    labs(x="",y=title) + #scale_color_manual(values = clrs[1:12]) +
+    scale_color_manual(values=col) + 
     theme_bw() + 
     theme(legend.text = element_text(size=10),
           axis.title=element_text(size=10),
-          axis.text=element_text(size=10))
+          axis.text=element_text(size=10)) 
+    
 }
 
 # library(pargasite)
@@ -117,7 +134,8 @@ scatplot_func_ph <- function(data){
 # count = 1
 # 
 # for (i in seq(1,length(fdates))){
-#   pm <- getMonthPollutionEstimate(pk12$Longitude, pk12$Latitude, pollutant="PM2.5", monthyear = fdates[i])
+#   #pm <- getMonthPollutionEstimate(pk12$Longitude, pk12$Latitude, pollutant="PM2.5", monthyear = fdates[i])
+#   pm <- getMonthPollutionEstimate(pk12$Longitude, pk12$Latitude, pollutant="CO", monthyear = fdates[i])
 #   pm_list[[i]] <- pm
 #   if (i %% 12 == 0){
 #     y_list[[i]] <- years[count]
@@ -127,8 +145,10 @@ scatplot_func_ph <- function(data){
 #     }
 # }
 # 
-# ph_df <- data.frame("Dates" = fdates, "PM2.5" = unlist(pm_list),"Year" = unlist(y_list),"Month"= months)
-# write.csv(ph_df,"../databases/philadelphia_PM.csv", row.names = FALSE)
+# #ph_df <- data.frame("Dates" = fdates, "PM2.5" = unlist(pm_list),"Year" = unlist(y_list),"Month"= months)
+# #write.csv(ph_df,"../databases/philadelphia_PM.csv", row.names = FALSE)
+# co_df <- data.frame("Dates" = fdates, "CO" = unlist(pm_list),"Year" = unlist(y_list),"Month"= months)
+# write.csv(co_df,"../databases/philadelphia_CO.csv", row.names = FALSE)
 
 
 
