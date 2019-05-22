@@ -47,7 +47,7 @@ hist_func <- function(Con,var){
   df <- data[[Con]]
   bw <- (2 * IQR(df)) / length(df)^(1/3) #Freedman-Diaconis rule 
   #breaks=seq(min(df), max(df)),
-  ggplot(data=data, aes_string(Con)) + geom_histogram(col="#D55E00", fill="#56B4E9",alpha=0.6,binwidth = bw) + labs(x=var, y="Count") + #xlim(c(min(df),max(df))) + 
+  ggplot(data=data, aes_string(Con)) + geom_histogram(col="grey18", fill=color_status[[var]],alpha=0.6,binwidth = bw) + labs(x=var, y="Count") + #xlim(c(min(df),max(df))) + 
     theme_bw() +
     theme(legend.text = element_text(size=14),
           axis.title=element_text(size=15),
