@@ -32,7 +32,7 @@ shinyUI(fluidPage(
              fluidRow(column(12, align="center",
              div(style="display: inline-block;",imageOutput("affy_image")),
              div(style="display: inline-block;",imageOutput("raw_image")))),
-             br(),br(),hr(),
+             hr(),
              p(h4("To Learn More")),
              p("For this tutorial, we analyzed data and provide it for you to explore gene expression data. 
                If you are interested in analyzing gene expression microarray data on your own, 
@@ -86,7 +86,7 @@ shinyUI(fluidPage(
              br(),hr(),
              fluidRow(column(12,p(h4("Checking Results of Top Genes")),
              uiOutput("genesAvail"), tags$head(tags$style(type="text/css", "#curr_gene {width: 190px}")),
-             plotOutput("barPlot"))),
+             plotOutput("boxPlot",height="auto",width="auto"))),
              br(),br(),br(),hr(),
              fluidRow(column(12,p(h4("Heatmap of Top Differentially Expressed Genes")), # # Sidebar with a slider input for number of bins 
              sidebarLayout(

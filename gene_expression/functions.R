@@ -47,7 +47,7 @@ topgene_boxplot_func <- function(tb) { # comp: comparison status
           axis.title.x = element_blank(),
           strip.text.x = element_text(size = 15),
           title = element_text(size=15),
-          axis.text=element_text(size=14)) + facet_grid(. ~ Probes) 
+          axis.text=element_text(size=14)) + facet_wrap(. ~ Probes) 
   
   # if (nrow(tb) > 1){ g1 + facet_grid(. ~ Probes) + labs(title=paste0("Smoker vs Non-Smoker: gene ", gene),y="Normalized Read Count") }
   # else{ g1 + labs(title=title,y="Normalized Read Count") }

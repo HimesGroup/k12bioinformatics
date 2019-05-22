@@ -33,16 +33,16 @@ shinyServer(function(input, output,session) {
   output$affy_image <- renderImage({
     return(list(
       src = "../databases/affymetrix_chip.png",
-      height= 420,
-      width = 400,
+      height= 320,
+      width = 250,
       filetype = "image/png",
       alt = "Affymetrix Chip"))}, deleteFile = FALSE)
   
   output$raw_image <- renderImage({
     return(list(
       src = "../databases/Raw_Data_GSE8823.png",
-      height= 400,
-      width = 400,
+      height= 300,
+      width = 250,
       filetype = "image/png",
       alt = "Raw Data"))}, deleteFile = FALSE)
   
@@ -88,7 +88,8 @@ shinyServer(function(input, output,session) {
   
   #DE results table
   output$DEtable <- renderDataTable({
-    datreform_func(de_results) #%>% dplyr::arrange(adj.P.Val) %>% top_n(50)
+    de_df <- datreform_func(de_results) #%>% dplyr::arrange(adj.P.Val) %>% top_n(50)
+    de_df %>% dplyr::rename(`Gene Symbol`= SYMBOL)
   }, options = list(pageLength=10, searching=FALSE))
   
   #Volcano plot image
@@ -105,14 +106,18 @@ shinyServer(function(input, output,session) {
   
   #Width for plot
   get_width <- reactive({
-    800 + 90*(nrow(gene_de()))})
+    400 + 50*(nrow(gene_de()))}) #800
+  
+  #Get height for plot
+  get_height <- reactive({
+    200 + 90*(nrow(gene_de()))}) #800
   
   #Barplot output
-  output$barPlot <- renderPlot({
+  output$boxPlot <- renderPlot({
     validate(need(curr_gene() != "", "Please enter a gene id")) # no gene symbol was input
     #Selected gene
     topgene_boxplot_func(gene_de())
-  },height=400, width=get_width) #increase width depending on facets
+  },height=get_height, width=get_width) #increase width depending on facets
 
   #Heatmap
   output$heatMap <- renderPlot({
