@@ -1,6 +1,7 @@
 library(shiny)
 library(plyr)
 library(dplyr)
+library(RColorBrewer)
 library(ggplot2)
 #library(rCharts) #install with devtools (install_github("rCharts", "ramnathv"))
 source("data_vis_global.R")
@@ -26,7 +27,10 @@ shinyServer(function(input, output){
 
   ##Uploaded dataset
   #Get discrete variables from uploaded dataset
-  contents <- reactive({if(!is.null(input$file1)){read.csv(input$file1$datapath,header = TRUE,sep = ",")}})
+  contents <- reactive({if(!is.null(input$file1)){
+    df <- read.csv(input$file1$datapath,header = TRUE,sep = ",",na.strings=c("","NA"))
+    na.omit(df)}
+    })
   output$contents <- renderDataTable({contents()}, options = list(pageLength=10, searching=FALSE))
   
   disc_var <- reactive({
@@ -42,22 +46,39 @@ shinyServer(function(input, output){
   output$vardData <- renderDataTable({if(!is.null(contents())){data.frame("Discrete variables"= disc_var())}},options = list(pageLength=10, searching=FALSE))
   
   #Discrete variable 
-  output$disc = renderUI({if(!is.null(contents())){selectInput('disc', 'Select categorical variable:', choices = disc_var(),multiple=FALSE,width="220px")}else{NULL}})
+  output$disc = renderUI({if(!is.null(contents())){selectInput('disc', 'Select categorical variable:', choices = disc_var(),width="220px")}else{NULL}})
   #bivariate tab
-  output$bdisc = renderUI({if(!is.null(contents())){selectInput('bdisc', 'Select categorical variable:', choices = disc_var(),multiple=FALSE,width="220px")}else{NULL}})
+  output$bdisc = renderUI({if(!is.null(contents())){selectInput('bdisc', 'Select categorical variable:', choices = disc_var(),width="220px")}else{NULL}})
   
   #Continuous variable
-  output$cont = renderUI({if(!is.null(contents())){selectInput('cont', 'Select continuous variable:', choices = cont_var(),multiple=FALSE,width="220px")}else{NULL}})
+  output$cont = renderUI({if(!is.null(contents())){selectInput('cont', 'Select continuous variable:', choices = cont_var(),width="220px")}else{NULL}})
   #bivariate tab
-  output$bcont = renderUI({if(!is.null(contents())){selectInput('bcont', 'Select continuous variable:', choices = cont_var(),multiple=FALSE,width="220px")}else{NULL}})
+  output$bcont = renderUI({if(!is.null(contents())){selectInput('bcont', 'Select continuous variable:', choices = cont_var(),width="220px")}else{NULL}})
   
   #Plots - Univariate
-  output$barplotUP <- renderPlot({if(!is.null(input$disc)){barplot_func(input$disc,contents())}else{NULL}})
-  output$histPlotUP <- renderPlot({if(!is.null(input$cont)){hist_func(input$cont,contents())}else{NULL}})
+  observe({ print(input$disc)})
   
+  get_width <- reactive({
+    if(!is.null(contents())){
+      len = length(levels(contents()[[input$disc]]))
+      wid = 110*len
+      if (wid < 600){wid = 600}
+      wid}})
+  
+  output$barplotUP <- renderPlot({if(!is.null(input$disc)){barplot_func(input$disc,contents())}else{NULL}},width = get_width)
+  output$histPlotUP <- renderPlot({if(!is.null(input$cont)){hist_func(input$cont,contents())}else{NULL}}, width = 600)
+  
+ 
   #Plots - Bivariate
-  output$fbarplotUP <- renderPlot({if(!is.null(input$bdisc)){barplot_both_func(input$bdisc,input$bcont,contents())}else{NULL}})
-  output$boxPlotUP <- renderPlot({if(!is.null(input$bdisc)){boxplot_func(input$bdisc,input$bcont,contents())}else{NULL}})
+  get_width_bi <- reactive({
+    if(!(is.null(contents()))){
+      len = length(levels(contents()[[input$bdisc]]))
+      wid = 110*len
+      if (wid < 620){wid = 620}
+      wid}})
+  
+  output$fbarplotUP <- renderPlot({if(!is.null(contents())){barplot_both_func(input$bdisc,input$bcont,contents())}else{NULL}},width=get_width_bi)
+  output$boxPlotUP <- renderPlot({if(!is.null(contents())){boxplot_func(input$bdisc,input$bcont,contents())}else{NULL}},width = get_width_bi)
   
   #IRIS data download
   output$iris_data_download <- downloadHandler(

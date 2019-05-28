@@ -71,22 +71,22 @@ shinyUI(fluidPage(
             dataTableOutput("vardData"),
             br(), hr(),
             h4(p("Categorical Variables")),
-            p("The distribution for the categorical variables with number of levels between 2-10 is displayed here."),
+            p("The distribution for the categorical variables with number of levels between 2-15 is displayed here."),
             uiOutput('disc'),
-            plotOutput("barplotUP",height="400px",width="550px"),
+            plotOutput("barplotUP",height="400px",width="auto"),
             br(), hr(),
             h4(p("Continuous Variables")),
             uiOutput('cont'),
             br(),
             p("Histogram showing distribution of continuous variables"),
-            plotOutput("histPlotUP",height="400px",width="550px"),
+            plotOutput("histPlotUP",height="400px",width="auto"),
             br()),
     tabPanel("Bivariate Analysis", br(),
             p("Relationship between the categorical and continuous variables in the uploaded data"),
             uiOutput('bdisc'),
             uiOutput('bcont'),
-            plotOutput("fbarplotUP",height="400px",width="700px"),
+            plotOutput("fbarplotUP",height="400px",width="auto"),
             p("Boxplot showing summary of variables"),
-            plotOutput("boxPlotUP",height="400px",width="550px")))
+            plotOutput("boxPlotUP",height="400px",width="auto")))
   
 ))
