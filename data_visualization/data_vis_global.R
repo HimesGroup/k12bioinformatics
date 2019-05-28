@@ -14,6 +14,25 @@ iris_data <- read.csv("../databases/iris_dataset.csv")
 ## FUNCTIONS ##
 ###############
 
+#set colors
+colours <- c("#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7",
+                             "#7570B3", "#E7298A", "#66A61E", "#E6AB02", "#A6761D", "#666666","#8DD3C7","#BEBADA",  #CB and Dark2
+                             brewer.pal(11, "Spectral"),
+                             brewer.pal(11, "Set3"),
+                             brewer.pal(11, "Paired")) 
+
+set_colors <- function(data){
+  choices = get_discrete_var(data)
+  color_list = list()
+  for (i in choices) { 
+    color_list =  append(color_list,levels(data[[i]]))
+  }
+  col = colours[1:length(color_list)]
+  names(col) <- color_list
+  return(col)
+}
+
+
 ##BARPLOT##
 barplot_func <- function(x,data){
   color_status <- set_colors(data)
@@ -55,7 +74,7 @@ barplot_both_func <- function(x,y,data){
 ##BOXPLOT##
 boxplot_func <- function(x,y,data){
   color_status <- set_colors(data)
-  ggplot(data, aes_string(x=x,y=y,fill=x)) + geom_boxplot(outlier.colour=NA, lwd=0.2, color="grey18") + 
+  ggplot(data, aes_string(x=x,y=y,fill=x)) + geom_boxplot(outlier.colour=NA, lwd=0.2, color="grey18",na.rm=TRUE) + 
     stat_boxplot(geom ='errorbar', color="grey18") + 
     labs(x=x, y=y) + geom_jitter(size=1,position = position_jitter(width=0.2)) + 
     scale_fill_manual(values=unlist(lapply(levels(data[[x]]), function(m) color_status[[m]]))) + theme_bw() +
@@ -67,8 +86,9 @@ boxplot_func <- function(x,y,data){
 ##HISTOGRAM##
 hist_func <- function(Con,data){
   df <- data[[Con]]
-  bw <- (2 * IQR(df)) / length(df)^(1/3) #
-  ggplot(data=data, aes_string(x=Con)) + geom_histogram(col="#D55E00", fill="#56B4E9",alpha=0.6,binwidth = bw) + labs(x=Con, y="Count") +  
+  bw <- nclass.Sturges(df)
+  #bw <- (2 * IQR(df)) / length(df)^(1/3) #Freedman–Diaconis rule 
+  ggplot(data=data, aes_string(x=Con)) + geom_histogram(col="#D55E00", fill="#56B4E9",alpha=0.6,binwidth = bw,na.rm=TRUE) + labs(x=Con, y="Count") +  
     theme_bw() +
     theme(legend.text = element_text(size=14),
           axis.title=element_text(size=15),
@@ -85,23 +105,11 @@ get_discrete_var <- function(data){
   all_vars <- names(data)[sapply(data, class) == "factor"]
   for (i in seq(1,length(all_vars))){
     len = length(levels(data[[all_vars[i]]]))
-    if (len >=2 && len <=10){
+    if (len >=2 && len <=15){
       disc_var_lst[i] = all_vars[i]}
   }
   return(unlist(disc_var_lst))
 }
 
-#set colors
-color_status <- colours <- c("#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7","#7570B3", "#E7298A", "#66A61E", "#E6AB02", "#A6761D", "#666666","#8DD3C7","#BEBADA") #CB and Dark2
-
-set_colors <- function(data){
-  choices = get_discrete_var(data)
-  color_list = list()
-  for (i in choices) { 
-    color_list =  append(color_list,levels(data[[i]]))
-  }
-  names(color_status) <- color_list
-  return(color_status)
-}
 
 
