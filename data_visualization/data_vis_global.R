@@ -41,7 +41,7 @@ barplot_func <- function(x,data){
     theme(legend.text = element_text(size=14),
           axis.title=element_text(size=15),
           title = element_text(size=15),
-          axis.text=element_text(size=14))
+          axis.text=element_text(size=13))
   return(g1) 
   
 }
@@ -53,7 +53,7 @@ barplot_func_dodge <- function(x,a,data){
     theme(legend.text = element_text(size=14),
           axis.title=element_text(size=15),
           title = element_text(size=15),
-          axis.text=element_text(size=14))
+          axis.text=element_text(size=13))
   return(g1) 
   
 }
@@ -66,7 +66,7 @@ barplot_both_func <- function(x,y,data){
     theme(legend.text = element_text(size=14),
           axis.title=element_text(size=15),
           title = element_text(size=15),
-          axis.text=element_text(size=14))
+          axis.text=element_text(size=13))
   return(g1) 
   
 }
@@ -81,7 +81,7 @@ boxplot_func <- function(x,y,data){
     theme(legend.text = element_text(size=14),
           axis.title=element_text(size=15),
           title = element_text(size=15),
-          axis.text=element_text(size=14))}
+          axis.text=element_text(size=13))}
 
 ##HISTOGRAM##
 hist_func <- function(Con,data){
@@ -93,7 +93,7 @@ hist_func <- function(Con,data){
     theme(legend.text = element_text(size=14),
           axis.title=element_text(size=15),
           title = element_text(size=15),
-          axis.text=element_text(size=14)) ##0072B2 #xlim: 35,50
+          axis.text=element_text(size=13)) ##0072B2 #xlim: 35,50
 }
 
 ########################
