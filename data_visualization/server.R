@@ -62,7 +62,7 @@ shinyServer(function(input, output){
     if(!is.null(contents())){
       len = length(levels(contents()[[input$disc]]))
       wid = 110*len
-      if (wid < 600){wid = 600}
+      if (wid < 650){wid = 650}
       wid}})
   
   output$barplotUP <- renderPlot({if(!is.null(input$disc)){barplot_func(input$disc,contents())}else{NULL}},width = get_width)
@@ -74,7 +74,7 @@ shinyServer(function(input, output){
     if(!(is.null(contents()))){
       len = length(levels(contents()[[input$bdisc]]))
       wid = 110*len
-      if (wid < 620){wid = 620}
+      if (wid < 650){wid = 650}
       wid}})
   
   output$fbarplotUP <- renderPlot({if(!is.null(contents())){barplot_both_func(input$bdisc,input$bcont,contents())}else{NULL}},width=get_width_bi)
