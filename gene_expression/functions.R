@@ -124,3 +124,73 @@ pca_plot <- function(group_var){
           axis.text=element_text(size=14))
 }
 
+###Sample Characters
+#set colors
+
+#set colors
+clrs <- c("#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7",
+             "#7570B3", "#E7298A", "#66A61E", "#E6AB02", "#A6761D", "#666666","#8DD3C7","#BEBADA",  #CB and Dark2
+             brewer.pal(11, "Spectral"),
+             brewer.pal(11, "Set3"),
+             brewer.pal(11, "Paired")) 
+
+
+set_colors <- function(data){
+  choices = c("Treatment","Sex","Ancestry","ScanDate")
+  color_list = list()
+  for (i in choices) { 
+    color_list =  append(color_list,levels(data[[i]]))
+  }
+  col = clrs[1:length(color_list)]
+  names(col) <- color_list
+  return(col)
+}
+
+#Pheno_QC colour scheme
+color_status <- set_colors(pheno_QC)
+
+##BARPLOT##
+barplot_func <- function(x,data){
+  g1 <- ggplot(data, aes_string(x=x,fill=x)) + geom_bar(stat="count") + 
+    scale_fill_manual(values=unlist(lapply(levels(data[[x]]), function(y) color_status[[y]]))) + theme_bw() +
+    theme(legend.text = element_text(size=14),
+          axis.title=element_text(size=15),
+          title = element_text(size=15),
+          axis.text=element_text(size=13))
+  return(g1) 
+  
+}
+
+barplot_func_dodge <- function(x,a,data){
+  g1 <- ggplot(data, aes_string(x=x,fill=a)) + geom_bar(stat="count",position=position_dodge(preserve = "single")) + 
+    scale_fill_manual(values=unlist(lapply(levels(data[[a]]), function(y) color_status[[y]]))) + theme_bw() +
+    theme(legend.text = element_text(size=14),
+          axis.title=element_text(size=15),
+          title = element_text(size=15),
+          axis.text=element_text(size=13))
+  return(g1) 
+  
+}
+
+##HISTOGRAM##
+hist_func <- function(Con,data){
+  df <- data[[Con]]
+  bins = round(sqrt(length(df)))
+  ggplot(data=data, aes_string(x=Con)) + geom_histogram(col="#D55E00", fill="#56B4E9",alpha=0.6,bins = bins ,na.rm=TRUE) + labs(x=Con, y="Count") +  
+    theme_bw() +
+    theme(legend.text = element_text(size=14),
+          axis.title=element_text(size=15),
+          title = element_text(size=15),
+          axis.text=element_text(size=13)) ##0072B2 #xlim: 35,50
+}
+
+##BOXPLOT##
+boxplot_func <- function(x,y,data){
+  ggplot(data, aes_string(x=x,y=y,fill=x)) + geom_boxplot(outlier.colour=NA, lwd=0.2, color="grey18",na.rm=TRUE) + 
+    stat_boxplot(geom ='errorbar', color="grey18") + 
+    labs(x=x, y=y) + geom_jitter(size=1,position = position_jitter(width=0.2)) + 
+    scale_fill_manual(values=unlist(lapply(levels(data[[x]]), function(m) color_status[[m]]))) + theme_bw() +
+    theme(legend.text = element_text(size=14),
+          axis.title=element_text(size=15),
+          title = element_text(size=15),
+          axis.text=element_text(size=13))}

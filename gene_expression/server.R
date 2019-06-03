@@ -5,6 +5,7 @@ library(dplyr)
 library(reshape2)
 library(feather)
 library(viridis)
+library(RColorBrewer)
 library(gplots)
 library(devtools)
 source("functions.R")
@@ -28,6 +29,22 @@ shinyServer(function(input, output,session) {
       dplyr::select(GEO_ID, Smoking_status, Sex, Age, Ancestry)
   }, options = list(pageLength=10, searching=FALSE)
   )
+  
+  #Sample characteristics
+  #output$phenoData <- renderDataTable({pheno_QC %>% dplyr::select(GEO_ID, Smoking_status, Sex, Age, Ancestry)},options = list(pageLength=10, searching=FALSE))
+  
+  output$barPlot <- renderPlot({barplot_func(input$feat,pheno_QC)})
+
+  output$fbarPlot <- renderPlot({
+    barplot_func_dodge(input$svar,'Treatment',pheno_QC)
+    #barplot_func(input$var,pheno_QC) + facet_grid(.~Treatment) + theme(strip.text = element_text(size=15))
+  })
+
+  #output
+  output$histPlot <- renderPlot({hist_func("Age",pheno_QC)})
+
+  #output
+  output$sboxPlot <- renderPlot({boxplot_func(input$comp,"Age",pheno_QC)})
   
   #raw data image
   output$affy_image <- renderImage({

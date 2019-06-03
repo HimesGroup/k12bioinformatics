@@ -45,6 +45,32 @@ shinyUI(fluidPage(
              p("This app was created with",
                a("RStudio's Shiny.", href="http://www.rstudio.com/shiny", target="_blank"))
              ),
+    tabPanel("Sample Characteristics",
+             br(),
+             h3(p("Univariate Analysis")),
+             h4(p("Categorical Variables")),
+             p("Here, we can explore the phenotype data attributes. First, lets look at the distribution of all the variables using barplots.
+               A barplot (or barchart) is one of the most common type of plot.
+               It shows the relationship between a numerical variable and a categorical variable."),
+             selectInput("feat",label="Select variable:",choices=c("Treatment","Sex","Ancestry","ScanDate"),multiple=FALSE,width="220px",selected = "Treatment"),
+             plotOutput("barPlot",height="400px",width="550px"),
+             br(),hr(),
+             p("We can explore the phenotype data attributes with respect to the two main groups - smoker versus non-smoker."),
+             selectInput("svar",label="Select feature:",choices=c("Sex","Ancestry","ScanDate"),multiple=FALSE,width="220px",selected = "Sex"),
+             plotOutput("fbarPlot",height="400px",width="750px"),
+             hr(),
+             h4(p("Continuous Variables")),
+             p("A histogram shows the distribution of any numerical data using a single variable as input.
+               The variable is cut into multiple bins, where the height of the bin represents the number of observations per bin.
+               Here, we are using bins of size=2."),
+             plotOutput("histPlot",height="400px",width="550px"),
+             br(),hr(),
+             h3(p("Bivariate Analysis")),
+             h4(p("Continuous Variable vs. Categorical Variable")),
+             p("The boxplot gives summary of numerical values. The line in the middle denotes the median while the upper
+               and lower lines denote upper and lower quartiles."),
+             selectInput("comp",label="Select feature:",choices=c("Sex","Ancestry","Treatment"),multiple=FALSE,width="220px",selected = "Treatment"),
+             plotOutput("sboxPlot",height="400px",width="550px")),
     
     tabPanel("Quality Control",
              br(),
