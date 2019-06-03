@@ -18,8 +18,6 @@ iris_data <- read.csv("../databases/iris_dataset.csv")
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output){
-  output$phenoData <- renderDataTable({pheno_QC %>% dplyr::select(GEO_ID, Smoking_status, Sex, Age, Ancestry)},options = list(pageLength=10, searching=FALSE))
-
   #output
   ##Uploaded dataset
   #Get discrete variables from uploaded dataset
