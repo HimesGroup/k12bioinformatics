@@ -13,8 +13,8 @@ get_discrete_var <- function(data){
   
   for (i in seq(1,length(all_vars))){
     len = length(unique(data[[all_vars[i]]]))
-    if (len >=2 && len <=15){
-      #if (len <=15){
+    if (len >=2 && len <=70){
+    #if (len >=2){
       disc_var_lst[i] = all_vars[i]}
   }
   return(unlist(disc_var_lst))
@@ -30,7 +30,7 @@ get_cont_var <- function(data){
   
   for (i in seq(1,length(all_vars))){
     len = length(unique(data[[all_vars[i]]]))
-    if (len >=2 && len <=15){
+    if (len >=2){
       cont_var_lst[i] = all_vars[i]}
   }
   return(unlist(cont_var_lst))
@@ -42,11 +42,9 @@ get_cont_var <- function(data){
 ###############
 
 #set colors
-colours <- c("#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7",
-                             "#7570B3", "#E7298A", "#66A61E", "#E6AB02", "#A6761D", "#666666","#8DD3C7","#BEBADA",  #CB and Dark2
-                             brewer.pal(11, "Spectral"),
-                             brewer.pal(11, "Set3"),
-                             brewer.pal(11, "Paired")) 
+colours <- unique(c(brewer.pal(8, "Dark2"),brewer.pal(11, "Spectral"),brewer.pal(11, "Set3"),
+             brewer.pal(8, "Set2"),brewer.pal(9, "Set1"),brewer.pal(11, "Paired"),
+             brewer.pal(9, "Pastel1"),brewer.pal(8, "Pastel2"),brewer.pal(8, "Accent")))
 
 get_data <- function(data){
   choices = get_discrete_var(data)
@@ -69,9 +67,10 @@ set_colors <- function(data){
 
 ##BARPLOT##
 barplot_func <- function(x,data){
+  int_breaks <- function(x, n = 5) pretty(x, n)[pretty(x, n) %% 1 == 0] 
   data <- get_data(data)
   color_status <- set_colors(data)
-  g1 <- ggplot(data, aes_string(x=x,fill=x)) + geom_bar(stat="count") + 
+  g1 <- ggplot(data, aes_string(x=x,fill=x)) + geom_bar(stat="count") + scale_y_continuous(breaks = int_breaks) + 
     scale_fill_manual(values=unlist(lapply(levels(data[[x]]), function(y) color_status[[y]]))) + theme_bw() +
     theme(legend.text = element_text(size=14),
           axis.title=element_text(size=15),
@@ -98,8 +97,9 @@ barplot_func_dodge <- function(x,a,data){
 barplot_both_func <- function(x,y,data){
   data <- get_data(data)
   color_status <- set_colors(data)
-  g1 <- ggplot(data, aes_string(x=x,y=y,fill=x)) + geom_bar(stat="identity") +  
-    scale_fill_manual(values=unlist(lapply(levels(data[[x]]), function(m) color_status[[m]]))) + theme_bw() +
+  g1 <- ggplot(data, aes_string(x=x,y=y,fill=x)) + stat_summary(fun.y="mean", geom="bar") +  
+    scale_fill_manual(values=unlist(lapply(levels(data[[x]]), function(m) color_status[[m]]))) + 
+    labs(x=x, y=paste0("Average of ",y)) + theme_bw() +
     theme(legend.text = element_text(size=14),
           axis.title=element_text(size=15),
           title = element_text(size=15),
@@ -107,6 +107,8 @@ barplot_both_func <- function(x,y,data){
   return(g1) 
   
 }
+
+ggplot(df, aes(x=Species, y=Sepal.Length, fill=Species)) + stat_summary(fun.y="mean", geom="bar")
 
 ##BOXPLOT##
 boxplot_func <- function(x,y,data){

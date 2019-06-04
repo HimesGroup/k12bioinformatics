@@ -27,10 +27,10 @@ shinyUI(fluidPage(
     tabPanel("Univariate Analysis",
             br(),
             h3(p("Overview of data")),
-            h4(p("The continuous variables in the uploaded dataset are as follows:")),
+            h4(p("The continuous variables in the uploaded dataset with more than one unique entry are as follows:")),
             dataTableOutput("varcData"),
             br(),
-            h4(p("The categorical variables in the uploaded dataset are as follows:")),
+            h4(p("The categorical variables in the uploaded dataset with more than one unique entry are as follows:")),
             dataTableOutput("vardData"),
             br(), hr(),
             h4(p("Categorical Variables")),
@@ -50,7 +50,8 @@ shinyUI(fluidPage(
             p("Relationship between the categorical and continuous variables in the uploaded data"),
             uiOutput('bdisc'),
             uiOutput('bcont'),
-            #plotOutput("fbarplotUP",height="400px",width="auto"),
+            p("Barplot showing average measurement per site"),
+            plotOutput("fbarplotUP",height="400px",width="auto"),
             p("Boxplot showing summary of variables"),
             plotOutput("boxPlotUP",height="400px",width="auto")))
   
