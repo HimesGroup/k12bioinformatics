@@ -69,7 +69,7 @@ shinyServer(function(input, output){
     440 + 110*abs(len-5)
     })
   
-  #output$fbarplotUP <- renderPlot({barplot_both_func(input$bdisc,input$bcont,contents())},width=get_width_bi)
+  output$fbarplotUP <- renderPlot({barplot_both_func(input$bdisc,input$bcont,contents())},width=get_width_bi)
   output$boxPlotUP <- renderPlot({boxplot_func(input$bdisc,input$bcont,contents())},width = get_width_bi)
   
   #IRIS data download
