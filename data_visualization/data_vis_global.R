@@ -108,8 +108,6 @@ barplot_both_func <- function(x,y,data){
   
 }
 
-ggplot(df, aes(x=Species, y=Sepal.Length, fill=Species)) + stat_summary(fun.y="mean", geom="bar")
-
 ##BOXPLOT##
 boxplot_func <- function(x,y,data){
   data <- get_data(data)
