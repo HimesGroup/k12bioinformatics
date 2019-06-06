@@ -46,13 +46,15 @@ shinyUI(fluidPage(
              plotOutput("kbarPlot",height="380px",width = "300px"),br(), br(),hr()),br(), br(),br(),hr()),
     
     tabPanel("Seasonality of measures",br(),
-      h3(p("PM 2.5 and CO values in Philadelphia 2007-2017")),
+      h3(p("PM 2.5 and CO values in 2007-2017")),
+      selectInput("State","Select Location:",choices = c("Philadelphia, PA"="PA", "Midtown Manhattan, NY"="NY", "Los Angeles, CA"="CA", "Miami, FL"="FL", 
+                              "Pierre, SD"="SD", "Billings, MO"="MO", "Standing Rock, NM"="NM","Portland, OR"="OR"), selected="PA"),
       selectInput("Year","Select Years:",choices = seq(2007,2017) , selected = "2007",multiple = TRUE),
       h4(p("PM 2.5 levels for the selected year(s).")),
-      p("The distribution of EPA values of PM 2.5 for University City, Philadelphia from 2007 to 2017."),
+      p("The distribution of EPA values of PM 2.5 from 2007 to 2017."),
       ggiraphOutput("PMPlot",height="500px",width="700px"),br(), 
       h4(p("CO levels for the selected year(s).")),
-      p("The distribution of EPA values of CO for University City, Philadelphia from 2007 to 2017."),
+      p("The distribution of EPA values of CO from 2007 to 2017."),
       ggiraphOutput("COPlot",height="500px",width="700px"),br(), 
       
       br()),
