@@ -141,7 +141,7 @@ scatplot_func_ph <- function(data,title){
 #   co_list <- list()
 #   y_list <- list()
 #   count = 1
-#   
+# 
 #   for (i in seq(1,length(fdates))){
 #     pm <- getMonthPollutionEstimate(pk12$Longitude, pk12$Latitude, pollutant="PM2.5", monthyear = fdates[i])
 #     co <- getMonthPollutionEstimate(pk12$Longitude, pk12$Latitude, pollutant="CO", monthyear = fdates[i])
@@ -154,10 +154,10 @@ scatplot_func_ph <- function(data,title){
 #       y_list[[i]] <- years[count]
 #     }
 #   }
-#   
+# 
 #   ph_df <- data.frame("Dates" = fdates, "PM2.5" = unlist(pm_list),"Year" = unlist(y_list),"Month"= months,"State"=k)
 #   ph_list[[iter]] <- ph_df
-#   co_df <- data.frame("Dates" = fdates, "CO" = unlist(pm_list),"Year" = unlist(y_list),"Month"= months,"State"=k)
+#   co_df <- data.frame("Dates" = fdates, "CO" = unlist(co_list),"Year" = unlist(y_list),"Month"= months,"State"=k)
 #   ch_list[[iter]] <- co_df
 #   iter = iter + 1
 # }
