@@ -141,13 +141,13 @@ shinyServer(function(input, output) {
   
   #PM 2.5
   output$PMPlot <- renderggiraph({
-    pmdata <- ph_df %>% dplyr::filter(Year %in% input$Year)
+    pmdata <- ph_df %>% dplyr::filter(Year %in% input$Year, State %in% input$State)
     girafe(ggobj = scatplot_func_ph(pmdata,"PM 2.5 (μg/m3)"))
   })
   
   #CO 
   output$COPlot <- renderggiraph({
-    codata <- co_df %>% dplyr::filter(Year %in% input$Year) %>% rename(PM2.5=CO)
+    codata <- co_df %>% dplyr::filter(Year %in% input$Year, State %in% input$State) %>% rename(PM2.5=CO)
     girafe(ggobj = scatplot_func_ph(codata, "CO (ppm)"))
   })
   
