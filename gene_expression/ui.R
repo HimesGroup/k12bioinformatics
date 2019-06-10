@@ -29,9 +29,9 @@ shinyUI(fluidPage(
              p("From GEO, we also found out what microarray chip was used to obtain gene expression data (it was one called 
                Affymetrix HG-U133 Plus 2.0). Next, we obtained 24 files, each corresponding to the image intensities 
                captured across each chip for each individual."),
-             fluidRow(column(12, align="center",
-             div(style="display: inline-block;",imageOutput("affy_image")),
-             div(style="display: inline-block;",imageOutput("raw_image")))),
+             fluidRow(column(12, align="center",imageOutput("affy_image",height="420px"))),
+             #div(style="display: inline-block;",imageOutput("affy_image")),
+             #div(style="display: inline-block;",imageOutput("raw_image")))),
              hr(),
              p(h4("To Learn More")),
              p("For this tutorial, we analyzed data and provide it for you to explore gene expression data. 
