@@ -49,20 +49,28 @@ shinyServer(function(input, output,session) {
   #raw data image
   output$affy_image <- renderImage({
     return(list(
-      src = "../databases/affymetrix_chip.png",
-      height= 320,
-      width = 250,
-      filetype = "image/png",
+      src = "../databases/affymetrix.tiff",
+      height= 420,
+      width = 550,
+      filetype = "image/tiff",
       alt = "Affymetrix Chip"))}, deleteFile = FALSE)
   
-  output$raw_image <- renderImage({
-    return(list(
-      src = "../databases/Raw_Data_GSE8823.png",
-      height= 300,
-      width = 250,
-      filetype = "image/png",
-      alt = "Raw Data"))}, deleteFile = FALSE)
-  
+  # output$affy_image <- renderImage({
+  #   return(list(
+  #     src = "../databases/affymetrix_chip.png",
+  #     height= 320,
+  #     width = 250,
+  #     filetype = "image/png",
+  #     alt = "Affymetrix Chip"))}, deleteFile = FALSE)
+  # 
+  # output$raw_image <- renderImage({
+  #   return(list(
+  #     src = "../databases/Raw_Data_GSE8823.png",
+  #     height= 300,
+  #     width = 250,
+  #     filetype = "image/png",
+  #     alt = "Raw Data"))}, deleteFile = FALSE)
+  # 
 
   #RMA image
   output$RMAimage <- renderImage({ 
