@@ -43,7 +43,8 @@ shinyUI(fluidPage(
             uiOutput('cont'),
             br(),
             p("Histogram showing distribution of continuous variables"),
-            plotOutput("histPlotUP",height="400px",width="auto"),
+            sidebarLayout(sidebarPanel(sliderInput(inputId = "bins",label = "Number of bins:",min = 1,max = 20,value = 5)),
+            plotOutput("histPlotUP",height="400px",width="auto")),
             br()),
     
     tabPanel("Bivariate Analysis", br(),
@@ -52,7 +53,11 @@ shinyUI(fluidPage(
             uiOutput('bcont'),
             p("Barplot showing average measurement per site"),
             plotOutput("fbarplotUP",height="400px",width="auto"),
+            br(),
             p("Boxplot showing summary of variables"),
-            plotOutput("boxPlotUP",height="400px",width="auto")))
+            plotOutput("boxPlotUP",height="400px",width="auto"),
+            br(),
+            textOutput("sptitle"),
+            plotOutput("scatterplotDT",height="400px",width="auto")))
   
 ))

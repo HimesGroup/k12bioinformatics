@@ -152,11 +152,13 @@ color_status <- set_colors(pheno_QC)
 ##BARPLOT##
 barplot_func <- function(x,data){
   g1 <- ggplot(data, aes_string(x=x,fill=x)) + geom_bar(stat="count") + 
-    scale_fill_manual(values=unlist(lapply(levels(data[[x]]), function(y) color_status[[y]]))) + theme_bw() +
-    theme(legend.text = element_text(size=14),
+    scale_fill_manual(values=unlist(lapply(levels(data[[x]]), function(y) color_status[[y]]))) + theme_bw() + 
+    theme(legend.position="none",
           axis.title=element_text(size=15),
           title = element_text(size=15),
-          axis.text=element_text(size=13))
+          axis.text.y=element_text(size=13),
+          axis.text.x=element_blank(),
+          axis.ticks.x=element_blank())
   return(g1) 
   
 }
@@ -164,7 +166,7 @@ barplot_func <- function(x,data){
 barplot_func_dodge <- function(x,a,data){
   g1 <- ggplot(data, aes_string(x=x,fill=a)) + geom_bar(stat="count",position=position_dodge(preserve = "single")) + 
     scale_fill_manual(values=unlist(lapply(levels(data[[a]]), function(y) color_status[[y]]))) + theme_bw() +
-    theme(legend.text = element_text(size=14),
+    theme(legend.position="none",
           axis.title=element_text(size=15),
           title = element_text(size=15),
           axis.text=element_text(size=13))
@@ -172,10 +174,37 @@ barplot_func_dodge <- function(x,a,data){
   
 }
 
+##BARPLOT PERCENTAGE
+barplot_pc_func <- function(x,data){
+  data$Var = x
+  g1 <- ggplot(data, aes_string(x="Var", fill=x)) + geom_bar(position="fill") +
+    scale_fill_manual(values=unlist(lapply(levels(data[[x]]), function(y) color_status[[y]]))) + scale_y_continuous(name="Percent") + 
+  theme_bw() +
+  theme(legend.text = element_text(size=14),
+          axis.title=element_text(size=15),
+          axis.title.x=element_blank(),
+          title = element_text(size=15),
+          axis.text.y=element_text(size=13),
+          axis.text.x=element_blank(),
+          axis.ticks.x=element_blank())
+  return(g1) 
+}
+
+barplot_pc_func_dodge <- function(x,a,data){
+  g1 <- ggplot(data, aes_string(x=x,fill=a)) + geom_bar(position="fill") + 
+    scale_fill_manual(values=unlist(lapply(levels(data[[a]]), function(y) color_status[[y]]))) + scale_y_continuous(name="Percent") + 
+    theme_bw() +
+    theme(legend.text = element_text(size=14),
+          axis.title=element_text(size=15),
+          title = element_text(size=15),
+          axis.text=element_text(size=13))
+  return(g1) 
+}
+
 ##HISTOGRAM##
-hist_func <- function(Con,data){
+hist_func <- function(Con,data,bins){
   df <- data[[Con]]
-  bins = round(sqrt(length(df)))
+  #bins = round(sqrt(length(df)))
   ggplot(data=data, aes_string(x=Con)) + geom_histogram(col="#D55E00", fill="#56B4E9",alpha=0.6,bins = bins ,na.rm=TRUE) + labs(x=Con, y="Count") +  
     theme_bw() +
     theme(legend.text = element_text(size=14),
