@@ -222,4 +222,6 @@ boxplot_func <- function(x,y,data){
     theme(legend.text = element_text(size=14),
           axis.title=element_text(size=15),
           title = element_text(size=15),
-          axis.text=element_text(size=13))}
+          axis.text.y=element_text(size=13),
+          axis.text.x=element_blank(),axis.ticks.x=element_blank())}
+

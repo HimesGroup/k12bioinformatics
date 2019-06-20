@@ -78,7 +78,7 @@ shinyServer(function(input, output){
   if(length(date)!=0){
     len = length(unique(contents()[[date]]))
     wid = 110*len
-    sptitle <- renderText({ h4(p("Scatterplot of average summary across dates/timepoints (if available)")) })
+    output$sptitle <- renderText("Scatterplot of average summary across dates/timepoints (if available)")
     output$scatterplotDT <- renderPlot({
       validate(need(!is.null(input$bcont), "No data file found. Please upload csv file to perform analysis."))
       scatplot_func_dt(contents(),input$bcont)},width=wid)

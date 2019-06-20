@@ -57,7 +57,7 @@ shinyUI(fluidPage(
              br(),hr(),
              p("We can explore the phenotype data attributes with respect to the two main groups - smoker versus non-smoker."),
              selectInput("svar",label="Select feature:",choices=c("Sex","Ancestry","ScanDate"),multiple=FALSE,width="220px",selected = "Sex"),
-             plotOutput("fbarPlot",height="400px",width="1250px"))),
+             plotOutput("fbarPlot",height="400px",width="1350px"))),
              hr(),
              fluidRow(column(12,h4(p("Continuous Variables")),
              p("A histogram shows the distribution of any numerical data using a single variable as input.
