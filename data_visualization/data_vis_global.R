@@ -77,7 +77,9 @@ barplot_func <- function(x,data){
     theme(legend.text = element_text(size=14),
           axis.title=element_text(size=15),
           title = element_text(size=15),
-          axis.text=element_text(size=13))
+          axis.text.y=element_text(size=13),
+          axis.text.x = element_blank(),
+          axis.ticks.x = element_blank())
   return(g1) 
   
 }
@@ -105,7 +107,9 @@ barplot_both_func <- function(x,y,data){
     theme(legend.text = element_text(size=14),
           axis.title=element_text(size=15),
           title = element_text(size=15),
-          axis.text=element_text(size=13))
+          axis.text.y=element_text(size=13),
+          axis.text.x = element_blank(),
+          axis.ticks.x = element_blank())
   return(g1) 
   
 }
@@ -121,7 +125,9 @@ boxplot_func <- function(x,y,data){
     theme(legend.text = element_text(size=14),
           axis.title=element_text(size=15),
           title = element_text(size=15),
-          axis.text=element_text(size=13))}
+          axis.text.y=element_text(size=13),
+          axis.text.x = element_blank(),
+          axis.ticks.x = element_blank())}
 
 ##HISTOGRAM##
 hist_func <- function(Con,data,bins){
