@@ -60,7 +60,7 @@ shinyServer(function(input, output){
   
   output$barplotUP <- renderPlot({barplot_func(input$disc,contents())},width = get_width)
   output$histPlotUP <- renderPlot({validate(need(!is.null(input$cont), "No data file found. Please upload csv file to perform analysis."))
-                                  hist_func(input$cont,contents())}, width = 600)
+                                  hist_func(input$cont,contents(),input$bins)}, width = 600)
   
   #Plots - Bivariate
   get_width_bi <- reactive({
@@ -71,6 +71,18 @@ shinyServer(function(input, output){
   
   output$fbarplotUP <- renderPlot({barplot_both_func(input$bdisc,input$bcont,contents())},width=get_width_bi)
   output$boxPlotUP <- renderPlot({boxplot_func(input$bdisc,input$bcont,contents())},width = get_width_bi)
+  
+  #DATE scatterplot
+  observe({
+  date <- names(contents())[grep(paste("DATE",collapse="|"),names(contents()),ignore.case = TRUE)]
+  if(length(date)!=0){
+    len = length(unique(contents()[[date]]))
+    wid = 110*len
+    sptitle <- renderText({ h4(p("Scatterplot of average summary across dates/timepoints (if available)")) })
+    output$scatterplotDT <- renderPlot({
+      validate(need(!is.null(input$bcont), "No data file found. Please upload csv file to perform analysis."))
+      scatplot_func_dt(contents(),input$bcont)},width=wid)
+  } else {NULL}})
   
   #IRIS data download
   output$iris_data_download <- downloadHandler(

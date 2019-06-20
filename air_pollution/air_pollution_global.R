@@ -107,5 +107,21 @@ scatplot_func_ph <- function(data,title){
     
 }
 
+## Making rasters of data
 
+# library(raster)
+# library(dplyr)
+# library(leaflet)
+# library(rgdal)
+# 
+# 
+# mdata <- tf #%>% dplyr::filter(Variables == "Humidity") 
+# r <- raster(xmn = -124, xmx = -66, ymn = 17.9, ymx = 50, nrows = 20, ncols = 20)
+# map.layer.h <- rasterize(mdata[,3:2], r, mdata[which(mdata$Variables=="Humidity"),"Measurement"], fun = mean, na.rm = TRUE)
+# map.layer.d <- rasterize(mdata[,3:2], r, mdata[which(mdata$Variables=="DustPM"),"Measurement"], fun = mean, na.rm = TRUE)
+# map.layer.t <- rasterize(mdata[,3:2], r, mdata[which(mdata$Variables=="Temperature"),"Measurement"], fun = mean, na.rm = TRUE)
+# map.layer.a <- rasterize(mdata[,3:2], r, mdata[which(mdata$Variables=="AirQuality"),"Measurement"], fun = mean, na.rm = TRUE)
+# 
+# leaflet(data=mdata) %>% addTiles() %>%
+#     addRasterImage(map.layer.a,colors = "BuPu",opacity = 0.8)
 

@@ -48,29 +48,30 @@ shinyUI(fluidPage(
     tabPanel("Sample Characteristics",
              br(),
              h3(p("Univariate Analysis")),
-             h4(p("Categorical Variables")),
+             fluidRow(column(12,h4(p("Categorical Variables")),
              p("Here, we can explore the phenotype data attributes. First, lets look at the distribution of all the variables using barplots.
                A barplot (or barchart) is one of the most common type of plot.
                It shows the relationship between a numerical variable and a categorical variable."),
              selectInput("feat",label="Select variable:",choices=c("Treatment","Sex","Ancestry","ScanDate"),multiple=FALSE,width="220px",selected = "Treatment"),
-             plotOutput("barPlot",height="400px",width="550px"),
+             plotOutput("barPlot",height="400px",width="750px"),
              br(),hr(),
              p("We can explore the phenotype data attributes with respect to the two main groups - smoker versus non-smoker."),
              selectInput("svar",label="Select feature:",choices=c("Sex","Ancestry","ScanDate"),multiple=FALSE,width="220px",selected = "Sex"),
-             plotOutput("fbarPlot",height="400px",width="750px"),
+             plotOutput("fbarPlot",height="400px",width="1250px"))),
              hr(),
-             h4(p("Continuous Variables")),
+             fluidRow(column(12,h4(p("Continuous Variables")),
              p("A histogram shows the distribution of any numerical data using a single variable as input.
                The variable is cut into multiple bins, where the height of the bin represents the number of observations per bin.
                Here, we are using bins of size=2."),
-             plotOutput("histPlot",height="400px",width="550px"),
-             br(),hr(),
-             h3(p("Bivariate Analysis")),
+             sidebarLayout(sidebarPanel(sliderInput(inputId = "bins",label = "Number of bins:",min = 1,max = 20,value = 5)),
+             plotOutput("histPlot",height="400px",width="550px")))),
+             br(),br(),br(),br(),br(),br(),br(),hr(),
+             fluidRow(column(12,h3(p("Bivariate Analysis")),
              h4(p("Continuous Variable vs. Categorical Variable")),
              p("The boxplot gives summary of numerical values. The line in the middle denotes the median while the upper
                and lower lines denote upper and lower quartiles."),
              selectInput("comp",label="Select feature:",choices=c("Sex","Ancestry","Treatment"),multiple=FALSE,width="220px",selected = "Treatment"),
-             plotOutput("sboxPlot",height="400px",width="550px")),
+             plotOutput("sboxPlot",height="400px",width="550px")))),
     
     tabPanel("Quality Control",
              br(),

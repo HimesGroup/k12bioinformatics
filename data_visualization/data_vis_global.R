@@ -6,10 +6,12 @@
 get_discrete_var <- function(data){
   disc_var_lst <- list()
   vars1 <- names(data)[sapply(data, class) == "factor"]
-  toMatch <- c("NAME","CODE","LATITUDE","LONGITUDE")
+  toMatch <- c("NAME","CODE") #"LATITUDE","LONGITUDE"
   vars2 <- names(data)[grep(paste(toMatch,collapse="|"),names(data),ignore.case = TRUE)]
   vars3 <- names(data)[grep("ID",names(data))]
   all_vars <- unique(append(vars1,append(vars2,vars3)))
+  date <- c("DATE","TIME")
+  all_vars <- all_vars[!grepl(paste0(date, collapse = "|"), all_vars,ignore.case = TRUE)]
   
   for (i in seq(1,length(all_vars))){
     len = length(unique(data[[all_vars[i]]]))
@@ -42,7 +44,7 @@ get_cont_var <- function(data){
 ###############
 
 #set colors
-colours <- unique(c(brewer.pal(8, "Dark2"),brewer.pal(11, "Spectral"),brewer.pal(11, "Set3"),
+colours <- unique(c(brewer.pal(11, "Set3"),brewer.pal(8, "Dark2"),brewer.pal(11, "Spectral"),
              brewer.pal(8, "Set2"),brewer.pal(9, "Set1"),brewer.pal(11, "Paired"),
              brewer.pal(9, "Pastel1"),brewer.pal(8, "Pastel2"),brewer.pal(8, "Accent")))
 
@@ -122,10 +124,10 @@ boxplot_func <- function(x,y,data){
           axis.text=element_text(size=13))}
 
 ##HISTOGRAM##
-hist_func <- function(Con,data){
+hist_func <- function(Con,data,bins){
   data <- get_data(data)
   df <- data[[Con]]
-  bins = round(sqrt(length(df)))
+  #bins = round(sqrt(length(df)))
   #bw <- nclass.Sturges(df)
   #bw <- (2 * IQR(df))/ length(df)^(1/3) #Freedman–Diaconis rule 
   #breaks <- pretty(range(df), n = nclass.FD(df), min.n = 1)
@@ -137,4 +139,27 @@ hist_func <- function(Con,data){
           title = element_text(size=15),
           axis.text=element_text(size=13)) ##0072B2 #xlim: 35,50
 }
+
+##SCATTERPLOT OF DATE##
+scatplot_func_dt <- function(data,cont){
+  date <- names(data)[grep(paste("DATE",collapse="|"),names(data),ignore.case = TRUE)]
+  col = colours[1:length(levels(data[[date]]))]
+  g1 <- ggplot(data, aes_string(x=date,y=cont,colour=date)) + stat_summary(fun.y="mean", geom="point",size=5) + 
+    labs(x=toupper(date),y=paste0("Average of ",cont)) + 
+    scale_color_manual(values=col) + 
+    theme_bw() + 
+    theme(legend.title = element_text(size=15),
+      legend.text = element_text(size=14),
+          axis.title=element_text(size=15),
+          axis.text.y=element_text(size=15),
+          axis.text.x=element_blank(),
+          axis.ticks.x=element_blank()) 
+  return(g1) 
+}
+
+
+
+
+
+
 

@@ -8,6 +8,7 @@ library(viridis)
 library(RColorBrewer)
 library(gplots)
 library(devtools)
+library(cowplot)
 source("functions.R")
 
 #Load phenotype and results data
@@ -33,15 +34,18 @@ shinyServer(function(input, output,session) {
   #Sample characteristics
   #output$phenoData <- renderDataTable({pheno_QC %>% dplyr::select(GEO_ID, Smoking_status, Sex, Age, Ancestry)},options = list(pageLength=10, searching=FALSE))
   
-  output$barPlot <- renderPlot({barplot_func(input$feat,pheno_QC)})
+  output$barPlot <- renderPlot({
+    plot_grid(barplot_func(input$feat,pheno_QC),NULL,barplot_pc_func(input$feat,pheno_QC),ncol=3,rel_widths = c(1.5,0.1,1),align = "h")
+    })
 
   output$fbarPlot <- renderPlot({
     barplot_func_dodge(input$svar,'Treatment',pheno_QC)
+    plot_grid(barplot_func_dodge(input$svar,'Treatment',pheno_QC),NULL,barplot_pc_func_dodge(input$svar,'Treatment',pheno_QC),ncol=3,rel_widths = c(1.5,0.1,1.5),align = "h")
     #barplot_func(input$var,pheno_QC) + facet_grid(.~Treatment) + theme(strip.text = element_text(size=15))
   })
 
   #output
-  output$histPlot <- renderPlot({hist_func("Age",pheno_QC)})
+  output$histPlot <- renderPlot({hist_func("Age",pheno_QC,input$bins)})
 
   #output
   output$sboxPlot <- renderPlot({boxplot_func(input$comp,"Age",pheno_QC)})
@@ -54,23 +58,6 @@ shinyServer(function(input, output,session) {
       width = 550,
       filetype = "image/tiff",
       alt = "Affymetrix Chip"))}, deleteFile = FALSE)
-  
-  # output$affy_image <- renderImage({
-  #   return(list(
-  #     src = "../databases/affymetrix_chip.png",
-  #     height= 320,
-  #     width = 250,
-  #     filetype = "image/png",
-  #     alt = "Affymetrix Chip"))}, deleteFile = FALSE)
-  # 
-  # output$raw_image <- renderImage({
-  #   return(list(
-  #     src = "../databases/Raw_Data_GSE8823.png",
-  #     height= 300,
-  #     width = 250,
-  #     filetype = "image/png",
-  #     alt = "Raw Data"))}, deleteFile = FALSE)
-  # 
 
   #RMA image
   output$RMAimage <- renderImage({ 
@@ -150,6 +137,7 @@ shinyServer(function(input, output,session) {
     corplot_func(top_probes)
   },height=750, width=950)
 })
+
 
 
 
