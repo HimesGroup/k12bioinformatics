@@ -54,7 +54,7 @@ shinyServer(function(input, output,session) {
   output$affy_image <- renderImage({
     return(list(
       src = "../databases/affymetrix.tiff",
-      height= 420,
+      height= 380,
       width = 550,
       filetype = "image/tiff",
       alt = "Affymetrix Chip"))}, deleteFile = FALSE)
