@@ -2,7 +2,6 @@ library(pargasite)
 library(dplyr)
 library(data.table)
 
-
 #Get PM 2.5 measures for tab "EPA Measures in USA"
 k12 <- read.table("k12_sites.txt",header=TRUE,sep="/t")
 long <- k12$Longitude
