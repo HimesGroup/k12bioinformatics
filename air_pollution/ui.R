@@ -3,8 +3,9 @@ library(shinythemes)
 library(leaflet)
 library(ggiraph)
 
-cities <- c("Philadelphia, PA"="PA", "Midtown Manhattan, NY"="NY", "Los Angeles, CA"="CA", "Miami, FL"="FL", 
-            "Pierre, SD"="SD", "Billings, MO"="MO", "Standing Rock, NM"="NM","Portland, OR"="OR")
+cities <- c("Los Angeles, CA"="CA", "Miami, FL"="FL", "Billings, MO"="MO", "Standing Rock, NM"="NM",
+              "Midtown Manhattan, NY"="NY","Portland, OR"="OR","Philadelphia, PA"="PA",
+              "Pierre, SD"="SD")
 
 shinyUI(fluidPage(
   theme = shinythemes::shinytheme("cerulean"),
@@ -33,14 +34,14 @@ shinyUI(fluidPage(
              p("The locations mapped across the country are Philadelphia, New York, Los Angeles, Miami, Pierre, Billings, Standing Rock and Portland. 
                The EPA PM 2.5 data was acquired from the R package", a(href="https://github.com/HimesGroup/pargasite","pargasite", target="_blank"),
                "developed by Himes Lab. The measures shown are for the month of September 2017."),
-             div(style="display: inline-block;",tags$a(imageOutput("PhImage",height= "200px"),href="https://cdn.vox-cdn.com/thumbor/iz1UYrej5uzUbQZrtlu2tAxkoV4=/0x0:5959x3973/1200x900/filters:focal(2504x1511:3456x2463)/cdn.vox-cdn.com/uploads/chorus_image/image/54302495/shutterstock_618667091.0.jpg")),
-             div(style="display: inline-block;",tags$a(imageOutput("NYImage",height= "200px"),href="https://imgs.6sqft.com/wp-content/uploads/2016/06/13172431/Midtown-Skyline-in-2020.jpg")),
-             div(style="display: inline-block;",tags$a(imageOutput("LAImage",height= "200px"),href="https://upload.wikimedia.org/wikipedia/commons/3/30/Echo_Park_Lake_with_Downtown_Los_Angeles_Skyline.jpg")),
-             div(style="display: inline-block;",tags$a(imageOutput("MAImage",height= "200px"),href="https://img1.coastalliving.timeinc.net/sites/default/files/styles/landscape_3_2/public/image/2017/01/main/miami-florida-luxury-destination-2017-144863422.jpg")),
-             div(style="display: inline-block;",tags$a(imageOutput("PRImage",height= "200px"),href="https://www.cityofpierre.org/ImageRepository/Document?documentID=2587")),
-             div(style="display: inline-block;",tags$a(imageOutput("BLImage",height= "200px"),href="https://www.visitmt.com/binaries/small/content/gallery/MTOT/responsive/media-carousel-h/cities-towns/billings/cvb-night-cityscape_credit-visit-billings.jpg")),
-             div(style="display: inline-block;",tags$a(imageOutput("SRImage",height= "200px"),href="https://imgur.com/wMBC0")),
-             div(style="display: inline-block;",tags$a(imageOutput("POImage",height= "200px"),href="https://localadventurer.com/wp-content/uploads/2017/08/things-to-do-in-portland-bucket-list.jpg")),br(), br(),
+             div(style="display: inline-block;",tags$a(imageOutput("PhImage",height= "200px"),href="https://cdn.vox-cdn.com/thumbor/iz1UYrej5uzUbQZrtlu2tAxkoV4=/0x0:5959x3973/1200x900/filters:focal(2504x1511:3456x2463)/cdn.vox-cdn.com/uploads/chorus_image/image/54302495/shutterstock_618667091.0.jpg",target="_blank")),
+             div(style="display: inline-block;",tags$a(imageOutput("NYImage",height= "200px"),href="https://imgs.6sqft.com/wp-content/uploads/2016/06/13172431/Midtown-Skyline-in-2020.jpg",target="_blank")),
+             div(style="display: inline-block;",tags$a(imageOutput("LAImage",height= "200px"),href="https://upload.wikimedia.org/wikipedia/commons/3/30/Echo_Park_Lake_with_Downtown_Los_Angeles_Skyline.jpg",target="_blank")),
+             div(style="display: inline-block;",tags$a(imageOutput("MAImage",height= "200px"),href="https://img1.coastalliving.timeinc.net/sites/default/files/styles/landscape_3_2/public/image/2017/01/main/miami-florida-luxury-destination-2017-144863422.jpg",target="_blank")),
+             div(style="display: inline-block;",tags$a(imageOutput("PRImage",height= "200px"),href="https://www.cityofpierre.org/ImageRepository/Document?documentID=2587",target="_blank")),
+             div(style="display: inline-block;",tags$a(imageOutput("BLImage",height= "200px"),href="https://www.visitmt.com/binaries/small/content/gallery/MTOT/responsive/media-carousel-h/cities-towns/billings/cvb-night-cityscape_credit-visit-billings.jpg",target="_blank")),
+             div(style="display: inline-block;",tags$a(imageOutput("SRImage",height= "200px"),href="https://imgur.com/wMBC0",target="_blank")),
+             div(style="display: inline-block;",tags$a(imageOutput("POImage",height= "200px"),href="https://localadventurer.com/wp-content/uploads/2017/08/things-to-do-in-portland-bucket-list.jpg",target="_blank")),br(), br(),
              mainPanel(leafletOutput("kmap",height = 500)),
              sidebarPanel(checkboxGroupInput("kcity", "Select Location:",
                 choices = cities, selected=cities), 
@@ -48,8 +49,7 @@ shinyUI(fluidPage(
     
     tabPanel("Seasonality of measures",br(),
       h3(p("PM 2.5 and CO values in 2007-2017")),
-      selectInput("State","Select Location:",choices = c("Philadelphia, PA"="PA", "Midtown Manhattan, NY"="NY", "Los Angeles, CA"="CA", "Miami, FL"="FL", 
-                              "Pierre, SD"="SD", "Billings, MO"="MO", "Standing Rock, NM"="NM","Portland, OR"="OR"), selected="PA"),
+      selectInput("State","Select Location:",choices = cities, selected="PA"),
       selectInput("Year","Select Years:",choices = seq(2007,2017) , selected = "2007",multiple = TRUE),
       h4(p("PM 2.5 levels for the selected year(s).")),
       p("The distribution of EPA values of PM 2.5 from 2007 to 2017."),
