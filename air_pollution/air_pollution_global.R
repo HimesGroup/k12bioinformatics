@@ -81,7 +81,7 @@ scatterplot_func <- function(var,pvar){
 #Barplot I
 barplot_func <- function(data){
   ggplot(data, aes(x=State, y=PM, fill=PM)) + geom_bar(stat="identity",colour="black") + #scale_fill_viridis_c(option = "inferno",direction = 1) + 
-    scale_fill_gradientn(colours=terrain.colors(8)) +
+    scale_fill_gradientn(colours=rev(terrain.colors(8)[1:7])) +
     labs(x="",y="PM 2.5 μg/m3 (Sept 2017)") + 
     theme_bw() + 
     theme(

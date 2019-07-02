@@ -108,7 +108,7 @@ shinyUI(fluidPage(
              imageOutput("volcanoPlot",height="310px"))),
              br(),hr(),
              fluidRow(column(12,p(h4("Top 50 Differentially Expressed Genes")),
-             p("Show top 50 probes sorted by un-adjusted p-values"),
+             p("Show top 50 probes sorted by p-values"),
              dataTableOutput("DEtable"))),
              br(),hr(),
              fluidRow(column(12,p(h4("Checking Results of Top Genes")),
