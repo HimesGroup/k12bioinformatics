@@ -120,9 +120,9 @@ shinyUI(fluidPage(
                sidebarPanel(
                  sliderInput("probes",
                              "Number of top probes/genes:",
-                             min = 50,
-                             max = 500,
-                             value = 150)),
+                             min = 2,
+                             max = 50,
+                             value = 50)),
                  
             plotOutput("heatMap")))), 
             br(),br(),br(),br()
