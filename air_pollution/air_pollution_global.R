@@ -1,17 +1,19 @@
 
 ##Get data
-URL <- "https://docs.google.com/spreadsheets/d/1V5J_TuhfZTFBfPcg1JMavzFrbB2vavd3JMNX1f1oAQw/edit#gid=420394624"
-df <- gsheet2tbl(URL)
-df <- tidyr::separate(data=df,
-                      col=Location,
-                      into=c("Latitude", "Longitude"),
-                      sep=",",
-                      remove=FALSE)
+#URL <- "https://docs.google.com/spreadsheets/d/1V5J_TuhfZTFBfPcg1JMavzFrbB2vavd3JMNX1f1oAQw/edit#gid=420394624"
+#df <- gsheet2tbl(URL)
+# df <- tidyr::separate(data=df,
+#                       col=Location,
+#                       into=c("Latitude", "Longitude"),
+#                       sep=",",
+#                       remove=FALSE)
+
+df <- readRDS("../databases/AirQualityData.RDS")
 df$Latitude <- stringr::str_replace_all(df$Latitude, "[(]", "")
 df$Longitude <- stringr::str_replace_all(df$Longitude, "[)]", "")
 df$Latitude <- as.numeric(df$Latitude)
 df$Longitude <- as.numeric(df$Longitude)
-df <- df %>% dplyr::select(-ACTION)
+#df <- df %>% dplyr::select(-ACTION)
 df$Date <- gsub(" .*"," ", df$Timestamp)
 df$Time <- gsub(".* ","", df$Timestamp)
 df$Date <-  gsub("*.EDT","",strptime(as.character(df$Date), "%m/%d/%Y"))
