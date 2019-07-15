@@ -1,6 +1,7 @@
 library(gsheet)
 library(tidyr)
 library(reshape2)
+library(dplyr)
 #TO DO: add error handling in case there is a problem loading the google doc
 
 ##Get data
@@ -15,7 +16,7 @@ df <- tidyr::separate(data=df,
 #df <- readRDS("../databases/AirQualityData.RDS")
 df$Latitude <- as.numeric(df$Latitude)
 df$Longitude <- as.numeric(df$Longitude)
-#df <- df %>% dplyr::select(-ACTION)
+df <- df %>% dplyr::select(-ACTION)
 df$Date <- gsub(" .*"," ", df$Timestamp)
 df$Time <- gsub(".* ","", df$Timestamp)
 df$Date <-  gsub("*.EDT","",strptime(as.character(df$Date), "%m/%d/%Y"))
