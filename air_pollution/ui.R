@@ -1,6 +1,7 @@
 library(shiny)
 library(shinythemes)
 library(leaflet)
+library(ggiraph)
 
 cities <- c("Los Angeles, CA"="CA", "Miami, FL"="FL", "Billings, MO"="MO", "Standing Rock, NM"="NM",
               "Midtown Manhattan, NY"="NY","Portland, OR"="OR","Philadelphia, PA"="PA",

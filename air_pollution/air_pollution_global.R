@@ -5,7 +5,8 @@ library(dplyr)
 #TO DO: add error handling in case there is a problem loading the google doc
 
 ##Get data
-URL <- "https://docs.google.com/spreadsheets/d/1V5J_TuhfZTFBfPcg1JMavzFrbB2vavd3JMNX1f1oAQw/edit#gid=420394624"
+#URL <- "https://docs.google.com/spreadsheets/d/1V5J_TuhfZTFBfPcg1JMavzFrbB2vavd3JMNX1f1oAQw/edit#gid=420394624"
+URL <- "https://docs.google.com/spreadsheets/d/13-F4sAcX5Ph-IKp0W8uTRfT1RmUeEGbwtK7PMVUylws/edit#gid=0"
 df <- gsheet2tbl(URL)
 df <- tidyr::separate(data=df,
                        col=Location,
