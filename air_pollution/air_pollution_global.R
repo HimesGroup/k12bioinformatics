@@ -2,26 +2,47 @@ library(gsheet)
 library(tidyr)
 library(reshape2)
 library(dplyr)
-#TO DO: add error handling in case there is a problem loading the google doc
+library(RCurl) #to check if url exists
 
 ##Get data
 #URL <- "https://docs.google.com/spreadsheets/d/1V5J_TuhfZTFBfPcg1JMavzFrbB2vavd3JMNX1f1oAQw/edit#gid=420394624"
 URL <- "https://docs.google.com/spreadsheets/d/13-F4sAcX5Ph-IKp0W8uTRfT1RmUeEGbwtK7PMVUylws/edit#gid=0"
-df <- gsheet2tbl(URL)
+
+#Error handling 
+message = NULL
+
+#Case: there is a problem with the google doc url or the column names 
+if(url.exists(URL)){
+  df <- gsheet2tbl(URL)
+  if(length(setdiff(c("Timestamp","Name","Location","PM2.5","CO","Site_Type","Comment"),names(df)))!= 0){
+    message = "Warning: google sheet did not load properly so a saved version is being used instead"
+  } 
+} else if(!url.exists(URL)){
+  message = "Warning: google sheet did not load properly so a saved version is being used instead"
+}
+
+#Read in saved version
+if (!is.null(message)){
+  df <- readRDS("../databases/AirQualityData_15thJuly_2019.RDS")
+}
+
+## Wrangle dataframe in customized format
 df <- tidyr::separate(data=df,
                        col=Location,
                        into=c("Latitude", "Longitude"),
                        sep=",",
                        remove=FALSE)
 
-#df <- readRDS("../databases/AirQualityData.RDS")
+
 df$Latitude <- as.numeric(df$Latitude)
 df$Longitude <- as.numeric(df$Longitude)
-df <- df %>% dplyr::select(-ACTION)
+#df <- df %>% dplyr::select(-ACTION)
 df$Date <- gsub(" .*"," ", df$Timestamp)
 df$Time <- gsub(".* ","", df$Timestamp)
 df$Date <-  gsub("*.EDT","",strptime(as.character(df$Date), "%m/%d/%Y"))
 df <- filter(df, PM2.5<500)
+
+#Dataframe with column names as row names for "Variables" column
 tf <- melt(df %>% dplyr::select(Name,Latitude,Longitude,Date,Time,Site_Type,Comment,PM2.5,CO),id = c("Name","Latitude","Longitude","Date","Time","Site_Type","Comment"))
 names(tf) <- c("Name", "Latitude", "Longitude", "Date", "Time", "Site_Type", "Comment", "Variables", "Measurement")
 clrs <- c("#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7","#7570B3", "#E7298A", "#66A61E", "#E6AB02", "#A6761D", "#666666","#8DD3C7","#BEBADA") #CB and Dark2
@@ -74,11 +95,11 @@ boxplot_func_ap <- function(x,y,var){
           title = element_text(size=15),
           axis.text=element_text(size=14))}
 
-#scatterplot
-
+#Bivariate scatterplot
 scatterplot_func <- function(var,pvar){
   data <- df %>% dplyr::select(var,pvar)
-  ggplot(df, aes_string(x=var, y=pvar)) + geom_point(aes(color=Date,shape = Name),size=3) + theme_bw() + scale_shape_manual(values=seq(0,length(unique(df$Name)))) + 
+  sval = rep(0:25,10)
+  ggplot(df, aes_string(x=var, y=pvar)) + geom_point(aes(color=Date,shape = Name),size=3) + theme_bw() + scale_shape_manual(values=sval[0:length(df$Name)]) + 
     theme(legend.text = element_text(size=14),
           axis.title=element_text(size=15),
           title = element_text(size=15),

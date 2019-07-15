@@ -10,48 +10,39 @@ source("air_pollution_global.R")
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
+  
+  #Googlesheet error print
+  if (!is.null(message)){
+    output$Warning <- renderText(message)
+  } 
    
   #Introduction
   output$airqdata <- renderDataTable({ df %>%
       dplyr::select(-Timestamp,-Location)
   }, options = list(pageLength=10, searching=FALSE))
     
-  #Measurement I
-  output$var <- renderUI({
-    selectInput("var","Select Measurement Types:",choices = unique(tf$Variables))
-  })
-  
+  #Measurement I - PM2.5
   #Output
   output$distBoxplot <- renderPlot({
-    if(!is.null(input$var)){
-      boxplot_func_ap("Variables","Measurement",input$var)
-    } else {NULL}
+    boxplot_func_ap("Variables","Measurement","PM2.5")
   })
 
   output$disHist <- renderPlot({
-    if(!is.null(input$var)){hist_func("Measurement",input$var)}else{NULL}})
+    hist_func("Measurement","PM2.5")})
   
-  #Measurement II
-  output$pvar <- renderUI({
-    selectInput("pvar"," ",choices = setdiff(as.vector(unique(tf$Variables)),input$var))
-  })
-  
+  #Measurement II - CO
   #Output
   output$pdistBoxplot <- renderPlot({
-    if(!is.null(input$pvar)){
-      boxplot_func_ap("Variables","Measurement",input$pvar)
-    }else{NULL}
+    boxplot_func_ap("Variables","Measurement","CO")
   })
   
   output$pdisHist <- renderPlot({
-    if(!is.null(input$pvar)){
-      hist_func("Measurement",input$pvar)
-    }else{NULL}
+    hist_func("Measurement","CO")
   })
   
-  #Scatterplot
+  # Bivariate Scatterplot
   output$Scatplot <- renderPlot({
-    if((!is.null(input$var)) & (!is.null(input$pvar))){scatterplot_func(input$var,input$pvar)}else{NULL}})
+    scatterplot_func("PM2.5","CO")})
   
   ## Map
   data <- reactive({

@@ -25,9 +25,10 @@ shinyUI(fluidPage(
                This app provides spatial visualization of air quality levels in the United States, 
                 with special focus on Philadelphia. Here, we are using the data acquired by students via pollution monitors at different locations in the USA. 
                 The student-acquired data is available", 
-               a(href = "https://docs.google.com/spreadsheets/d/1V5J_TuhfZTFBfPcg1JMavzFrbB2vavd3JMNX1f1oAQw/edit#gid=420394624","here.",target="_blank"),
+               a(href = "https://docs.google.com/spreadsheets/d/13-F4sAcX5Ph-IKp0W8uTRfT1RmUeEGbwtK7PMVUylws/edit#gid=0","here.",target="_blank"),
                "Along with this, we are also using publicly available data from the EPA to look at trends of PM 2.5 levels at different locations 
                over multiple time periods."),br(),
+             span(textOutput("Warning"),style="color:red"), br(),
              dataTableOutput("airqdata")),
     tabPanel("EPA Measures in USA",br(),
              h3(p("PM2.5 measures across particular locations in the USA")),
@@ -63,9 +64,7 @@ shinyUI(fluidPage(
     tabPanel("Overview of sensor measures",br(),
              h3(p("Characterisitics of Air Pollution Data")),
              h4(p("Univariate Analysis:")),
-             p("Choose two variables to plot:"),
-             div(style="display: inline-block;",uiOutput("var")),
-             div(style="display: inline-block;",uiOutput("pvar")),br(),br(),
+             p("Choose two variables to plot:"), br(), br(),
              div(style="display: inline-block;",plotOutput("distBoxplot",height="300px",width = "300px")),
              div(style="display: inline-block;",plotOutput("disHist",height="300px",width = "500px")),br(),br(),
              div(style="display: inline-block;",plotOutput("pdistBoxplot",height="300px",width = "300px")),
