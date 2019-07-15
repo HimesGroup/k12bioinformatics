@@ -1,7 +1,6 @@
 library(shiny)
 library(shinythemes)
 library(leaflet)
-library(ggiraph)
 
 cities <- c("Los Angeles, CA"="CA", "Miami, FL"="FL", "Billings, MO"="MO", "Standing Rock, NM"="NM",
               "Midtown Manhattan, NY"="NY","Portland, OR"="OR","Philadelphia, PA"="PA",
@@ -32,7 +31,7 @@ shinyUI(fluidPage(
     tabPanel("EPA Measures in USA",br(),
              h3(p("PM2.5 measures across particular locations in the USA")),
              p("The locations mapped across the country are Philadelphia, New York, Los Angeles, Miami, Pierre, Billings, Standing Rock and Portland. 
-               The EPA PM 2.5 data was acquired from the R package", a(href="https://github.com/HimesGroup/pargasite","pargasite", target="_blank"),
+               The EPA PM2.5 data was acquired from the R package", a(href="https://github.com/HimesGroup/pargasite","pargasite", target="_blank"),
                "developed by Himes Lab. The measures shown are for the month of September 2017."),
              div(style="display: inline-block;",tags$a(imageOutput("PhImage",height= "200px"),href="https://cdn.vox-cdn.com/thumbor/iz1UYrej5uzUbQZrtlu2tAxkoV4=/0x0:5959x3973/1200x900/filters:focal(2504x1511:3456x2463)/cdn.vox-cdn.com/uploads/chorus_image/image/54302495/shutterstock_618667091.0.jpg",target="_blank")),
              div(style="display: inline-block;",tags$a(imageOutput("NYImage",height= "200px"),href="https://imgs.6sqft.com/wp-content/uploads/2016/06/13172431/Midtown-Skyline-in-2020.jpg",target="_blank")),
@@ -48,11 +47,11 @@ shinyUI(fluidPage(
              plotOutput("kbarPlot",height="380px",width = "300px"),br(), br(),hr()),br(), br(),br(),hr()),
     
     tabPanel("Seasonality of measures",br(),
-      h3(p("PM 2.5 and CO values in 2007-2017")),
+      h3(p("PM2.5 and CO values in 2007-2017")),
       selectInput("State","Select Location:",choices = cities, selected="PA"),
       selectInput("Year","Select Years:",choices = seq(2007,2017) , selected = "2007",multiple = TRUE),
-      h4(p("PM 2.5 levels for the selected year(s).")),
-      p("The distribution of EPA values of PM 2.5 from 2007 to 2017."),
+      h4(p("PM2.5 levels for the selected year(s).")),
+      p("The distribution of EPA values of PM2.5 from 2007 to 2017."),
       ggiraphOutput("PMPlot",height="500px",width="700px"),br(), 
       h4(p("CO levels for the selected year(s).")),
       p("The distribution of EPA values of CO from 2007 to 2017."),
@@ -77,7 +76,7 @@ shinyUI(fluidPage(
              mainPanel(
              leafletOutput("mymap",height = 700)),
              sidebarPanel(
-             selectInput("type","Select Variable:",choices = c("Temperature","Humidity","DustPM","AirQuality") , selected = "AirQuality"),
+             selectInput("type","Select Variable:",choices = c("PM2.5","CO") , selected = "PM2.5"),
              dateRangeInput("dates", label = "Date Range:", start = "2019-04-17", end = Sys.Date()),
              uiOutput("Name"),br())))
              

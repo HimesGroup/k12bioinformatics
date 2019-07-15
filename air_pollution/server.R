@@ -1,12 +1,10 @@
-library(shiny)
-library(leaflet)
 library(dplyr)
 library(viridis)
 library(tidyr)
 library(tidyverse)
 library(reshape2)
-library(gsheet)
 library(RColorBrewer)
+library(gdtools)
 library(ggiraph)
 source("air_pollution_global.R")
 
@@ -157,17 +155,19 @@ shinyServer(function(input, output) {
     mdata <- k12_df %>% dplyr::filter(State %in% input$kcity)
     mdata$PM <- round(mdata$PM,2)
     #col_status = viridis(256, option = "B")
-    col_status = terrain.colors(8)[1:7]
+    #col_status = terrain.colors(8)[1:7]
+    col_status = rev(c("#ffffb2", "#fed976", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#b10026"))
     pal <- colorNumeric(palette = col_status,domain = mdata$PM)
     ppal <- colorNumeric(palette = rev(col_status),domain = mdata$PM)
     m <- leaflet(data=mdata) %>%
       addTiles() %>%
+      addProviderTiles(providers$Esri.NatGeoWorldMap) %>%
       setView(-98.35, 39.5, zoom = 4.1) %>%
       #setView(lng = mean(mdata$Longitude),lat = mean(mdata$Latitude),zoom=4.4) %>%
-      addLegend(pal = pal,values = unique(mdata$PM),position = "bottomleft",title = "PM 2.5 (μg/m3)",opacity = 1,labFormat = labelFormat(transform = function(x) sort(x, decreasing = TRUE))) %>%
-      addCircleMarkers(lng = ~Longitude,lat = ~Latitude,color = ~ppal(PM),stroke = FALSE, fillOpacity = 1,
+      addLegend(pal = pal,values = unique(mdata$PM), position="bottomleft", title="PM2.5 (μg/m3)", opacity=1, labFormat=labelFormat(transform = function(x) sort(x, decreasing = TRUE))) %>%
+      addCircleMarkers(lng=~Longitude, lat=~Latitude, color=~ppal(PM), radius=7, stroke=FALSE, fillOpacity=1,
                        popup = paste("Name:", mdata$City, "<br>",
-                                     "PM 2.5:", mdata$PM, "<br>")) 
+                                     "PM2.5:", mdata$PM, "<br>")) 
     
     m
   })
@@ -176,16 +176,18 @@ shinyServer(function(input, output) {
   output$mymap <- renderLeaflet({
     mdata <- data()
     #col_status = viridis(256, option = "B")
-    col_status = terrain.colors(8)[1:7]
+    #col_status = terrain.colors(8)[1:7]
+    col_status = rev(c("#ffffb2", "#fed976", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#b10026"))
     #pal <- colorFactor(palette = col_status,levels = unique(mdata$Measurement))
-    pal <- colorNumeric(palette = col_status,domain = c(mdata$Measurement))
-    ppal <- colorNumeric(palette = rev(col_status),domain = c(mdata$Measurement))
+    pal <- colorNumeric(palette=col_status, domain=c(mdata$Measurement))
+    ppal <- colorNumeric(palette=rev(col_status), domain=c(mdata$Measurement))
     m <- leaflet(data=mdata) %>%
       addTiles() %>%
-      setView(-78.35, 39.5, zoom = 5.8) %>%
+      addProviderTiles(providers$Esri.NatGeoWorldMap) %>%
+      setView(-75.19, 39.95, zoom=13) %>%
       #fitBounds(~min(mdata$Longitude), ~min(mdata$Latitude), ~max(mdata$Longitude), ~max(mdata$Latitude)) %>% 
-      addLegend(pal = pal,values = unique(mdata$Measurement),position = "bottomleft",title = input$type,opacity = 1,labFormat = labelFormat(transform = function(x) sort(x, decreasing = TRUE))) %>%
-      addCircleMarkers(lng = ~Longitude,lat = ~Latitude,color = ~ppal(Measurement),stroke = FALSE, fillOpacity = 1,  #lapply(input$name,function(x) color_status[[x]])
+      addLegend(pal = pal,values = unique(mdata$Measurement),position ="bottomleft", title=input$type, opacity=1, labFormat=labelFormat(transform = function(x) sort(x, decreasing = TRUE))) %>%
+      addCircleMarkers(lng=~Longitude, lat=~Latitude, color=~ppal(Measurement), radius=7, stroke=FALSE, fillOpacity=1, #lapply(input$name,function(x) color_status[[x]])
                        popup = paste("Name", mdata$Name, "<br>",
                                      "Timestamp:", mdata$Timestamp, "<br>",
                                      paste0(input$type,":"),mdata$Measurement, "<br>")) 

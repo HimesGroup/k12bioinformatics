@@ -1,24 +1,27 @@
+library(gsheet)
+library(tidyr)
+library(reshape2)
+#TO DO: add error handling in case there is a problem loading the google doc
 
 ##Get data
-#URL <- "https://docs.google.com/spreadsheets/d/1V5J_TuhfZTFBfPcg1JMavzFrbB2vavd3JMNX1f1oAQw/edit#gid=420394624"
-#df <- gsheet2tbl(URL)
-# df <- tidyr::separate(data=df,
-#                       col=Location,
-#                       into=c("Latitude", "Longitude"),
-#                       sep=",",
-#                       remove=FALSE)
+URL <- "https://docs.google.com/spreadsheets/d/1V5J_TuhfZTFBfPcg1JMavzFrbB2vavd3JMNX1f1oAQw/edit#gid=420394624"
+df <- gsheet2tbl(URL)
+df <- tidyr::separate(data=df,
+                       col=Location,
+                       into=c("Latitude", "Longitude"),
+                       sep=",",
+                       remove=FALSE)
 
-df <- readRDS("../databases/AirQualityData.RDS")
-df$Latitude <- stringr::str_replace_all(df$Latitude, "[(]", "")
-df$Longitude <- stringr::str_replace_all(df$Longitude, "[)]", "")
+#df <- readRDS("../databases/AirQualityData.RDS")
 df$Latitude <- as.numeric(df$Latitude)
 df$Longitude <- as.numeric(df$Longitude)
 #df <- df %>% dplyr::select(-ACTION)
 df$Date <- gsub(" .*"," ", df$Timestamp)
 df$Time <- gsub(".* ","", df$Timestamp)
 df$Date <-  gsub("*.EDT","",strptime(as.character(df$Date), "%m/%d/%Y"))
-tf <- melt(df %>% dplyr::select(Temperature,Humidity,DustPM, Name, AirQuality,Latitude,Longitude,Date,Timestamp),id = c("Name","Latitude","Longitude","Date","Timestamp"))
-names(tf) <- c("Name","Latitude","Longitude","Date","Timestamp","Variables","Measurement")
+df <- filter(df, PM2.5<500)
+tf <- melt(df %>% dplyr::select(Name,Latitude,Longitude,Date,Time,Site_Type,Comment,PM2.5,CO),id = c("Name","Latitude","Longitude","Date","Time","Site_Type","Comment"))
+names(tf) <- c("Name", "Latitude", "Longitude", "Date", "Time", "Site_Type", "Comment", "Variables", "Measurement")
 clrs <- c("#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7","#7570B3", "#E7298A", "#66A61E", "#E6AB02", "#A6761D", "#666666","#8DD3C7","#BEBADA") #CB and Dark2
 
 
@@ -81,9 +84,10 @@ scatterplot_func <- function(var,pvar){
 }
 
 #Barplot I
+col_status = rev(c("#ffffb2", "#fed976", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#b10026"))
 barplot_func <- function(data){
   ggplot(data, aes(x=State, y=PM, fill=PM)) + geom_bar(stat="identity",colour="black") + #scale_fill_viridis_c(option = "inferno",direction = 1) + 
-    scale_fill_gradientn(colours=rev(terrain.colors(8)[1:7])) +
+    scale_fill_gradientn(colours=rev(col_status)) +
     labs(x="",y="PM 2.5 μg/m3 (Sept 2017)") + 
     theme_bw() + 
     theme(
