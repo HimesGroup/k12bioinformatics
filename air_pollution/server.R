@@ -20,7 +20,28 @@ shinyServer(function(input, output) {
   output$airqdata <- renderDataTable({ df %>%
       dplyr::select(-Timestamp,-Location)
   }, options = list(pageLength=10, searching=FALSE))
-    
+  
+  output$epa_monitor <- renderImage({
+    return(list(
+      src = "../databases/EPA_Monitors.png",
+      height= 280,
+      filetype = "image/png",
+      alt = "EPA Monitors"))}, deleteFile = FALSE)
+
+  output$sensor_setup <- renderImage({
+    return(list(
+      src = "../databases/sensor_setup.png",
+      height= 200,
+      filetype = "image/png",
+      alt = "Sensor Package"))}, deleteFile = FALSE)
+ 
+   output$sensor_working <- renderImage({
+    return(list(
+      src = "../databases/sensor_working.png",
+      height= 200,
+      filetype = "image/png",
+      alt = "How Sensors Work"))}, deleteFile = FALSE)
+  
   #Measurement I - PM2.5
   #Output
   output$distBoxplot <- renderPlot({

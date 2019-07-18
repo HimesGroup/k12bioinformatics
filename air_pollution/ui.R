@@ -16,21 +16,37 @@ shinyUI(fluidPage(
   tabsetPanel(
     tabPanel("Introduction",
              br(),
-             h4(p("Overview of Air Pollution Data")), 
-             p("Exposure to pollutants impacts human health and is associated with multiple respiratory and other chronic diseases. 
-               The major pollutant used to infer air quality index of a location is the particulate matter (PM 2.5). These are inhalable particles of diameters 2.5 micrometers or smaller.
-              Other pollutants like ozone, SO2, NO2 and CO are hazardous to health, and the United States Environmental Protection Agency (EPA) is in-charge of monitoring their rising levels."), 
-              p("Philadelphia is one of the most polluted cities in the Unites States, 
-               and effective monitoring of its pollutant levels is crucial to maintain healthy air-quality standards in the city.
-               This app provides spatial visualization of air quality levels in the United States, 
-                with special focus on Philadelphia. Here, we are using the data acquired by students via pollution monitors at different locations in the USA. 
-                The student-acquired data is available", 
-               a(href = "https://docs.google.com/spreadsheets/d/13-F4sAcX5Ph-IKp0W8uTRfT1RmUeEGbwtK7PMVUylws/edit#gid=0","here.",target="_blank"),
-               "Along with this, we are also using publicly available data from the EPA to look at trends of PM 2.5 levels at different locations 
-               over multiple time periods."),br(),
+             h4(p("Air Pollution")), 
+             HTML("Air pollution is a mixture of particulate matter (PM) and gaseous chemicals produced by human activity and natural processes. 
+                Exposure to pollutants impacts human health and is associated with all-cause mortality and several diseases. For example, people with asthma are more likely to have worsening symptoms or exacerbations when they are exposed to pollutants.
+                PM is composed of airborne particles that are classified by size, where PM2.5 refers to particles with diameter <2.5μm.
+                Gas-phase pollutants include ozone (O<sub>3</sub>), nitrogen dioxide (NO<sub>2</sub>), carbon monoxide (CO), sulfur dioxide (SO<sub>2</sub>) and volatile organic compounds (VOCs)."), 
+             
+             h4(p("Environmental Protection Agency (EPA) Regulatory Monitors")), 
+             p("The United States EPA monitors levels of major air pollutants to reduce their impact on human health in accordance with the",
+               a("Clean Air Act", href="https://www.epa.gov/clean-air-act-overview", target="_blank"),
+               "which established National Ambient Air Quality Standards (NAAQS) for six",
+               a("criteria pollutants.", href="https://www3.epa.gov/airquality/cleanair.html"),
+               "Reference monitors placed across the United States monitor compliance to air quality legislation.
+               The second and third tabs of this app show trends of PM2.5 and CO at eight locations in the United States."),
+             div(style="display: inline-block;", tags$a(imageOutput("epa_monitor", height= "290px"), href="http://pargasite.org/",target="_blank")),
+             
+             h4(p("Portable Pollution Sensors")),
+             p("Concern for pollution’s effect on health and broad demand for accessible environmental monitoring have led researchers and manufacturers to develop 
+              low-cost, portable pollution sensors. Although these sensors are less accurate and reliable than reference monitors, they provide some information
+              on locations that may be of concern to citizens. We assembled our own PM and CO sensors using commercially available components for teaching purposes.
+              Students are handed a sensor, Android device and charger to take measures:"),
+             div(style="display: inline-block;", tags$a(imageOutput("sensor_setup", height= "200px"), target="_blank")),
+             p("Sensors send measures to a smartphone (paired via Bluetooth), and data from all smartphones is gathered in a Google Spreadsheet:"),
+             div(style="display: inline-block;", tags$a(imageOutput("sensor_working", height= "200px"), target="_blank")),
+
+             br(),
+             h4(p("Crowdsourced Pollution Measures")),
+             p("The following table shows currently available sensor data gathered by high school teachers and students."), 
              span(textOutput("Warning"),style="color:red"), br(),
              dataTableOutput("airqdata")),
-    tabPanel("EPA Measures in USA",br(),
+
+    tabPanel("EPA Measures Map", br(),
              h3(p("PM2.5 measures across particular locations in the USA")),
              p("The locations mapped across the country are Philadelphia, New York, Los Angeles, Miami, Pierre, Billings, Standing Rock and Portland. 
                The EPA PM2.5 data was acquired from the R package", a(href="https://github.com/HimesGroup/pargasite","pargasite", target="_blank"),
@@ -48,7 +64,7 @@ shinyUI(fluidPage(
                 choices = cities, selected=cities), 
              plotOutput("kbarPlot",height="380px",width = "300px"),br(), br(),hr()),br(), br(),br(),hr()),
     
-    tabPanel("Seasonality of measures",br(),
+    tabPanel("EPA Measures Plots",br(),
       h3(p("PM2.5 and CO values in 2007-2017")),
       selectInput("State","Select Location:",choices = cities, selected="PA"),
       selectInput("Year","Select Years:",choices = seq(2007,2017) , selected = "2007",multiple = TRUE),
@@ -58,10 +74,17 @@ shinyUI(fluidPage(
       h4(p("CO levels for the selected year(s).")),
       p("The distribution of EPA values of CO from 2007 to 2017."),
       ggiraphOutput("COPlot",height="500px",width="700px"),br(), 
-      
       br()),
-    
-    tabPanel("Overview of sensor measures",br(),
+
+    tabPanel("Crowdsourced Measures Map",br(),
+             mainPanel(
+               leafletOutput("mymap",height = 700)),
+             sidebarPanel(
+               selectInput("type","Select Variable:",choices = c("PM2.5","CO") , selected = "PM2.5"),
+               dateRangeInput("dates", label = "Date Range:", start = "2019-04-17", end = Sys.Date()),
+               uiOutput("Name"),br())),
+  
+    tabPanel("Crowdsourced Measures Plots",br(),
              h3(p("Characterisitics of Air Pollution Data")),
              h4(p("Univariate Analysis:")),
              p("Choose two variables to plot:"), br(), br(),
@@ -71,14 +94,6 @@ shinyUI(fluidPage(
              div(style="display: inline-block;",plotOutput("pdisHist",height="300px",width = "500px")),br(), hr(),
              h4(p("Bivariate Analysis:")),
              p("Relationship between the two selected variables:"),
-             div(style="display: inline-block;",plotOutput("Scatplot",height="500px",width = "700px")),br(), hr(), br()),
-    tabPanel("Map of sensor measures",br(),
-             mainPanel(
-             leafletOutput("mymap",height = 700)),
-             sidebarPanel(
-             selectInput("type","Select Variable:",choices = c("PM2.5","CO") , selected = "PM2.5"),
-             dateRangeInput("dates", label = "Date Range:", start = "2019-04-17", end = Sys.Date()),
-             uiOutput("Name"),br())))
-             
+             div(style="display: inline-block;",plotOutput("Scatplot",height="500px",width = "700px")),br(), hr(), br()))
              
 ))
