@@ -57,7 +57,7 @@ shinyUI(fluidPage(
              hr(),
 
              h3(p("Sept 2017 mean PM2.5 measures")),
-             plotOutput("kbarPlot", height="400px", width="700px"), 
+             plotOutput("kbarPlot", width="700px"), 
              hr(),
     
              h3(p("Selected Cities")),
