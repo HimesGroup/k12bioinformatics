@@ -165,7 +165,7 @@ shinyServer(function(input, output) {
   #PM/CO public data map
   output$kmap <- renderLeaflet({
     mdata <- k12_df %>% dplyr::filter(State %in% input$kcity)
-    mdata$PM <- round(mdata$PM,2)
+    mdata$PM <- round(mdata$PM, 2)
     #col_status = viridis(256, option = "B")
     #col_status = terrain.colors(8)[1:7]
     col_status = rev(c("#ffffb2", "#fed976", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#b10026"))
