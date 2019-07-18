@@ -115,8 +115,9 @@ barplot_func <- function(data){
     theme_bw() + 
     theme(
       legend.position = "none",
-      axis.title=element_text(size=12),
-      axis.text=element_text(size=12),
+      axis.title=element_text(size=16),
+      axis.text=element_text(size=16),
+      axis.text.x=element_text(angle=45, hjust=1),
       panel.border = element_blank(), panel.grid.major = element_blank(),
       panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
 }
