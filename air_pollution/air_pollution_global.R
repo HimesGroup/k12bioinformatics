@@ -111,7 +111,7 @@ col_status = rev(c("#ffffb2", "#fed976", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a
 barplot_func <- function(data){
   ggplot(data, aes(x=City, y=PM, fill=PM)) + geom_bar(stat="identity",colour="black") + #scale_fill_viridis_c(option = "inferno",direction = 1) + 
     scale_fill_gradientn(colours=rev(col_status)) +
-    labs(x="",y="PM2.5 (μg/m3)") + 
+    labs(x="", y="PM2.5 (μg/m3)") + 
     theme_bw() + 
     theme(
       legend.position = "none",

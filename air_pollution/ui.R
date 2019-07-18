@@ -73,14 +73,20 @@ shinyUI(fluidPage(
              br(), br()),
     
     tabPanel("EPA Measures Plots",br(),
-      h3(p("PM2.5 and CO values in 2007-2017")),
-      selectInput("State","Select Location:",choices = cities, selected="PA"),
-      selectInput("Year","Select Years:",choices = seq(2007,2017) , selected = "2007",multiple = TRUE),
-      h4(p("PM2.5 levels for the selected year(s).")),
-      p("The distribution of EPA values of PM2.5 from 2007 to 2017."),
+      h3(p("Seasonal variation in mean pollutant levels")),
+      p("Levels of pollutants change over time. Well known differences in mean levels are observed at different times of the year. 
+        What patterns do you notice across months? Are these changes similar each year? Do they differ by city?"),
+      fluidRow(column(4,
+                      selectInput("State","Location:", choices = cities, selected="PA")),
+               column(4,
+                      selectInput("Year","Year(s):",choices = seq(2007,2017) , selected = "2007",multiple = TRUE))
+      ),
+      hr(),
+      h4(p("Mean PM2.5 levels")),
+      #p("The distribution of EPA values of PM2.5 from 2007 to 2017."),
       ggiraphOutput("PMPlot",height="500px",width="700px"),br(), 
-      h4(p("CO levels for the selected year(s).")),
-      p("The distribution of EPA values of CO from 2007 to 2017."),
+      h4(p("Mean CO levels")),
+      #p("Mean CO levels across each year from 2007 to 2017."),
       ggiraphOutput("COPlot",height="500px",width="700px"),br(), 
       br()),
 
