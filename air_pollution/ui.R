@@ -53,11 +53,19 @@ shinyUI(fluidPage(
              sidebarLayout(position="right",
                sidebarPanel(checkboxGroupInput("kcity", "Location:",
                                              choices=cities, selected=cities)),
+<<<<<<< HEAD
                mainPanel(leafletOutput("kmap", width=700, height=500))), 
              hr(),
 
              h3(p("Sept 2017 mean PM2.5 measures")),
              plotOutput("kbarPlot", height="350px"), 
+=======
+               mainPanel(leafletOutput("kmap", width=700))), 
+             hr(),
+
+             h3(p("Sept 2017 mean PM2.5 measures")),
+             plotOutput("kbarPlot", height="400px"), 
+>>>>>>> 1981c48f0e6a14fa0561ef678737b7a700bea854
              hr(),
     
              h3(p("Selected Cities")),
