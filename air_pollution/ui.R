@@ -90,7 +90,7 @@ shinyUI(fluidPage(
       ggiraphOutput("COPlot",height="500px",width="700px"),br(), 
       br()),
 
-    tabPanel("Crowdsourced Measures Map",br(),
+    tabPanel("Crowdsourced Map",br(),
              mainPanel(
                leafletOutput("mymap",height = 700)),
              sidebarPanel(
@@ -98,16 +98,15 @@ shinyUI(fluidPage(
                dateRangeInput("dates", label = "Date Range:", start = "2019-04-17", end = Sys.Date()),
                uiOutput("Name"),br())),
   
-    tabPanel("Crowdsourced Measures Plots",br(),
-             h3(p("Characterisitics of Air Pollution Data")),
-             h4(p("Univariate Analysis:")),
-             p("Choose two variables to plot:"), br(), br(),
+    tabPanel("Crowdsourced Summary Plots",br(),
+             h3(p("Overall characterisitics of Crowdsourced Pollution Data")),
+             h4(p("Univariate Plots - PM2.5")), 
              div(style="display: inline-block;",plotOutput("distBoxplot",height="300px",width = "300px")),
-             div(style="display: inline-block;",plotOutput("disHist",height="300px",width = "500px")),br(),br(),
+             div(style="display: inline-block;",plotOutput("disHist",height="300px",width = "500px")),br(),br(),hr(),
+             h4(p("Univariate Plots - CO")), 
              div(style="display: inline-block;",plotOutput("pdistBoxplot",height="300px",width = "300px")),
              div(style="display: inline-block;",plotOutput("pdisHist",height="300px",width = "500px")),br(), hr(),
-             h4(p("Bivariate Analysis:")),
-             p("Relationship between the two selected variables:"),
-             div(style="display: inline-block;",plotOutput("Scatplot",height="500px",width = "700px")),br(), hr(), br()))
+             h4(p("Bivariate Plot")),
+             div(style="display: inline-block;",plotOutput("Scatplot",height="500px",width = "700px")),br(), br()))
              
 ))
