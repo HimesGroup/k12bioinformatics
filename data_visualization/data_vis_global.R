@@ -102,6 +102,7 @@ barplot_both_func <- function(x,y,data){
   data <- get_data(data)
   color_status <- set_colors(data)
   g1 <- ggplot(data, aes_string(x=x,y=y,fill=x)) + stat_summary(fun.y="mean", geom="bar") +  
+    stat_summary(aes(label=round(..y..,2)), fun.y=mean, geom="text", size=4,vjust = -0.5) + 
     scale_fill_manual(values=unlist(lapply(levels(data[[x]]), function(m) color_status[[m]]))) + 
     labs(x=x, y=paste0("Average of ",y)) + theme_bw() +
     theme(legend.text = element_text(size=14),
