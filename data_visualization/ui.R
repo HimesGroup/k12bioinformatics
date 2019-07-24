@@ -56,7 +56,7 @@ shinyUI(fluidPage(
             uiOutput('bdisc'),
             uiOutput('bcont'),
             h4(p("Barplots of mean values")),
-            p("These barplots have split a categorical variable accross its levels along the x-axis and display the mean measure of the continuous variable for each subset of data.
+            p("These barplots have split a categorical variable across its levels along the x-axis and display the mean measure of the continuous variable for each subset of data.
               In the case of pollution data, the average measurement per site is displayed."),
             plotOutput("fbarplotUP", height="400px", width="auto"),
             br(),
