@@ -1,8 +1,20 @@
 
+#########################
+## Read in data files ##
+########################
+pheno_QC <- read.table("../databases/GSE8823_Phenotype_withQC.txt", sep="\t", header=TRUE)
+pheno_QC <- pheno_QC %>% dplyr::filter(QC_Pass!=0) %>% rename(ScanDate=ScanDate_Group)
+pheno_QC$ScanDate <- as.factor(gsub("/([^/]*)$", " ", pheno_QC$ScanDate))
+pheno_QC$Treatment <- as.factor(gsub("_","-",pheno_QC$Treatment))
+pheno_QC$Donor <- as.factor(paste0("D",pheno_QC$Donor))
+iris_data <- read.csv("../databases/iris_dataset.csv")
+
 ########################
 ## HELPER FUNCTIONS  ##
 ########################
 
+#To identify the discrete variables in the uploaded dataset. 
+#Along with variable class "factor", we are also identifying any variable with strings "NAME","CODE", "DATE" and "TIME" (ignoring the cases).
 get_discrete_var <- function(data){
   disc_var_lst <- list()
   vars1 <- names(data)[sapply(data, class) == "factor"]
@@ -22,6 +34,8 @@ get_discrete_var <- function(data){
   return(unlist(disc_var_lst))
 }
 
+#To identify continuous variables in the uploaded dataset.
+#Along with excluding all variables with class "factor", we are also removing any variable with strings "NAME","CODE", "LATITUDE", "LONGITUDE" and "ID" (ignoring the cases).
 get_cont_var <- function(data){
   cont_var_lst <- list()
   vars1 <- names(data)[sapply(data, class) != "factor"]
@@ -43,17 +57,19 @@ get_cont_var <- function(data){
 ## FUNCTIONS ##
 ###############
 
-#set colors
+#available colors
 colours <- unique(c(brewer.pal(11, "Set3"),brewer.pal(8, "Dark2"),brewer.pal(11, "Spectral"),
              brewer.pal(8, "Set2"),brewer.pal(9, "Set1"),brewer.pal(11, "Paired"),
              brewer.pal(9, "Pastel1"),brewer.pal(8, "Pastel2"),brewer.pal(8, "Accent")))
 
+## Make sure the discrete variables in the dataset are of class "factor" to avoid errors
 get_data <- function(data){
   choices = get_discrete_var(data)
   data[choices] <- lapply(data[choices], factor) 
   return(data)
 }
 
+## Assign colors to all levels for each discrete variable
 set_colors <- function(data){
   choices = get_discrete_var(data)
   data <- get_data(data)
@@ -66,14 +82,18 @@ set_colors <- function(data){
   return(col)
 }
 
-### Get Mean ###
+### Get Mean of all selected variables ###
 get_mean <- function(x, data){
   data <- get_data(data)
   m <- mean(data[[x]])
   return(m)
 }
 
-##BARPLOT##
+###########################
+##UNIVARIATE TAB FUNCTIONS
+###########################
+
+#BARPLOT for univariate tab : discrete variables
 barplot_func <- function(x, data){
   int_breaks <- function(x, n=5) pretty(x, n)[pretty(x, n) %% 1 == 0] 
   data <- get_data(data)
@@ -84,65 +104,13 @@ barplot_func <- function(x, data){
     scale_y_continuous(breaks=scales::pretty_breaks(n=10)) +
     labs(y="Count") +  
     theme_bw() +
-    theme(
-          #legend.text = element_text(size=14),
-          legend.position = "none",
+    theme(legend.position = "none",
           axis.title = element_text(size=15),
           axis.text = element_text(size=13))
   return(g1) 
 }
 
-barplot_func_dodge <- function(x,a,data){
-  data <- get_data(data)
-  color_status <- set_colors(data)
-  g1 <- ggplot(data, aes_string(x=x, fill=a)) + geom_bar(stat="Count", position=position_dodge(preserve="single")) + 
-    scale_fill_manual(values=unlist(lapply(levels(data[[a]]), function(y) color_status[[y]]))) + 
-    scale_y_continuous(breaks=scales::pretty_breaks(n=15)) +
-    labs(y="Count") +  
-    theme_bw() +
-    theme(
-          #legend.text = element_text(size=14),
-          legend.position = "none",
-          axis.title=element_text(size=15),
-          axis.text = element_text(size=13))
-  return(g1) 
-}
-
-#sample(colours, length(levels(data[[x]])))
-barplot_both_func <- function(x, y, data){
-  data <- get_data(data)
-  color_status <- set_colors(data)
-  g1 <- ggplot(data, aes_string(x=x,y=y,fill=x)) + stat_summary(fun.y="mean", geom="bar") +  
-    stat_summary(aes(label=round(..y..,2)), fun.y=mean, geom="text", size=5, vjust=-0.5) + 
-    scale_fill_manual(values=unlist(lapply(levels(data[[x]]), function(m) color_status[[m]]))) + 
-    scale_y_continuous(breaks=scales::pretty_breaks(n=15)) +
-    labs(x=x, y=paste0("Mean ", y)) + theme_bw() +
-    theme(
-          #legend.text = element_text(size=14),
-          legend.position = "none",
-          axis.title = element_text(size=15),
-          axis.text = element_text(size=13),
-          axis.ticks.x = element_blank())
-  return(g1) 
-}
-
-##BOXPLOT##
-boxplot_func <- function(x,y,data){
-  data <- get_data(data)
-  color_status <- set_colors(data)
-  ggplot(data, aes_string(x=x,y=y,fill=x)) + geom_boxplot(outlier.colour=NA, lwd=0.2, color="grey18",na.rm=TRUE) + 
-    stat_boxplot(geom ='errorbar', color="grey18") + 
-    labs(x=x, y=y) + geom_jitter(size=1,position = position_jitter(width=0.2)) + 
-    scale_fill_manual(values=unlist(lapply(levels(data[[x]]), function(m) color_status[[m]]))) + theme_bw() +
-    scale_y_continuous(breaks=scales::pretty_breaks(n=15)) +
-    theme(legend.text = element_text(size=14),
-          axis.title = element_text(size=15),
-          title = element_text(size=15),
-          axis.text.y = element_text(size=13),
-          axis.text.x = element_blank(),
-          axis.ticks.x = element_blank())}
-
-##HISTOGRAM##
+#HISTOGRAM for the univariate tab : continuous variable
 hist_func <- function(Con,data,bins){
   data <- get_data(data)
   df <- data[[Con]]
@@ -160,7 +128,45 @@ hist_func <- function(Con,data,bins){
           axis.text = element_text(size=13)) ##0072B2 #xlim: 35,50
 }
 
-##SCATTERPLOT OF DATE##
+
+###########################
+##BIVARIATE TAB FUNCTIONS
+###########################
+
+##BARPLOT for bivariate tab : mean values for each variable
+barplot_both_func <- function(x, y, data){
+  data <- get_data(data)
+  color_status <- set_colors(data)
+  g1 <- ggplot(data, aes_string(x=x,y=y,fill=x)) + stat_summary(fun.y="mean", geom="bar") +  
+    stat_summary(aes(label=round(..y..,2)), fun.y=mean, geom="text", size=5, vjust=-0.5) + 
+    scale_fill_manual(values=unlist(lapply(levels(data[[x]]), function(m) color_status[[m]]))) + 
+    scale_y_continuous(breaks=scales::pretty_breaks(n=15)) +
+    labs(x=x, y=paste0("Mean ", y)) + theme_bw() +
+    theme(legend.position = "none",
+          axis.title = element_text(size=15),
+          axis.text = element_text(size=13),
+          axis.ticks.x = element_blank())
+  return(g1) 
+}
+
+##BOXPLOT for the bivariate tab
+boxplot_func <- function(x,y,data){
+  data <- get_data(data)
+  color_status <- set_colors(data)
+  ggplot(data, aes_string(x=x,y=y,fill=x)) + geom_boxplot(outlier.colour=NA, lwd=0.2, color="grey18",na.rm=TRUE) + 
+    stat_boxplot(geom ='errorbar', color="grey18") + 
+    labs(x=x, y=y) + geom_jitter(size=1,position = position_jitter(width=0.2)) + 
+    scale_fill_manual(values=unlist(lapply(levels(data[[x]]), function(m) color_status[[m]]))) + theme_bw() +
+    scale_y_continuous(breaks=scales::pretty_breaks(n=15)) +
+    theme(legend.text = element_text(size=14),
+          axis.title = element_text(size=15),
+          title = element_text(size=15),
+          axis.text.y = element_text(size=13),
+          axis.text.x = element_blank(),
+          axis.ticks.x = element_blank())}
+
+
+##SCATTERPLOT : Selected continuous variable vs DATE
 scatplot_func_dt <- function(data,cont){
   date <- names(data)[grep(paste("DATE",collapse="|"),names(data),ignore.case = TRUE)]
   col = colours[1:length(levels(data[[date]]))]
