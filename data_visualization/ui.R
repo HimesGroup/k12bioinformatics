@@ -56,15 +56,14 @@ shinyUI(fluidPage(
             uiOutput('bdisc'),
             uiOutput('bcont'),
             h4(p("Barplots of mean values")),
-            p("These barplots have split a categorical variable across its levels along the x-axis and display the mean measure of the continuous variable for each subset of data.
-              In the case of pollution data, the average measurement per site is displayed."),
+            p("These barplots have split a categorical variable across its levels along the x-axis and display the mean of the continuous variable for each subset of data along the y-axis.
+              In the case of pollution data, the mean measurement per site is displayed."),
             plotOutput("fbarplotUP", height="400px", width="auto"),
-            p("The mean of all measures is:"),
             textOutput("cont_mean"),
 
             br(),
             h4(p("Boxplots of all values")),
-            p("These boxplots show characteristics of the overall distribution of a continous variable as it is split into levels of a categorical variable.
+            p("These boxplots show characteristics of the distribution of a continous variable as it is split into levels of the selected categorical variable.
               Notice that the lines in the middle of the boxplots are the same as the mean values in the barplot above."),
             plotOutput("boxPlotUP", height="400px", width="auto"),
             br(),

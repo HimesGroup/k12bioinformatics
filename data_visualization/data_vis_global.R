@@ -85,7 +85,7 @@ set_colors <- function(data){
 ### Get Mean of all selected variables ###
 get_mean <- function(x, data){
   data <- get_data(data)
-  m <- mean(data[[x]])
+  m <- signif(mean(data[[x]]), 3)
   return(m)
 }
 
