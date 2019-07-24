@@ -55,13 +55,15 @@ shinyUI(fluidPage(
             p("Relationship between pairs of variables in the uploaded dataset."),
             uiOutput('bdisc'),
             uiOutput('bcont'),
-            p("Barplots show the the number of instances of a categorical variable split accross the levels of a second categorical variable. In the case of pollution data, the average measurement per site is displayed."),
-            plotOutput("fbarplotUP",height="400px",width="auto"),
+            h4(p("Barplots of mean values")),
+            p("These barplots have split a categorical variable accross its levels along the x-axis and display the mean measure of the continuous variable for each subset of data.
+              In the case of pollution data, the average measurement per site is displayed."),
+            plotOutput("fbarplotUP", height="400px", width="auto"),
             br(),
             p("Boxplots show characteristics of the overall distribution of a continous variable as it is split into levels of a categorical variable."),
-            plotOutput("boxPlotUP",height="400px",width="auto"),
+            plotOutput("boxPlotUP", height="400px", width="auto"),
             br(),
             textOutput("sptitle"),
-            plotOutput("scatterplotDT",height="400px",width="auto")))
+            plotOutput("scatterplotDT", height="400px", width="auto")))
   
 ))

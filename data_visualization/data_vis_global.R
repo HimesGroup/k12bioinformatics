@@ -77,9 +77,8 @@ barplot_func <- function(x,data){
     theme(legend.text = element_text(size=14),
           axis.title=element_text(size=15),
           title = element_text(size=15),
-          axis.text.y=element_text(size=13),
-          axis.text.x = element_blank(),
-          axis.ticks.x = element_blank())
+          axis.text.y = element_text(size=13),
+          axis.text.x = element_blank())
   return(g1) 
   
 }
@@ -87,8 +86,9 @@ barplot_func <- function(x,data){
 barplot_func_dodge <- function(x,a,data){
   data <- get_data(data)
   color_status <- set_colors(data)
-  g1 <- ggplot(data, aes_string(x=x,fill=a)) + geom_bar(stat="count",position=position_dodge(preserve = "single")) + 
+  g1 <- ggplot(data, aes_string(x=x,fill=a)) + geom_bar(stat="count", position=position_dodge(preserve="single")) + 
     scale_fill_manual(values=unlist(lapply(levels(data[[a]]), function(y) color_status[[y]]))) + theme_bw() +
+    scale_y_continuous(breaks=scales::pretty_breaks(n=15))
     theme(legend.text = element_text(size=14),
           axis.title=element_text(size=15),
           title = element_text(size=15),
@@ -98,13 +98,14 @@ barplot_func_dodge <- function(x,a,data){
 }
 
 #sample(colours, length(levels(data[[x]])))
-barplot_both_func <- function(x,y,data){
+barplot_both_func <- function(x, y, data){
   data <- get_data(data)
   color_status <- set_colors(data)
   g1 <- ggplot(data, aes_string(x=x,y=y,fill=x)) + stat_summary(fun.y="mean", geom="bar") +  
-    stat_summary(aes(label=round(..y..,2)), fun.y=mean, geom="text", size=4,vjust = -0.5) + 
+    stat_summary(aes(label=round(..y..,2)), fun.y=mean, geom="text", size=5, vjust=-0.5) + 
     scale_fill_manual(values=unlist(lapply(levels(data[[x]]), function(m) color_status[[m]]))) + 
-    labs(x=x, y=paste0("Average of ",y)) + theme_bw() +
+    scale_y_continuous(breaks=scales::pretty_breaks(n=15)) +
+    labs(x=x, y=paste0("Mean ",y)) + theme_bw() +
     theme(legend.text = element_text(size=14),
           axis.title=element_text(size=15),
           title = element_text(size=15),
@@ -123,10 +124,11 @@ boxplot_func <- function(x,y,data){
     stat_boxplot(geom ='errorbar', color="grey18") + 
     labs(x=x, y=y) + geom_jitter(size=1,position = position_jitter(width=0.2)) + 
     scale_fill_manual(values=unlist(lapply(levels(data[[x]]), function(m) color_status[[m]]))) + theme_bw() +
+    scale_y_continuous(breaks=scales::pretty_breaks(n=15)) +
     theme(legend.text = element_text(size=14),
-          axis.title=element_text(size=15),
+          axis.title = element_text(size=15),
           title = element_text(size=15),
-          axis.text.y=element_text(size=13),
+          axis.text.y = element_text(size=13),
           axis.text.x = element_blank(),
           axis.ticks.x = element_blank())}
 
@@ -152,7 +154,7 @@ scatplot_func_dt <- function(data,cont){
   date <- names(data)[grep(paste("DATE",collapse="|"),names(data),ignore.case = TRUE)]
   col = colours[1:length(levels(data[[date]]))]
   g1 <- ggplot(data, aes_string(x=date,y=cont,colour=date)) + stat_summary(fun.y="mean", geom="point",size=5) + 
-    labs(x=toupper(date),y=paste0("Average of ",cont)) + 
+    labs(x=toupper(date),y=paste0("Mean ",cont)) + 
     scale_color_manual(values=col) + 
     theme_bw() + 
     theme(legend.title = element_text(size=15),
