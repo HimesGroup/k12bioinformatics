@@ -147,6 +147,12 @@ shinyServer(function(input, output) {
     barplot_func(data)
   })
   
+  ##EPA Data Download
+  output$EPA_data_download <- downloadHandler(
+    filename= function(){paste0("EPA_measures_daily_average_Sept2017.csv")},
+    content=function(file){
+      write.csv(EPA_data_file, file, row.names = FALSE, quote = FALSE)})
+  
   #Seasonality of measures
   
   #PM 2.5
