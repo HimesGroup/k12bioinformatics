@@ -58,7 +58,7 @@ shinyServer(function(input, output){
     440 + 110*abs(len-5)
   })
   
-  output$barplotUP <- renderPlot({barplot_func(input$disc,contents())},width = get_width)
+  output$barplotUP <- renderPlot({barplot_func(input$disc,contents())}, width = get_width)
   output$histPlotUP <- renderPlot({validate(need(!is.null(input$cont), "No data file found. Please upload csv file to perform analysis."))
                                   hist_func(input$cont,contents(),input$bins)}, width = 600)
   

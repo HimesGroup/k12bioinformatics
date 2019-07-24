@@ -68,33 +68,38 @@ set_colors <- function(data){
 
 
 ##BARPLOT##
-barplot_func <- function(x,data){
-  int_breaks <- function(x, n = 5) pretty(x, n)[pretty(x, n) %% 1 == 0] 
+barplot_func <- function(x, data){
+  int_breaks <- function(x, n=5) pretty(x, n)[pretty(x, n) %% 1 == 0] 
   data <- get_data(data)
   color_status <- set_colors(data)
-  g1 <- ggplot(data, aes_string(x=x,fill=x)) + geom_bar(stat="count") + scale_y_continuous(breaks = int_breaks) + 
-    scale_fill_manual(values=unlist(lapply(levels(data[[x]]), function(y) color_status[[y]]))) + theme_bw() +
-    theme(legend.text = element_text(size=14),
-          axis.title=element_text(size=15),
-          title = element_text(size=15),
-          axis.text.y = element_text(size=13),
-          axis.text.x = element_blank())
+  g1 <- ggplot(data, aes_string(x=x, fill=x)) + 
+    geom_bar(stat="Count") + 
+    scale_fill_manual(values=unlist(lapply(levels(data[[x]]), function(y) color_status[[y]]))) + 
+    scale_y_continuous(breaks=scales::pretty_breaks(n=10)) +
+    labs(y="Count") +  
+    theme_bw() +
+    theme(
+          #legend.text = element_text(size=14),
+          legend.position = "none",
+          axis.title = element_text(size=15),
+          axis.text = element_text(size=13))
   return(g1) 
-  
 }
 
 barplot_func_dodge <- function(x,a,data){
   data <- get_data(data)
   color_status <- set_colors(data)
-  g1 <- ggplot(data, aes_string(x=x,fill=a)) + geom_bar(stat="count", position=position_dodge(preserve="single")) + 
-    scale_fill_manual(values=unlist(lapply(levels(data[[a]]), function(y) color_status[[y]]))) + theme_bw() +
-    scale_y_continuous(breaks=scales::pretty_breaks(n=15))
-    theme(legend.text = element_text(size=14),
+  g1 <- ggplot(data, aes_string(x=x, fill=a)) + geom_bar(stat="Count", position=position_dodge(preserve="single")) + 
+    scale_fill_manual(values=unlist(lapply(levels(data[[a]]), function(y) color_status[[y]]))) + 
+    scale_y_continuous(breaks=scales::pretty_breaks(n=15)) +
+    labs(y="Count") +  
+    theme_bw() +
+    theme(
+          #legend.text = element_text(size=14),
+          legend.position = "none",
           axis.title=element_text(size=15),
-          title = element_text(size=15),
-          axis.text=element_text(size=13))
+          axis.text = element_text(size=13))
   return(g1) 
-  
 }
 
 #sample(colours, length(levels(data[[x]])))
@@ -105,15 +110,14 @@ barplot_both_func <- function(x, y, data){
     stat_summary(aes(label=round(..y..,2)), fun.y=mean, geom="text", size=5, vjust=-0.5) + 
     scale_fill_manual(values=unlist(lapply(levels(data[[x]]), function(m) color_status[[m]]))) + 
     scale_y_continuous(breaks=scales::pretty_breaks(n=15)) +
-    labs(x=x, y=paste0("Mean ",y)) + theme_bw() +
-    theme(legend.text = element_text(size=14),
-          axis.title=element_text(size=15),
-          title = element_text(size=15),
-          axis.text.y=element_text(size=13),
-          axis.text.x = element_blank(),
+    labs(x=x, y=paste0("Mean ", y)) + theme_bw() +
+    theme(
+          #legend.text = element_text(size=14),
+          legend.position = "none",
+          axis.title = element_text(size=15),
+          axis.text = element_text(size=13),
           axis.ticks.x = element_blank())
   return(g1) 
-  
 }
 
 ##BOXPLOT##
@@ -141,12 +145,13 @@ hist_func <- function(Con,data,bins){
   #bw <- (2 * IQR(df))/ length(df)^(1/3) #Freedman–Diaconis rule 
   #breaks <- pretty(range(df), n = nclass.FD(df), min.n = 1)
   #bwidth <- breaks[2]-breaks[1]
-  ggplot(data=data, aes_string(x=Con)) + geom_histogram(col="#D55E00", fill="#56B4E9",alpha=0.6,bins = bins ,na.rm=TRUE) + labs(x=Con, y="Count") +  
+  ggplot(data=data, aes_string(x=Con)) + geom_histogram(col="#D55E00", fill="#56B4E9", alpha=0.6, bins=bins, na.rm=TRUE) + 
+    labs(x=Con, y="Count") +  
+    scale_y_continuous(breaks=scales::pretty_breaks(n=15)) +
     theme_bw() +
     theme(legend.text = element_text(size=14),
-          axis.title=element_text(size=15),
-          title = element_text(size=15),
-          axis.text=element_text(size=13)) ##0072B2 #xlim: 35,50
+          axis.title = element_text(size=15),
+          axis.text = element_text(size=13)) ##0072B2 #xlim: 35,50
 }
 
 ##SCATTERPLOT OF DATE##
@@ -154,11 +159,11 @@ scatplot_func_dt <- function(data,cont){
   date <- names(data)[grep(paste("DATE",collapse="|"),names(data),ignore.case = TRUE)]
   col = colours[1:length(levels(data[[date]]))]
   g1 <- ggplot(data, aes_string(x=date,y=cont,colour=date)) + stat_summary(fun.y="mean", geom="point",size=5) + 
-    labs(x=toupper(date),y=paste0("Mean ",cont)) + 
+    labs(x=toupper(date), y=paste0("Mean ",cont)) + 
     scale_color_manual(values=col) + 
     theme_bw() + 
     theme(legend.title = element_text(size=15),
-      legend.text = element_text(size=14),
+          legend.text = element_text(size=14),
           axis.title=element_text(size=15),
           axis.text.y=element_text(size=15),
           axis.text.x=element_blank(),
