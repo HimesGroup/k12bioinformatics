@@ -3,9 +3,10 @@ library(shinythemes)
 library(leaflet)
 library(ggiraph)
 
+#Set choices of cities for UI
 cities <- c("Los Angeles, CA"="CA", "Miami, FL"="FL", "Billings, MO"="MO", "Standing Rock, NM"="NM",
-              "Midtown Manhattan, NY"="NY","Portland, OR"="OR","Philadelphia, PA"="PA",
-              "Pierre, SD"="SD")
+            "Midtown Manhattan, NY"="NY","Portland, OR"="OR","Philadelphia, PA"="PA",
+            "Pierre, SD"="SD")
 
 shinyUI(fluidPage(
   theme = shinythemes::shinytheme("cerulean"),

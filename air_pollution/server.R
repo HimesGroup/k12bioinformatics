@@ -166,7 +166,6 @@ shinyServer(function(input, output) {
   output$kmap <- renderLeaflet({
     mdata <- k12_df %>% dplyr::filter(State %in% input$kcity)
     mdata$PM <- round(mdata$PM, 2)
-    #col_status = viridis(256, option = "B")
     #col_status = terrain.colors(8)[1:7]
     col_status = rev(c("#ffffb2", "#fed976", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#b10026"))
     pal <- colorNumeric(palette = col_status,domain = mdata$PM)
@@ -187,7 +186,6 @@ shinyServer(function(input, output) {
   #Student data map
   output$mymap <- renderLeaflet({
     mdata <- data()
-    #col_status = viridis(256, option = "B")
     #col_status = terrain.colors(8)[1:7]
     col_status = rev(c("#ffffb2", "#fed976", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#b10026"))
     #pal <- colorFactor(palette = col_status,levels = unique(mdata$Measurement))
