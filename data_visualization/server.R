@@ -22,7 +22,7 @@ shinyServer(function(input, output){
   ##Uploaded dataset
   #Get discrete variables from uploaded dataset
   contents <- reactive({if(!is.null(input$file1)){
-    df <- read.csv(input$file1$datapath,header = TRUE,sep = ",",na.strings=c("","NA"))
+    df <- read.csv(input$file1$datapath, header = TRUE, sep = ",", na.strings=c("","NA"))
     na.omit(df)}
     })
   output$contents <- renderDataTable({contents()}, options = list(pageLength=10, searching=FALSE))
@@ -31,7 +31,7 @@ shinyServer(function(input, output){
     if(!is.null(contents())){
       get_discrete_var(contents())
     } else { NULL }
-})
+    })
     
   cont_var <- reactive({
     if(!is.null(contents())){
@@ -47,20 +47,24 @@ shinyServer(function(input, output){
   output$bdisc = renderUI({if(!is.null(contents())){selectInput('bdisc', 'Select categorical variable:', choices = disc_var(),width="220px")}else{NULL}})
   
   #Continuous variable
-  output$cont = renderUI({if(!is.null(contents())){selectInput('cont', 'Select continuous variable:', choices = cont_var(),width="280px")}else{NULL}})
+  output$cont = renderUI({if(!is.null(contents())){selectInput('cont', 'Select continuous variable:', choices = cont_var(), width="280px")}else{NULL}})
   #bivariate tab
-  output$bcont = renderUI({if(!is.null(contents())){selectInput('bcont', 'Select continuous variable:', choices = cont_var(),width="280px")}else{NULL}})
-
-  #Plots - Univariate
+  output$bcont = renderUI({if(!is.null(contents())){selectInput('bcont', 'Select continuous variable:', choices = cont_var(), width="280px")}else{NULL}})
+  
+  #Plots - univariate
   get_width <- reactive({
     validate(need(!is.null(input$disc), "No data file found. Please upload csv file to perform analysis."))
     len = length(unique(contents()[[input$disc]]))
     440 + 110*abs(len-5)
   })
   
-  output$barplotUP <- renderPlot({barplot_func(input$disc,contents())}, width = get_width)
+  output$barplotUP <- renderPlot({barplot_func(input$disc, contents())}, width = get_width)
   output$histPlotUP <- renderPlot({validate(need(!is.null(input$cont), "No data file found. Please upload csv file to perform analysis."))
-                                  hist_func(input$cont,contents(),input$bins)}, width = 600)
+                                  hist_func(input$cont, contents(), input$bins)}, width = 600)
+
+  output$cont_mean <- renderText({validate(need(!is.null(input$cont), "No continuous variable found."))
+                                  get_mean(input$cont, contents())})
+
   
   #Plots - Bivariate
   get_width_bi <- reactive({

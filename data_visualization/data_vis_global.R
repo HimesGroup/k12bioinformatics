@@ -66,6 +66,12 @@ set_colors <- function(data){
   return(col)
 }
 
+### Get Mean ###
+get_mean <- function(x, data){
+  data <- get_data(data)
+  m <- mean(data[[x]])
+  return(m)
+}
 
 ##BARPLOT##
 barplot_func <- function(x, data){
