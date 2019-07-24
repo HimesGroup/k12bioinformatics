@@ -1,14 +1,28 @@
 
-############################################################
-## GET PM.25 AND CO EPA measures from pargasite package  ##
-############################################################
-
 library(pargasite)
 library(dplyr)
 library(data.table)
 
+##Get data from downloaded daily EPA data https://aqs.epa.gov/aqsweb/airdata/download_files.html
+
+daily_df <- read.csv("daily_88101_2017.csv",header=T)
+states <- c("Pennsylvania","New York","Florida","Montana","California","Maine","New Mexico","Oregon","South Dakota")
+cities <- c("Albuquerque",as.vector(k12$City))
+k12 <- read.table("../databases/k12_sites.txt",header=TRUE)
+
+sdates <- grep("2017-09",levels(daily_df$Date.Local),value=T)
+
+daily_k12_df <- daily_df %>% 
+  dplyr::filter(State.Name %in% states,Date.Local %in% sdates,City.Name %in% cities) %>% 
+  dplyr::select(City.Name,Latitude,Longitude,Arithmetic.Mean,Date.Local,County.Name,State.Name,Method.Code)
+
+write.csv(daily_k12_df,"../databases/EPA_measures_daily_average_Sept2017.csv",row.names = F,quote=F)
+
+############################################################
+## GET PM.25 AND CO EPA measures from pargasite package  ##
+############################################################
+
 ###Get PM 2.5 measures for tab "EPA Measures in USA"
-k12 <- read.table("../databases/k12_sites.txt",header=TRUE,sep="/t")
 long <- k12$Longitude
 lat <- k12$Latitude
 pm_list <- list()
@@ -21,8 +35,6 @@ for (i in seq(1,nrow(k12))){
 k12$PM <- unlist(pm_list)
 k12$Location <- paste0(k12$City,",",k12$State)
 write.csv(k12,"k12_sites.csv",row.names = FALSE)
-
-
 
 ###Get PM2.5 and CO measures for all cities from 2007-2017 for tab "Seasonality of measures"
 

@@ -70,7 +70,8 @@ co_df$Year <- as.factor(co_df$Year)
 co_df$State <- as.factor(co_df$State)
 co_df$Month <- factor(co_df$Month,levels=months)
 
-
+#EPA daily average over Sept 2017
+EPA_data_file <- read.csv("../databases/EPA_measures_daily_average_Sept2017.csv")
 
 ####################
 ## VISUALIZATION ##

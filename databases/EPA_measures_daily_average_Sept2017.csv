@@ -1,0 +1,879 @@
+City.Name,Latitude,Longitude,Arithmetic.Mean,Date.Local,County.Name,State.Name,Method.Code
+Los Angeles,34.06659,-118.22688,16.6,2017-09-01,Los Angeles,California,145
+Los Angeles,34.06659,-118.22688,17.5,2017-09-02,Los Angeles,California,145
+Los Angeles,34.06659,-118.22688,12,2017-09-03,Los Angeles,California,145
+Los Angeles,34.06659,-118.22688,11,2017-09-04,Los Angeles,California,145
+Los Angeles,34.06659,-118.22688,11.6,2017-09-05,Los Angeles,California,145
+Los Angeles,34.06659,-118.22688,14.4,2017-09-06,Los Angeles,California,145
+Los Angeles,34.06659,-118.22688,16,2017-09-07,Los Angeles,California,145
+Los Angeles,34.06659,-118.22688,15.8,2017-09-08,Los Angeles,California,145
+Los Angeles,34.06659,-118.22688,13.2,2017-09-09,Los Angeles,California,145
+Los Angeles,34.06659,-118.22688,12.7,2017-09-10,Los Angeles,California,145
+Los Angeles,34.06659,-118.22688,13.2,2017-09-11,Los Angeles,California,145
+Los Angeles,34.06659,-118.22688,9.6,2017-09-12,Los Angeles,California,145
+Los Angeles,34.06659,-118.22688,8,2017-09-13,Los Angeles,California,145
+Los Angeles,34.06659,-118.22688,6.7,2017-09-14,Los Angeles,California,145
+Los Angeles,34.06659,-118.22688,7.6,2017-09-15,Los Angeles,California,145
+Los Angeles,34.06659,-118.22688,9.7,2017-09-16,Los Angeles,California,145
+Los Angeles,34.06659,-118.22688,10.5,2017-09-17,Los Angeles,California,145
+Los Angeles,34.06659,-118.22688,12,2017-09-18,Los Angeles,California,145
+Los Angeles,34.06659,-118.22688,9.7,2017-09-19,Los Angeles,California,145
+Los Angeles,34.06659,-118.22688,9,2017-09-20,Los Angeles,California,145
+Los Angeles,34.06659,-118.22688,7.6,2017-09-21,Los Angeles,California,145
+Los Angeles,34.06659,-118.22688,7.4,2017-09-22,Los Angeles,California,145
+Los Angeles,34.06659,-118.22688,8.8,2017-09-23,Los Angeles,California,145
+Los Angeles,34.06659,-118.22688,8.2,2017-09-24,Los Angeles,California,145
+Los Angeles,34.06659,-118.22688,6.4,2017-09-25,Los Angeles,California,145
+Los Angeles,34.06659,-118.22688,12.6,2017-09-26,Los Angeles,California,145
+Los Angeles,34.06659,-118.22688,14.5,2017-09-27,Los Angeles,California,145
+Los Angeles,34.06659,-118.22688,14.7,2017-09-28,Los Angeles,California,145
+Los Angeles,34.06659,-118.22688,13.8,2017-09-29,Los Angeles,California,145
+Los Angeles,34.06659,-118.22688,21.7,2017-09-30,Los Angeles,California,145
+Los Angeles,34.06659,-118.22688,12,2017-09-04,Los Angeles,California,145
+Los Angeles,34.06659,-118.22688,12.9,2017-09-10,Los Angeles,California,145
+Los Angeles,34.06659,-118.22688,9.7,2017-09-16,Los Angeles,California,145
+Los Angeles,34.06659,-118.22688,7.6,2017-09-22,Los Angeles,California,145
+Los Angeles,34.06659,-118.22688,8.6,2017-09-23,Los Angeles,California,145
+Los Angeles,34.06659,-118.22688,15.6,2017-09-28,Los Angeles,California,145
+Miami,25.794222,-80.215556,7.5,2017-09-01,Miami-Dade,Florida,145
+Miami,25.794222,-80.215556,7.5,2017-09-04,Miami-Dade,Florida,145
+Miami,25.794222,-80.215556,8.2,2017-09-22,Miami-Dade,Florida,145
+Miami,25.794222,-80.215556,10.3,2017-09-25,Miami-Dade,Florida,145
+Miami,25.794222,-80.215556,6.9,2017-09-28,Miami-Dade,Florida,145
+Miami,25.794222,-80.215556,8,2017-09-04,Miami-Dade,Florida,145
+Miami,25.794222,-80.215556,7.6,2017-09-28,Miami-Dade,Florida,145
+Portland,43.677994,-70.256178,7.5,2017-09-04,Cumberland,Maine,143
+Portland,43.677994,-70.256178,3.7,2017-09-10,Cumberland,Maine,143
+Portland,43.677994,-70.256178,9.9,2017-09-16,Cumberland,Maine,143
+Portland,43.677994,-70.256178,4.4,2017-09-22,Cumberland,Maine,143
+Portland,43.677994,-70.256178,4.4,2017-09-28,Cumberland,Maine,143
+Portland,43.660246,-70.268965,7.5,2017-09-04,Cumberland,Maine,145
+Portland,43.660246,-70.268965,3.7,2017-09-10,Cumberland,Maine,145
+Portland,43.660246,-70.268965,10.2,2017-09-16,Cumberland,Maine,145
+Portland,43.660246,-70.268965,7.7,2017-09-22,Cumberland,Maine,145
+Portland,43.660246,-70.268965,12.5,2017-09-28,Cumberland,Maine,145
+Portland,43.660246,-70.268965,8,2017-09-04,Cumberland,Maine,145
+Portland,43.660246,-70.268965,10.5,2017-09-16,Cumberland,Maine,145
+Portland,43.660246,-70.268965,10.6,2017-09-28,Cumberland,Maine,145
+Portland,43.660246,-70.268965,4.466667,2017-09-01,Cumberland,Maine,170
+Portland,43.660246,-70.268965,4.533333,2017-09-02,Cumberland,Maine,170
+Portland,43.660246,-70.268965,3.765217,2017-09-03,Cumberland,Maine,170
+Portland,43.660246,-70.268965,8.470833,2017-09-04,Cumberland,Maine,170
+Portland,43.660246,-70.268965,14.2625,2017-09-05,Cumberland,Maine,170
+Portland,43.660246,-70.268965,14.9875,2017-09-06,Cumberland,Maine,170
+Portland,43.660246,-70.268965,4.995833,2017-09-07,Cumberland,Maine,170
+Portland,43.660246,-70.268965,4.704167,2017-09-08,Cumberland,Maine,170
+Portland,43.660246,-70.268965,4.841667,2017-09-09,Cumberland,Maine,170
+Portland,43.660246,-70.268965,4.183333,2017-09-10,Cumberland,Maine,170
+Portland,43.660246,-70.268965,5.5625,2017-09-11,Cumberland,Maine,170
+Portland,43.660246,-70.268965,9.466667,2017-09-12,Cumberland,Maine,170
+Portland,43.660246,-70.268965,9.108333,2017-09-13,Cumberland,Maine,170
+Portland,43.660246,-70.268965,10.870833,2017-09-14,Cumberland,Maine,170
+Portland,43.660246,-70.268965,14.029167,2017-09-15,Cumberland,Maine,170
+Portland,43.660246,-70.268965,9.604167,2017-09-16,Cumberland,Maine,170
+Portland,43.660246,-70.268965,9.279167,2017-09-17,Cumberland,Maine,170
+Portland,43.660246,-70.268965,5.595833,2017-09-18,Cumberland,Maine,170
+Portland,43.660246,-70.268965,6.083333,2017-09-19,Cumberland,Maine,170
+Portland,43.660246,-70.268965,4.226087,2017-09-20,Cumberland,Maine,170
+Portland,43.660246,-70.268965,10.3875,2017-09-21,Cumberland,Maine,170
+Portland,43.660246,-70.268965,9.55,2017-09-22,Cumberland,Maine,170
+Portland,43.660246,-70.268965,6.325,2017-09-23,Cumberland,Maine,170
+Portland,43.660246,-70.268965,11.979167,2017-09-24,Cumberland,Maine,170
+Portland,43.660246,-70.268965,20.95,2017-09-25,Cumberland,Maine,170
+Portland,43.660246,-70.268965,8.504167,2017-09-26,Cumberland,Maine,170
+Portland,43.660246,-70.268965,8.521739,2017-09-27,Cumberland,Maine,170
+Portland,43.660246,-70.268965,11.108333,2017-09-28,Cumberland,Maine,170
+Portland,43.660246,-70.268965,4.558333,2017-09-29,Cumberland,Maine,170
+Portland,43.660246,-70.268965,4.295833,2017-09-30,Cumberland,Maine,170
+Portland,43.660246,-70.268965,4.4,2017-09-01,Cumberland,Maine,NA
+Portland,43.660246,-70.268965,4.5,2017-09-02,Cumberland,Maine,NA
+Portland,43.660246,-70.268965,3.7,2017-09-03,Cumberland,Maine,NA
+Portland,43.660246,-70.268965,8.4,2017-09-04,Cumberland,Maine,NA
+Portland,43.660246,-70.268965,14.2,2017-09-05,Cumberland,Maine,NA
+Portland,43.660246,-70.268965,14.9,2017-09-06,Cumberland,Maine,NA
+Portland,43.660246,-70.268965,4.9,2017-09-07,Cumberland,Maine,NA
+Portland,43.660246,-70.268965,4.7,2017-09-08,Cumberland,Maine,NA
+Portland,43.660246,-70.268965,4.8,2017-09-09,Cumberland,Maine,NA
+Portland,43.660246,-70.268965,4.1,2017-09-10,Cumberland,Maine,NA
+Portland,43.660246,-70.268965,5.5,2017-09-11,Cumberland,Maine,NA
+Portland,43.660246,-70.268965,9.4,2017-09-12,Cumberland,Maine,NA
+Portland,43.660246,-70.268965,9.1,2017-09-13,Cumberland,Maine,NA
+Portland,43.660246,-70.268965,10.8,2017-09-14,Cumberland,Maine,NA
+Portland,43.660246,-70.268965,14,2017-09-15,Cumberland,Maine,NA
+Portland,43.660246,-70.268965,9.6,2017-09-16,Cumberland,Maine,NA
+Portland,43.660246,-70.268965,9.2,2017-09-17,Cumberland,Maine,NA
+Portland,43.660246,-70.268965,5.5,2017-09-18,Cumberland,Maine,NA
+Portland,43.660246,-70.268965,6,2017-09-19,Cumberland,Maine,NA
+Portland,43.660246,-70.268965,4.2,2017-09-20,Cumberland,Maine,NA
+Portland,43.660246,-70.268965,10.3,2017-09-21,Cumberland,Maine,NA
+Portland,43.660246,-70.268965,9.5,2017-09-22,Cumberland,Maine,NA
+Portland,43.660246,-70.268965,6.3,2017-09-23,Cumberland,Maine,NA
+Portland,43.660246,-70.268965,11.9,2017-09-24,Cumberland,Maine,NA
+Portland,43.660246,-70.268965,20.9,2017-09-25,Cumberland,Maine,NA
+Portland,43.660246,-70.268965,8.5,2017-09-26,Cumberland,Maine,NA
+Portland,43.660246,-70.268965,8.5,2017-09-27,Cumberland,Maine,NA
+Portland,43.660246,-70.268965,11.1,2017-09-28,Cumberland,Maine,NA
+Portland,43.660246,-70.268965,4.5,2017-09-29,Cumberland,Maine,NA
+Portland,43.660246,-70.268965,4.2,2017-09-30,Cumberland,Maine,NA
+Billings,45.7804,-108.511542,43.145833,2017-09-01,Yellowstone,Montana,170
+Billings,45.7804,-108.511542,43.145833,2017-09-01,Yellowstone,Montana,170
+Billings,45.7804,-108.511542,31.395652,2017-09-02,Yellowstone,Montana,170
+Billings,45.7804,-108.511542,31.395652,2017-09-02,Yellowstone,Montana,170
+Billings,45.7804,-108.511542,42.55,2017-09-03,Yellowstone,Montana,170
+Billings,45.7804,-108.511542,42.55,2017-09-03,Yellowstone,Montana,170
+Billings,45.7804,-108.511542,7.808333,2017-09-04,Yellowstone,Montana,170
+Billings,45.7804,-108.511542,9.333333,2017-09-05,Yellowstone,Montana,170
+Billings,45.7804,-108.511542,16.029167,2017-09-06,Yellowstone,Montana,170
+Billings,45.7804,-108.511542,16.029167,2017-09-06,Yellowstone,Montana,170
+Billings,45.7804,-108.511542,17.395833,2017-09-07,Yellowstone,Montana,170
+Billings,45.7804,-108.511542,17.395833,2017-09-07,Yellowstone,Montana,170
+Billings,45.7804,-108.511542,18.1,2017-09-08,Yellowstone,Montana,170
+Billings,45.7804,-108.511542,18.1,2017-09-08,Yellowstone,Montana,170
+Billings,45.7804,-108.511542,18.4125,2017-09-09,Yellowstone,Montana,170
+Billings,45.7804,-108.511542,18.4125,2017-09-09,Yellowstone,Montana,170
+Billings,45.7804,-108.511542,15.2625,2017-09-10,Yellowstone,Montana,170
+Billings,45.7804,-108.511542,15.2625,2017-09-10,Yellowstone,Montana,170
+Billings,45.7804,-108.511542,25.791667,2017-09-11,Yellowstone,Montana,170
+Billings,45.7804,-108.511542,25.791667,2017-09-11,Yellowstone,Montana,170
+Billings,45.7804,-108.511542,29.266667,2017-09-12,Yellowstone,Montana,170
+Billings,45.7804,-108.511542,29.266667,2017-09-12,Yellowstone,Montana,170
+Billings,45.7804,-108.511542,51.613043,2017-09-13,Yellowstone,Montana,170
+Billings,45.7804,-108.511542,51.613043,2017-09-13,Yellowstone,Montana,170
+Billings,45.7804,-108.511542,12.458333,2017-09-14,Yellowstone,Montana,170
+Billings,45.7804,-108.511542,12.458333,2017-09-14,Yellowstone,Montana,170
+Billings,45.7804,-108.511542,6.754167,2017-09-15,Yellowstone,Montana,170
+Billings,45.7804,-108.511542,6.745833,2017-09-16,Yellowstone,Montana,170
+Billings,45.7804,-108.511542,6.575,2017-09-17,Yellowstone,Montana,170
+Billings,45.7804,-108.511542,8.325,2017-09-18,Yellowstone,Montana,170
+Billings,45.7804,-108.511542,1.366667,2017-09-19,Yellowstone,Montana,170
+Billings,45.7804,-108.511542,2.7375,2017-09-20,Yellowstone,Montana,170
+Billings,45.7804,-108.511542,3.308696,2017-09-21,Yellowstone,Montana,170
+Billings,45.7804,-108.511542,7.095833,2017-09-22,Yellowstone,Montana,170
+Billings,45.7804,-108.511542,7.05,2017-09-23,Yellowstone,Montana,170
+Billings,45.7804,-108.511542,7.165217,2017-09-24,Yellowstone,Montana,170
+Billings,45.7804,-108.511542,5.470833,2017-09-25,Yellowstone,Montana,170
+Billings,45.7804,-108.511542,6.929167,2017-09-26,Yellowstone,Montana,170
+Billings,45.7804,-108.511542,8.6625,2017-09-27,Yellowstone,Montana,170
+Billings,45.7804,-108.511542,8.175,2017-09-28,Yellowstone,Montana,170
+Billings,45.7804,-108.511542,9.4625,2017-09-29,Yellowstone,Montana,170
+Billings,45.7804,-108.511542,3.895833,2017-09-30,Yellowstone,Montana,170
+Billings,45.7804,-108.511542,43.1,2017-09-01,Yellowstone,Montana,NA
+Billings,45.7804,-108.511542,43.1,2017-09-01,Yellowstone,Montana,NA
+Billings,45.7804,-108.511542,31.3,2017-09-02,Yellowstone,Montana,NA
+Billings,45.7804,-108.511542,31.3,2017-09-02,Yellowstone,Montana,NA
+Billings,45.7804,-108.511542,42.5,2017-09-03,Yellowstone,Montana,NA
+Billings,45.7804,-108.511542,42.5,2017-09-03,Yellowstone,Montana,NA
+Billings,45.7804,-108.511542,7.8,2017-09-04,Yellowstone,Montana,NA
+Billings,45.7804,-108.511542,9.3,2017-09-05,Yellowstone,Montana,NA
+Billings,45.7804,-108.511542,16,2017-09-06,Yellowstone,Montana,NA
+Billings,45.7804,-108.511542,16,2017-09-06,Yellowstone,Montana,NA
+Billings,45.7804,-108.511542,17.3,2017-09-07,Yellowstone,Montana,NA
+Billings,45.7804,-108.511542,17.3,2017-09-07,Yellowstone,Montana,NA
+Billings,45.7804,-108.511542,18.1,2017-09-08,Yellowstone,Montana,NA
+Billings,45.7804,-108.511542,18.1,2017-09-08,Yellowstone,Montana,NA
+Billings,45.7804,-108.511542,18.4,2017-09-09,Yellowstone,Montana,NA
+Billings,45.7804,-108.511542,18.4,2017-09-09,Yellowstone,Montana,NA
+Billings,45.7804,-108.511542,15.2,2017-09-10,Yellowstone,Montana,NA
+Billings,45.7804,-108.511542,15.2,2017-09-10,Yellowstone,Montana,NA
+Billings,45.7804,-108.511542,25.7,2017-09-11,Yellowstone,Montana,NA
+Billings,45.7804,-108.511542,25.7,2017-09-11,Yellowstone,Montana,NA
+Billings,45.7804,-108.511542,29.2,2017-09-12,Yellowstone,Montana,NA
+Billings,45.7804,-108.511542,29.2,2017-09-12,Yellowstone,Montana,NA
+Billings,45.7804,-108.511542,51.6,2017-09-13,Yellowstone,Montana,NA
+Billings,45.7804,-108.511542,51.6,2017-09-13,Yellowstone,Montana,NA
+Billings,45.7804,-108.511542,12.4,2017-09-14,Yellowstone,Montana,NA
+Billings,45.7804,-108.511542,12.4,2017-09-14,Yellowstone,Montana,NA
+Billings,45.7804,-108.511542,6.7,2017-09-15,Yellowstone,Montana,NA
+Billings,45.7804,-108.511542,6.7,2017-09-16,Yellowstone,Montana,NA
+Billings,45.7804,-108.511542,6.5,2017-09-17,Yellowstone,Montana,NA
+Billings,45.7804,-108.511542,8.3,2017-09-18,Yellowstone,Montana,NA
+Billings,45.7804,-108.511542,1.3,2017-09-19,Yellowstone,Montana,NA
+Billings,45.7804,-108.511542,2.7,2017-09-20,Yellowstone,Montana,NA
+Billings,45.7804,-108.511542,3.3,2017-09-21,Yellowstone,Montana,NA
+Billings,45.7804,-108.511542,7,2017-09-22,Yellowstone,Montana,NA
+Billings,45.7804,-108.511542,7,2017-09-23,Yellowstone,Montana,NA
+Billings,45.7804,-108.511542,7.1,2017-09-24,Yellowstone,Montana,NA
+Billings,45.7804,-108.511542,5.4,2017-09-25,Yellowstone,Montana,NA
+Billings,45.7804,-108.511542,6.9,2017-09-26,Yellowstone,Montana,NA
+Billings,45.7804,-108.511542,8.6,2017-09-27,Yellowstone,Montana,NA
+Billings,45.7804,-108.511542,8.1,2017-09-28,Yellowstone,Montana,NA
+Billings,45.7804,-108.511542,9.4,2017-09-29,Yellowstone,Montana,NA
+Billings,45.7804,-108.511542,3.8,2017-09-30,Yellowstone,Montana,NA
+Albuquerque,35.1343,-106.5852,7.704167,2017-09-01,Bernalillo,New Mexico,170
+Albuquerque,35.1343,-106.5852,9.2625,2017-09-02,Bernalillo,New Mexico,170
+Albuquerque,35.1343,-106.5852,12.465217,2017-09-03,Bernalillo,New Mexico,170
+Albuquerque,35.1343,-106.5852,6.975,2017-09-04,Bernalillo,New Mexico,170
+Albuquerque,35.1343,-106.5852,15.5875,2017-09-05,Bernalillo,New Mexico,170
+Albuquerque,35.1343,-106.5852,9.991667,2017-09-06,Bernalillo,New Mexico,170
+Albuquerque,35.1343,-106.5852,6.729167,2017-09-07,Bernalillo,New Mexico,170
+Albuquerque,35.1343,-106.5852,8.408333,2017-09-08,Bernalillo,New Mexico,170
+Albuquerque,35.1343,-106.5852,8.208333,2017-09-09,Bernalillo,New Mexico,170
+Albuquerque,35.1343,-106.5852,6.070833,2017-09-10,Bernalillo,New Mexico,170
+Albuquerque,35.1343,-106.5852,6.490476,2017-09-11,Bernalillo,New Mexico,170
+Albuquerque,35.1343,-106.5852,7.758333,2017-09-12,Bernalillo,New Mexico,170
+Albuquerque,35.1343,-106.5852,2.913333,2017-09-13,Bernalillo,New Mexico,170
+Albuquerque,35.1343,-106.5852,3.247826,2017-09-14,Bernalillo,New Mexico,170
+Albuquerque,35.1343,-106.5852,3.186957,2017-09-15,Bernalillo,New Mexico,170
+Albuquerque,35.1343,-106.5852,1.785714,2017-09-16,Bernalillo,New Mexico,170
+Albuquerque,35.1343,-106.5852,2.208333,2017-09-17,Bernalillo,New Mexico,170
+Albuquerque,35.1343,-106.5852,2.752381,2017-09-18,Bernalillo,New Mexico,170
+Albuquerque,35.1343,-106.5852,2.514286,2017-09-19,Bernalillo,New Mexico,170
+Albuquerque,35.1343,-106.5852,1.952174,2017-09-20,Bernalillo,New Mexico,170
+Albuquerque,35.1343,-106.5852,3.621053,2017-09-21,Bernalillo,New Mexico,170
+Albuquerque,35.1343,-106.5852,1.838095,2017-09-22,Bernalillo,New Mexico,170
+Albuquerque,35.1343,-106.5852,2.0375,2017-09-23,Bernalillo,New Mexico,170
+Albuquerque,35.1343,-106.5852,1.635,2017-09-24,Bernalillo,New Mexico,170
+Albuquerque,35.1343,-106.5852,1.442105,2017-09-25,Bernalillo,New Mexico,170
+Albuquerque,35.1343,-106.5852,3.819048,2017-09-26,Bernalillo,New Mexico,170
+Albuquerque,35.1343,-106.5852,1.505,2017-09-27,Bernalillo,New Mexico,170
+Albuquerque,35.1343,-106.5852,1.62,2017-09-28,Bernalillo,New Mexico,170
+Albuquerque,35.1343,-106.5852,1.759091,2017-09-29,Bernalillo,New Mexico,170
+Albuquerque,35.1343,-106.5852,1.927273,2017-09-30,Bernalillo,New Mexico,170
+Albuquerque,35.1343,-106.5852,7.7,2017-09-01,Bernalillo,New Mexico,NA
+Albuquerque,35.1343,-106.5852,9.2,2017-09-02,Bernalillo,New Mexico,NA
+Albuquerque,35.1343,-106.5852,12.4,2017-09-03,Bernalillo,New Mexico,NA
+Albuquerque,35.1343,-106.5852,6.9,2017-09-04,Bernalillo,New Mexico,NA
+Albuquerque,35.1343,-106.5852,15.5,2017-09-05,Bernalillo,New Mexico,NA
+Albuquerque,35.1343,-106.5852,9.9,2017-09-06,Bernalillo,New Mexico,NA
+Albuquerque,35.1343,-106.5852,6.7,2017-09-07,Bernalillo,New Mexico,NA
+Albuquerque,35.1343,-106.5852,8.4,2017-09-08,Bernalillo,New Mexico,NA
+Albuquerque,35.1343,-106.5852,8.2,2017-09-09,Bernalillo,New Mexico,NA
+Albuquerque,35.1343,-106.5852,6,2017-09-10,Bernalillo,New Mexico,NA
+Albuquerque,35.1343,-106.5852,6.4,2017-09-11,Bernalillo,New Mexico,NA
+Albuquerque,35.1343,-106.5852,7.7,2017-09-12,Bernalillo,New Mexico,NA
+Albuquerque,35.1343,-106.5852,3.2,2017-09-14,Bernalillo,New Mexico,NA
+Albuquerque,35.1343,-106.5852,3.1,2017-09-15,Bernalillo,New Mexico,NA
+Albuquerque,35.1343,-106.5852,1.7,2017-09-16,Bernalillo,New Mexico,NA
+Albuquerque,35.1343,-106.5852,2.2,2017-09-17,Bernalillo,New Mexico,NA
+Albuquerque,35.1343,-106.5852,2.7,2017-09-18,Bernalillo,New Mexico,NA
+Albuquerque,35.1343,-106.5852,2.5,2017-09-19,Bernalillo,New Mexico,NA
+Albuquerque,35.1343,-106.5852,1.9,2017-09-20,Bernalillo,New Mexico,NA
+Albuquerque,35.1343,-106.5852,3.6,2017-09-21,Bernalillo,New Mexico,NA
+Albuquerque,35.1343,-106.5852,1.8,2017-09-22,Bernalillo,New Mexico,NA
+Albuquerque,35.1343,-106.5852,2,2017-09-23,Bernalillo,New Mexico,NA
+Albuquerque,35.1343,-106.5852,1.6,2017-09-24,Bernalillo,New Mexico,NA
+Albuquerque,35.1343,-106.5852,1.4,2017-09-25,Bernalillo,New Mexico,NA
+Albuquerque,35.1343,-106.5852,3.8,2017-09-26,Bernalillo,New Mexico,NA
+Albuquerque,35.1343,-106.5852,1.5,2017-09-27,Bernalillo,New Mexico,NA
+Albuquerque,35.1343,-106.5852,1.6,2017-09-28,Bernalillo,New Mexico,NA
+Albuquerque,35.1343,-106.5852,1.7,2017-09-29,Bernalillo,New Mexico,NA
+Albuquerque,35.1343,-106.5852,1.9,2017-09-30,Bernalillo,New Mexico,NA
+Albuquerque,35.1343,-106.5852,8.3,2017-09-01,Bernalillo,New Mexico,145
+Albuquerque,35.1343,-106.5852,8.8,2017-09-04,Bernalillo,New Mexico,145
+Albuquerque,35.1343,-106.5852,9.4,2017-09-07,Bernalillo,New Mexico,145
+Albuquerque,35.1343,-106.5852,7.7,2017-09-10,Bernalillo,New Mexico,145
+Albuquerque,35.1343,-106.5852,4.3,2017-09-13,Bernalillo,New Mexico,145
+Albuquerque,35.1343,-106.5852,3.4,2017-09-16,Bernalillo,New Mexico,145
+Albuquerque,35.1343,-106.5852,3,2017-09-19,Bernalillo,New Mexico,145
+Albuquerque,35.1343,-106.5852,3.1,2017-09-22,Bernalillo,New Mexico,145
+Albuquerque,35.1343,-106.5852,3.4,2017-09-25,Bernalillo,New Mexico,145
+Albuquerque,35.1343,-106.5852,1.3,2017-09-28,Bernalillo,New Mexico,145
+New York,40.816,-73.902,3.5,2017-09-01,Bronx,New York,145
+New York,40.816,-73.902,10.3,2017-09-04,Bronx,New York,145
+New York,40.816,-73.902,7.7,2017-09-07,Bronx,New York,145
+New York,40.816,-73.902,3.4,2017-09-10,Bronx,New York,145
+New York,40.816,-73.902,8.6,2017-09-13,Bronx,New York,145
+New York,40.816,-73.902,15.5,2017-09-16,Bronx,New York,145
+New York,40.816,-73.902,8.3,2017-09-19,Bronx,New York,145
+New York,40.816,-73.902,5.4,2017-09-22,Bronx,New York,145
+New York,40.816,-73.902,12,2017-09-25,Bronx,New York,145
+New York,40.816,-73.902,3.4,2017-09-28,Bronx,New York,145
+New York,40.816,-73.902,0.866667,2017-09-01,Bronx,New York,182
+New York,40.816,-73.902,0.7875,2017-09-02,Bronx,New York,182
+New York,40.816,-73.902,-0.086957,2017-09-03,Bronx,New York,182
+New York,40.816,-73.902,7.929167,2017-09-04,Bronx,New York,182
+New York,40.816,-73.902,12.45,2017-09-05,Bronx,New York,182
+New York,40.816,-73.902,9.308333,2017-09-06,Bronx,New York,182
+New York,40.816,-73.902,-0.4,2017-09-11,Bronx,New York,182
+New York,40.816,-73.902,11.371429,2017-09-15,Bronx,New York,182
+New York,40.816,-73.902,18.325,2017-09-16,Bronx,New York,182
+New York,40.816,-73.902,15.683333,2017-09-17,Bronx,New York,182
+New York,40.816,-73.902,3.675,2017-09-18,Bronx,New York,182
+New York,40.816,-73.902,7.291667,2017-09-19,Bronx,New York,182
+New York,40.816,-73.902,3.0375,2017-09-20,Bronx,New York,182
+New York,40.816,-73.902,6.395833,2017-09-21,Bronx,New York,182
+New York,40.816,-73.902,4.475,2017-09-22,Bronx,New York,182
+New York,40.816,-73.902,4.725,2017-09-23,Bronx,New York,182
+New York,40.816,-73.902,9.941667,2017-09-24,Bronx,New York,182
+New York,40.816,-73.902,12.504167,2017-09-25,Bronx,New York,182
+New York,40.816,-73.902,4.975,2017-09-26,Bronx,New York,182
+New York,40.816,-73.902,2.95,2017-09-27,Bronx,New York,182
+New York,40.816,-73.902,2.6375,2017-09-28,Bronx,New York,182
+New York,40.816,-73.902,3.495833,2017-09-29,Bronx,New York,182
+New York,40.816,-73.902,6.1,2017-09-30,Bronx,New York,182
+New York,40.816,-73.902,0.8,2017-09-01,Bronx,New York,NA
+New York,40.816,-73.902,0.7,2017-09-02,Bronx,New York,NA
+New York,40.816,-73.902,0,2017-09-03,Bronx,New York,NA
+New York,40.816,-73.902,7.9,2017-09-04,Bronx,New York,NA
+New York,40.816,-73.902,12.4,2017-09-05,Bronx,New York,NA
+New York,40.816,-73.902,9.3,2017-09-06,Bronx,New York,NA
+New York,40.816,-73.902,18.3,2017-09-16,Bronx,New York,NA
+New York,40.816,-73.902,15.6,2017-09-17,Bronx,New York,NA
+New York,40.816,-73.902,3.6,2017-09-18,Bronx,New York,NA
+New York,40.816,-73.902,7.2,2017-09-19,Bronx,New York,NA
+New York,40.816,-73.902,3,2017-09-20,Bronx,New York,NA
+New York,40.816,-73.902,6.3,2017-09-21,Bronx,New York,NA
+New York,40.816,-73.902,4.4,2017-09-22,Bronx,New York,NA
+New York,40.816,-73.902,4.7,2017-09-23,Bronx,New York,NA
+New York,40.816,-73.902,9.9,2017-09-24,Bronx,New York,NA
+New York,40.816,-73.902,12.5,2017-09-25,Bronx,New York,NA
+New York,40.816,-73.902,4.9,2017-09-26,Bronx,New York,NA
+New York,40.816,-73.902,2.9,2017-09-27,Bronx,New York,NA
+New York,40.816,-73.902,2.6,2017-09-28,Bronx,New York,NA
+New York,40.816,-73.902,3.4,2017-09-29,Bronx,New York,NA
+New York,40.816,-73.902,6.1,2017-09-30,Bronx,New York,NA
+New York,40.8679,-73.87809,3.3,2017-09-01,Bronx,New York,145
+New York,40.8679,-73.87809,10.8,2017-09-04,Bronx,New York,145
+New York,40.8679,-73.87809,8.6,2017-09-07,Bronx,New York,145
+New York,40.8679,-73.87809,3.9,2017-09-10,Bronx,New York,145
+New York,40.8679,-73.87809,8.8,2017-09-13,Bronx,New York,145
+New York,40.8679,-73.87809,15.2,2017-09-16,Bronx,New York,145
+New York,40.8679,-73.87809,8.9,2017-09-19,Bronx,New York,145
+New York,40.8679,-73.87809,5.6,2017-09-22,Bronx,New York,145
+New York,40.8679,-73.87809,12.3,2017-09-25,Bronx,New York,145
+New York,40.8679,-73.87809,3.7,2017-09-28,Bronx,New York,145
+New York,40.71961,-73.94771,3.3,2017-09-01,Kings,New York,145
+New York,40.71961,-73.94771,10.1,2017-09-04,Kings,New York,145
+New York,40.71961,-73.94771,7.8,2017-09-07,Kings,New York,145
+New York,40.71961,-73.94771,3.2,2017-09-10,Kings,New York,145
+New York,40.71961,-73.94771,10.3,2017-09-13,Kings,New York,145
+New York,40.71961,-73.94771,15.3,2017-09-16,Kings,New York,145
+New York,40.71961,-73.94771,8.7,2017-09-19,Kings,New York,145
+New York,40.71961,-73.94771,6.2,2017-09-22,Kings,New York,145
+New York,40.71961,-73.94771,13.3,2017-09-25,Kings,New York,145
+New York,40.71961,-73.94771,4.5,2017-09-28,Kings,New York,145
+New York,40.7997,-73.93432,3.5,2017-09-01,New York,New York,145
+New York,40.7997,-73.93432,11.5,2017-09-04,New York,New York,145
+New York,40.7997,-73.93432,8.5,2017-09-07,New York,New York,145
+New York,40.7997,-73.93432,3.6,2017-09-10,New York,New York,145
+New York,40.7997,-73.93432,8.7,2017-09-13,New York,New York,145
+New York,40.7997,-73.93432,14.9,2017-09-16,New York,New York,145
+New York,40.7997,-73.93432,8.9,2017-09-19,New York,New York,145
+New York,40.7997,-73.93432,5.7,2017-09-22,New York,New York,145
+New York,40.7997,-73.93432,12.5,2017-09-25,New York,New York,145
+New York,40.7997,-73.93432,4,2017-09-28,New York,New York,145
+New York,40.7997,-73.93432,11.5,2017-09-04,New York,New York,145
+New York,40.7997,-73.93432,3.4,2017-09-10,New York,New York,145
+New York,40.7997,-73.93432,15.5,2017-09-16,New York,New York,145
+New York,40.7997,-73.93432,5.9,2017-09-22,New York,New York,145
+New York,40.7997,-73.93432,4.2,2017-09-28,New York,New York,145
+New York,40.73,-73.984,4.6,2017-09-01,New York,New York,145
+New York,40.73,-73.984,10.7,2017-09-04,New York,New York,145
+New York,40.73,-73.984,8.6,2017-09-07,New York,New York,145
+New York,40.73,-73.984,6,2017-09-10,New York,New York,145
+New York,40.73,-73.984,10.3,2017-09-13,New York,New York,145
+New York,40.73,-73.984,16.7,2017-09-16,New York,New York,145
+New York,40.73,-73.984,10.6,2017-09-19,New York,New York,145
+New York,40.73,-73.984,6.7,2017-09-22,New York,New York,145
+New York,40.73,-73.984,13.9,2017-09-25,New York,New York,145
+New York,40.73,-73.984,5.3,2017-09-28,New York,New York,145
+New York,40.71436,-73.99518,4.8,2017-09-01,New York,New York,145
+New York,40.71436,-73.99518,11.2,2017-09-04,New York,New York,145
+New York,40.71436,-73.99518,8.5,2017-09-07,New York,New York,145
+New York,40.71436,-73.99518,4.7,2017-09-10,New York,New York,145
+New York,40.71436,-73.99518,12.1,2017-09-13,New York,New York,145
+New York,40.71436,-73.99518,16.6,2017-09-16,New York,New York,145
+New York,40.71436,-73.99518,9.2,2017-09-19,New York,New York,145
+New York,40.71436,-73.99518,7.5,2017-09-22,New York,New York,145
+New York,40.71436,-73.99518,15.6,2017-09-25,New York,New York,145
+New York,40.71436,-73.99518,5.4,2017-09-28,New York,New York,145
+New York,40.73614,-73.82153,3.9,2017-09-01,Queens,New York,145
+New York,40.73614,-73.82153,3.6,2017-09-02,Queens,New York,145
+New York,40.73614,-73.82153,4,2017-09-03,Queens,New York,145
+New York,40.73614,-73.82153,10.2,2017-09-04,Queens,New York,145
+New York,40.73614,-73.82153,15.2,2017-09-05,Queens,New York,145
+New York,40.73614,-73.82153,13.7,2017-09-06,Queens,New York,145
+New York,40.73614,-73.82153,3.8,2017-09-08,Queens,New York,145
+New York,40.73614,-73.82153,2.6,2017-09-09,Queens,New York,145
+New York,40.73614,-73.82153,3.5,2017-09-10,Queens,New York,145
+New York,40.73614,-73.82153,4.9,2017-09-11,Queens,New York,145
+New York,40.73614,-73.82153,9.3,2017-09-12,Queens,New York,145
+New York,40.73614,-73.82153,8.6,2017-09-13,Queens,New York,145
+New York,40.73614,-73.82153,9.5,2017-09-14,Queens,New York,145
+New York,40.73614,-73.82153,9.9,2017-09-15,Queens,New York,145
+New York,40.73614,-73.82153,13.1,2017-09-16,Queens,New York,145
+New York,40.73614,-73.82153,11.5,2017-09-17,Queens,New York,145
+New York,40.73614,-73.82153,4.7,2017-09-18,Queens,New York,145
+New York,40.73614,-73.82153,7.3,2017-09-19,Queens,New York,145
+New York,40.73614,-73.82153,4.7,2017-09-20,Queens,New York,145
+New York,40.73614,-73.82153,7.5,2017-09-21,Queens,New York,145
+New York,40.73614,-73.82153,5.1,2017-09-22,Queens,New York,145
+New York,40.73614,-73.82153,5.6,2017-09-23,Queens,New York,145
+New York,40.73614,-73.82153,10.2,2017-09-24,Queens,New York,145
+New York,40.73614,-73.82153,10.2,2017-09-25,Queens,New York,145
+New York,40.73614,-73.82153,3.5,2017-09-26,Queens,New York,145
+New York,40.73614,-73.82153,4.5,2017-09-27,Queens,New York,145
+New York,40.73614,-73.82153,4.4,2017-09-28,Queens,New York,145
+New York,40.73614,-73.82153,5,2017-09-29,Queens,New York,145
+New York,40.73614,-73.82153,5.2,2017-09-30,Queens,New York,145
+New York,40.73614,-73.82153,3.816667,2017-09-01,Queens,New York,182
+New York,40.73614,-73.82153,3.645833,2017-09-02,Queens,New York,182
+New York,40.73614,-73.82153,3.575,2017-09-03,Queens,New York,182
+New York,40.73614,-73.82153,9.7875,2017-09-04,Queens,New York,182
+New York,40.73614,-73.82153,14.245833,2017-09-05,Queens,New York,182
+New York,40.73614,-73.82153,14.091667,2017-09-06,Queens,New York,182
+New York,40.73614,-73.82153,7.908333,2017-09-07,Queens,New York,182
+New York,40.73614,-73.82153,3.916667,2017-09-08,Queens,New York,182
+New York,40.73614,-73.82153,2.845833,2017-09-09,Queens,New York,182
+New York,40.73614,-73.82153,3.4125,2017-09-10,Queens,New York,182
+New York,40.73614,-73.82153,4.295833,2017-09-11,Queens,New York,182
+New York,40.73614,-73.82153,9.070833,2017-09-12,Queens,New York,182
+New York,40.73614,-73.82153,9.025,2017-09-13,Queens,New York,182
+New York,40.73614,-73.82153,8.77619,2017-09-14,Queens,New York,182
+New York,40.73614,-73.82153,8.7875,2017-09-15,Queens,New York,182
+New York,40.73614,-73.82153,15.541667,2017-09-16,Queens,New York,182
+New York,40.73614,-73.82153,16.179167,2017-09-17,Queens,New York,182
+New York,40.73614,-73.82153,4.308333,2017-09-18,Queens,New York,182
+New York,40.73614,-73.82153,5.333333,2017-09-19,Queens,New York,182
+New York,40.73614,-73.82153,3.391667,2017-09-20,Queens,New York,182
+New York,40.73614,-73.82153,5.5125,2017-09-21,Queens,New York,182
+New York,40.73614,-73.82153,3.9875,2017-09-22,Queens,New York,182
+New York,40.73614,-73.82153,4.370833,2017-09-23,Queens,New York,182
+New York,40.73614,-73.82153,9.741667,2017-09-24,Queens,New York,182
+New York,40.73614,-73.82153,10.883333,2017-09-25,Queens,New York,182
+New York,40.73614,-73.82153,3.65,2017-09-26,Queens,New York,182
+New York,40.73614,-73.82153,3.45,2017-09-27,Queens,New York,182
+New York,40.73614,-73.82153,2.179167,2017-09-28,Queens,New York,182
+New York,40.73614,-73.82153,2.675,2017-09-29,Queens,New York,182
+New York,40.73614,-73.82153,4.883333,2017-09-30,Queens,New York,182
+New York,40.73614,-73.82153,3.8,2017-09-01,Queens,New York,NA
+New York,40.73614,-73.82153,3.6,2017-09-02,Queens,New York,NA
+New York,40.73614,-73.82153,3.5,2017-09-03,Queens,New York,NA
+New York,40.73614,-73.82153,9.7,2017-09-04,Queens,New York,NA
+New York,40.73614,-73.82153,14.2,2017-09-05,Queens,New York,NA
+New York,40.73614,-73.82153,14,2017-09-06,Queens,New York,NA
+New York,40.73614,-73.82153,7.9,2017-09-07,Queens,New York,NA
+New York,40.73614,-73.82153,3.9,2017-09-08,Queens,New York,NA
+New York,40.73614,-73.82153,2.8,2017-09-09,Queens,New York,NA
+New York,40.73614,-73.82153,3.4,2017-09-10,Queens,New York,NA
+New York,40.73614,-73.82153,4.2,2017-09-11,Queens,New York,NA
+New York,40.73614,-73.82153,9,2017-09-12,Queens,New York,NA
+New York,40.73614,-73.82153,9,2017-09-13,Queens,New York,NA
+New York,40.73614,-73.82153,8.7,2017-09-14,Queens,New York,NA
+New York,40.73614,-73.82153,8.7,2017-09-15,Queens,New York,NA
+New York,40.73614,-73.82153,15.5,2017-09-16,Queens,New York,NA
+New York,40.73614,-73.82153,16.1,2017-09-17,Queens,New York,NA
+New York,40.73614,-73.82153,4.3,2017-09-18,Queens,New York,NA
+New York,40.73614,-73.82153,5.3,2017-09-19,Queens,New York,NA
+New York,40.73614,-73.82153,3.3,2017-09-20,Queens,New York,NA
+New York,40.73614,-73.82153,5.5,2017-09-21,Queens,New York,NA
+New York,40.73614,-73.82153,3.9,2017-09-22,Queens,New York,NA
+New York,40.73614,-73.82153,4.3,2017-09-23,Queens,New York,NA
+New York,40.73614,-73.82153,9.7,2017-09-24,Queens,New York,NA
+New York,40.73614,-73.82153,10.8,2017-09-25,Queens,New York,NA
+New York,40.73614,-73.82153,3.6,2017-09-26,Queens,New York,NA
+New York,40.73614,-73.82153,3.4,2017-09-27,Queens,New York,NA
+New York,40.73614,-73.82153,2.1,2017-09-28,Queens,New York,NA
+New York,40.73614,-73.82153,2.6,2017-09-29,Queens,New York,NA
+New York,40.73614,-73.82153,4.8,2017-09-30,Queens,New York,NA
+New York,40.739264,-73.817694,4.4,2017-09-01,Queens,New York,145
+New York,40.739264,-73.817694,10.1,2017-09-04,Queens,New York,145
+New York,40.739264,-73.817694,8.7,2017-09-07,Queens,New York,145
+New York,40.739264,-73.817694,4.3,2017-09-10,Queens,New York,145
+New York,40.739264,-73.817694,9.5,2017-09-13,Queens,New York,145
+New York,40.739264,-73.817694,14.5,2017-09-16,Queens,New York,145
+New York,40.739264,-73.817694,8.5,2017-09-19,Queens,New York,145
+New York,40.739264,-73.817694,6.4,2017-09-22,Queens,New York,145
+New York,40.739264,-73.817694,11.8,2017-09-25,Queens,New York,145
+New York,40.739264,-73.817694,5.1,2017-09-28,Queens,New York,145
+New York,40.63307,-74.13719,3.4,2017-09-01,Richmond,New York,145
+New York,40.63307,-74.13719,9.9,2017-09-04,Richmond,New York,145
+New York,40.63307,-74.13719,7.5,2017-09-07,Richmond,New York,145
+New York,40.63307,-74.13719,4,2017-09-10,Richmond,New York,145
+New York,40.63307,-74.13719,8,2017-09-13,Richmond,New York,145
+New York,40.63307,-74.13719,13.2,2017-09-16,Richmond,New York,145
+New York,40.63307,-74.13719,8.3,2017-09-19,Richmond,New York,145
+New York,40.63307,-74.13719,5.7,2017-09-22,Richmond,New York,145
+New York,40.63307,-74.13719,11.9,2017-09-25,Richmond,New York,145
+New York,40.63307,-74.13719,4.9,2017-09-28,Richmond,New York,145
+Portland,45.496641,-122.602877,5,2017-09-01,Multnomah,Oregon,145
+Portland,45.496641,-122.602877,15.2,2017-09-04,Multnomah,Oregon,145
+Portland,45.496641,-122.602877,19.9,2017-09-07,Multnomah,Oregon,145
+Portland,45.496641,-122.602877,3.1,2017-09-10,Multnomah,Oregon,145
+Portland,45.496641,-122.602877,4.6,2017-09-13,Multnomah,Oregon,145
+Portland,45.496641,-122.602877,53.1,2017-09-16,Multnomah,Oregon,145
+Portland,45.496641,-122.602877,2.3,2017-09-19,Multnomah,Oregon,145
+Portland,45.496641,-122.602877,10.3,2017-09-22,Multnomah,Oregon,145
+Portland,45.496641,-122.602877,11,2017-09-25,Multnomah,Oregon,145
+Portland,45.496641,-122.602877,8.2,2017-09-28,Multnomah,Oregon,145
+Philadelphia,40.008889,-75.09778,5.9,2017-09-01,Philadelphia,Pennsylvania,145
+Philadelphia,40.008889,-75.09778,10.5,2017-09-04,Philadelphia,Pennsylvania,145
+Philadelphia,40.008889,-75.09778,7.7,2017-09-07,Philadelphia,Pennsylvania,145
+Philadelphia,40.008889,-75.09778,3.5,2017-09-10,Philadelphia,Pennsylvania,145
+Philadelphia,40.008889,-75.09778,7.7,2017-09-13,Philadelphia,Pennsylvania,145
+Philadelphia,40.008889,-75.09778,9.5,2017-09-16,Philadelphia,Pennsylvania,145
+Philadelphia,40.008889,-75.09778,11,2017-09-19,Philadelphia,Pennsylvania,145
+Philadelphia,40.008889,-75.09778,8,2017-09-22,Philadelphia,Pennsylvania,145
+Philadelphia,40.008889,-75.09778,5.2,2017-09-28,Philadelphia,Pennsylvania,145
+Philadelphia,40.008889,-75.09778,11.1,2017-09-04,Philadelphia,Pennsylvania,145
+Philadelphia,40.008889,-75.09778,7.8,2017-09-07,Philadelphia,Pennsylvania,145
+Philadelphia,40.008889,-75.09778,3.4,2017-09-10,Philadelphia,Pennsylvania,145
+Philadelphia,40.008889,-75.09778,8.7,2017-09-13,Philadelphia,Pennsylvania,145
+Philadelphia,40.008889,-75.09778,9.1,2017-09-16,Philadelphia,Pennsylvania,145
+Philadelphia,40.008889,-75.09778,11,2017-09-19,Philadelphia,Pennsylvania,145
+Philadelphia,40.008889,-75.09778,8,2017-09-22,Philadelphia,Pennsylvania,145
+Philadelphia,40.008889,-75.09778,5.2,2017-09-28,Philadelphia,Pennsylvania,145
+Philadelphia,39.991389,-75.080833,7.3,2017-09-01,Philadelphia,Pennsylvania,145
+Philadelphia,39.991389,-75.080833,3.5,2017-09-02,Philadelphia,Pennsylvania,145
+Philadelphia,39.991389,-75.080833,5.1,2017-09-03,Philadelphia,Pennsylvania,145
+Philadelphia,39.991389,-75.080833,11.4,2017-09-04,Philadelphia,Pennsylvania,145
+Philadelphia,39.991389,-75.080833,18.2,2017-09-05,Philadelphia,Pennsylvania,145
+Philadelphia,39.991389,-75.080833,17.5,2017-09-06,Philadelphia,Pennsylvania,145
+Philadelphia,39.991389,-75.080833,7.2,2017-09-07,Philadelphia,Pennsylvania,145
+Philadelphia,39.991389,-75.080833,4.8,2017-09-08,Philadelphia,Pennsylvania,145
+Philadelphia,39.991389,-75.080833,4.9,2017-09-09,Philadelphia,Pennsylvania,145
+Philadelphia,39.991389,-75.080833,4.2,2017-09-10,Philadelphia,Pennsylvania,145
+Philadelphia,39.991389,-75.080833,6.3,2017-09-11,Philadelphia,Pennsylvania,145
+Philadelphia,39.991389,-75.080833,10.6,2017-09-12,Philadelphia,Pennsylvania,145
+Philadelphia,39.991389,-75.080833,8.8,2017-09-13,Philadelphia,Pennsylvania,145
+Philadelphia,39.991389,-75.080833,10.7,2017-09-14,Philadelphia,Pennsylvania,145
+Philadelphia,39.991389,-75.080833,7.8,2017-09-15,Philadelphia,Pennsylvania,145
+Philadelphia,39.991389,-75.080833,9.3,2017-09-16,Philadelphia,Pennsylvania,145
+Philadelphia,39.991389,-75.080833,9.1,2017-09-17,Philadelphia,Pennsylvania,145
+Philadelphia,39.991389,-75.080833,7.5,2017-09-18,Philadelphia,Pennsylvania,145
+Philadelphia,39.991389,-75.080833,11.2,2017-09-19,Philadelphia,Pennsylvania,145
+Philadelphia,39.991389,-75.080833,5,2017-09-20,Philadelphia,Pennsylvania,145
+Philadelphia,39.991389,-75.080833,8.7,2017-09-21,Philadelphia,Pennsylvania,145
+Philadelphia,39.991389,-75.080833,8.1,2017-09-22,Philadelphia,Pennsylvania,145
+Philadelphia,39.991389,-75.080833,6.2,2017-09-23,Philadelphia,Pennsylvania,145
+Philadelphia,39.991389,-75.080833,11.1,2017-09-24,Philadelphia,Pennsylvania,145
+Philadelphia,39.991389,-75.080833,13.1,2017-09-25,Philadelphia,Pennsylvania,145
+Philadelphia,39.991389,-75.080833,3.7,2017-09-26,Philadelphia,Pennsylvania,145
+Philadelphia,39.991389,-75.080833,5.9,2017-09-27,Philadelphia,Pennsylvania,145
+Philadelphia,39.991389,-75.080833,7.7,2017-09-28,Philadelphia,Pennsylvania,145
+Philadelphia,39.991389,-75.080833,5.2,2017-09-29,Philadelphia,Pennsylvania,145
+Philadelphia,39.991389,-75.080833,6.6125,2017-09-01,Philadelphia,Pennsylvania,170
+Philadelphia,39.991389,-75.080833,2.7625,2017-09-02,Philadelphia,Pennsylvania,170
+Philadelphia,39.991389,-75.080833,4.025,2017-09-03,Philadelphia,Pennsylvania,170
+Philadelphia,39.991389,-75.080833,9.9875,2017-09-04,Philadelphia,Pennsylvania,170
+Philadelphia,39.991389,-75.080833,16.920833,2017-09-05,Philadelphia,Pennsylvania,170
+Philadelphia,39.991389,-75.080833,18.833333,2017-09-06,Philadelphia,Pennsylvania,170
+Philadelphia,39.991389,-75.080833,10.279167,2017-09-07,Philadelphia,Pennsylvania,170
+Philadelphia,39.991389,-75.080833,4.05,2017-09-08,Philadelphia,Pennsylvania,170
+Philadelphia,39.991389,-75.080833,5.345833,2017-09-09,Philadelphia,Pennsylvania,170
+Philadelphia,39.991389,-75.080833,3.05,2017-09-10,Philadelphia,Pennsylvania,170
+Philadelphia,39.991389,-75.080833,5.926087,2017-09-11,Philadelphia,Pennsylvania,170
+Philadelphia,39.991389,-75.080833,11.15,2017-09-12,Philadelphia,Pennsylvania,170
+Philadelphia,39.991389,-75.080833,10.658333,2017-09-13,Philadelphia,Pennsylvania,170
+Philadelphia,39.991389,-75.080833,9.295833,2017-09-14,Philadelphia,Pennsylvania,170
+Philadelphia,39.991389,-75.080833,5.72381,2017-09-15,Philadelphia,Pennsylvania,170
+Philadelphia,39.991389,-75.080833,5.341667,2017-09-16,Philadelphia,Pennsylvania,170
+Philadelphia,39.991389,-75.080833,4.791667,2017-09-17,Philadelphia,Pennsylvania,170
+Philadelphia,39.991389,-75.080833,3.704167,2017-09-18,Philadelphia,Pennsylvania,170
+Philadelphia,39.991389,-75.080833,8.425,2017-09-19,Philadelphia,Pennsylvania,170
+Philadelphia,39.991389,-75.080833,3.321739,2017-09-20,Philadelphia,Pennsylvania,170
+Philadelphia,39.991389,-75.080833,3.826087,2017-09-21,Philadelphia,Pennsylvania,170
+Philadelphia,39.991389,-75.080833,5.85,2017-09-22,Philadelphia,Pennsylvania,170
+Philadelphia,39.991389,-75.080833,5.1875,2017-09-23,Philadelphia,Pennsylvania,170
+Philadelphia,39.991389,-75.080833,8.958333,2017-09-24,Philadelphia,Pennsylvania,170
+Philadelphia,39.991389,-75.080833,11.304167,2017-09-25,Philadelphia,Pennsylvania,170
+Philadelphia,39.991389,-75.080833,1.908333,2017-09-26,Philadelphia,Pennsylvania,170
+Philadelphia,39.991389,-75.080833,1.031579,2017-09-27,Philadelphia,Pennsylvania,170
+Philadelphia,39.991389,-75.080833,6.342857,2017-09-28,Philadelphia,Pennsylvania,170
+Philadelphia,39.991389,-75.080833,3.066667,2017-09-29,Philadelphia,Pennsylvania,170
+Philadelphia,39.991389,-75.080833,2.978947,2017-09-30,Philadelphia,Pennsylvania,170
+Philadelphia,39.991389,-75.080833,6.6,2017-09-01,Philadelphia,Pennsylvania,NA
+Philadelphia,39.991389,-75.080833,2.7,2017-09-02,Philadelphia,Pennsylvania,NA
+Philadelphia,39.991389,-75.080833,4,2017-09-03,Philadelphia,Pennsylvania,NA
+Philadelphia,39.991389,-75.080833,9.9,2017-09-04,Philadelphia,Pennsylvania,NA
+Philadelphia,39.991389,-75.080833,16.9,2017-09-05,Philadelphia,Pennsylvania,NA
+Philadelphia,39.991389,-75.080833,18.8,2017-09-06,Philadelphia,Pennsylvania,NA
+Philadelphia,39.991389,-75.080833,10.2,2017-09-07,Philadelphia,Pennsylvania,NA
+Philadelphia,39.991389,-75.080833,4,2017-09-08,Philadelphia,Pennsylvania,NA
+Philadelphia,39.991389,-75.080833,5.3,2017-09-09,Philadelphia,Pennsylvania,NA
+Philadelphia,39.991389,-75.080833,3,2017-09-10,Philadelphia,Pennsylvania,NA
+Philadelphia,39.991389,-75.080833,5.9,2017-09-11,Philadelphia,Pennsylvania,NA
+Philadelphia,39.991389,-75.080833,11.1,2017-09-12,Philadelphia,Pennsylvania,NA
+Philadelphia,39.991389,-75.080833,10.6,2017-09-13,Philadelphia,Pennsylvania,NA
+Philadelphia,39.991389,-75.080833,9.2,2017-09-14,Philadelphia,Pennsylvania,NA
+Philadelphia,39.991389,-75.080833,5.7,2017-09-15,Philadelphia,Pennsylvania,NA
+Philadelphia,39.991389,-75.080833,5.3,2017-09-16,Philadelphia,Pennsylvania,NA
+Philadelphia,39.991389,-75.080833,4.7,2017-09-17,Philadelphia,Pennsylvania,NA
+Philadelphia,39.991389,-75.080833,3.7,2017-09-18,Philadelphia,Pennsylvania,NA
+Philadelphia,39.991389,-75.080833,8.4,2017-09-19,Philadelphia,Pennsylvania,NA
+Philadelphia,39.991389,-75.080833,3.3,2017-09-20,Philadelphia,Pennsylvania,NA
+Philadelphia,39.991389,-75.080833,3.8,2017-09-21,Philadelphia,Pennsylvania,NA
+Philadelphia,39.991389,-75.080833,5.8,2017-09-22,Philadelphia,Pennsylvania,NA
+Philadelphia,39.991389,-75.080833,5.1,2017-09-23,Philadelphia,Pennsylvania,NA
+Philadelphia,39.991389,-75.080833,8.9,2017-09-24,Philadelphia,Pennsylvania,NA
+Philadelphia,39.991389,-75.080833,11.3,2017-09-25,Philadelphia,Pennsylvania,NA
+Philadelphia,39.991389,-75.080833,1.9,2017-09-26,Philadelphia,Pennsylvania,NA
+Philadelphia,39.991389,-75.080833,1,2017-09-27,Philadelphia,Pennsylvania,NA
+Philadelphia,39.991389,-75.080833,6.3,2017-09-28,Philadelphia,Pennsylvania,NA
+Philadelphia,39.991389,-75.080833,3,2017-09-29,Philadelphia,Pennsylvania,NA
+Philadelphia,39.991389,-75.080833,2.9,2017-09-30,Philadelphia,Pennsylvania,NA
+Philadelphia,39.922867,-75.186921,4.990909,2017-09-01,Philadelphia,Pennsylvania,170
+Philadelphia,39.922867,-75.186921,5.794118,2017-09-02,Philadelphia,Pennsylvania,170
+Philadelphia,39.922867,-75.186921,7.433333,2017-09-03,Philadelphia,Pennsylvania,170
+Philadelphia,39.922867,-75.186921,10.841667,2017-09-04,Philadelphia,Pennsylvania,170
+Philadelphia,39.922867,-75.186921,17.5375,2017-09-05,Philadelphia,Pennsylvania,170
+Philadelphia,39.922867,-75.186921,18.558333,2017-09-06,Philadelphia,Pennsylvania,170
+Philadelphia,39.922867,-75.186921,9.6625,2017-09-07,Philadelphia,Pennsylvania,170
+Philadelphia,39.922867,-75.186921,5.63,2017-09-08,Philadelphia,Pennsylvania,170
+Philadelphia,39.922867,-75.186921,2.929412,2017-09-09,Philadelphia,Pennsylvania,170
+Philadelphia,39.922867,-75.186921,4.271429,2017-09-10,Philadelphia,Pennsylvania,170
+Philadelphia,39.922867,-75.186921,7.142105,2017-09-11,Philadelphia,Pennsylvania,170
+Philadelphia,39.922867,-75.186921,9.45,2017-09-12,Philadelphia,Pennsylvania,170
+Philadelphia,39.922867,-75.186921,11.325,2017-09-13,Philadelphia,Pennsylvania,170
+Philadelphia,39.922867,-75.186921,9.85,2017-09-14,Philadelphia,Pennsylvania,170
+Philadelphia,39.922867,-75.186921,6.895,2017-09-15,Philadelphia,Pennsylvania,170
+Philadelphia,39.922867,-75.186921,10.504167,2017-09-16,Philadelphia,Pennsylvania,170
+Philadelphia,39.922867,-75.186921,9.754167,2017-09-17,Philadelphia,Pennsylvania,170
+Philadelphia,39.922867,-75.186921,7.136842,2017-09-18,Philadelphia,Pennsylvania,170
+Philadelphia,39.922867,-75.186921,9.7,2017-09-19,Philadelphia,Pennsylvania,170
+Philadelphia,39.922867,-75.186921,6.3,2017-09-20,Philadelphia,Pennsylvania,170
+Philadelphia,39.922867,-75.186921,5.518182,2017-09-21,Philadelphia,Pennsylvania,170
+Philadelphia,39.922867,-75.186921,8.075,2017-09-22,Philadelphia,Pennsylvania,170
+Philadelphia,39.922867,-75.186921,6.717647,2017-09-23,Philadelphia,Pennsylvania,170
+Philadelphia,39.922867,-75.186921,9.654167,2017-09-24,Philadelphia,Pennsylvania,170
+Philadelphia,39.922867,-75.186921,15.283333,2017-09-25,Philadelphia,Pennsylvania,170
+Philadelphia,39.922867,-75.186921,6.4,2017-09-26,Philadelphia,Pennsylvania,170
+Philadelphia,39.922867,-75.186921,5.525,2017-09-27,Philadelphia,Pennsylvania,170
+Philadelphia,39.922867,-75.186921,5.847059,2017-09-28,Philadelphia,Pennsylvania,170
+Philadelphia,39.922867,-75.186921,6.325,2017-09-29,Philadelphia,Pennsylvania,170
+Philadelphia,39.922867,-75.186921,4,2017-09-30,Philadelphia,Pennsylvania,170
+Philadelphia,39.922867,-75.186921,4.9,2017-09-01,Philadelphia,Pennsylvania,NA
+Philadelphia,39.922867,-75.186921,10.8,2017-09-04,Philadelphia,Pennsylvania,NA
+Philadelphia,39.922867,-75.186921,17.5,2017-09-05,Philadelphia,Pennsylvania,NA
+Philadelphia,39.922867,-75.186921,18.5,2017-09-06,Philadelphia,Pennsylvania,NA
+Philadelphia,39.922867,-75.186921,9.6,2017-09-07,Philadelphia,Pennsylvania,NA
+Philadelphia,39.922867,-75.186921,5.6,2017-09-08,Philadelphia,Pennsylvania,NA
+Philadelphia,39.922867,-75.186921,7.1,2017-09-11,Philadelphia,Pennsylvania,NA
+Philadelphia,39.922867,-75.186921,9.4,2017-09-12,Philadelphia,Pennsylvania,NA
+Philadelphia,39.922867,-75.186921,11.3,2017-09-13,Philadelphia,Pennsylvania,NA
+Philadelphia,39.922867,-75.186921,9.8,2017-09-14,Philadelphia,Pennsylvania,NA
+Philadelphia,39.922867,-75.186921,6.8,2017-09-15,Philadelphia,Pennsylvania,NA
+Philadelphia,39.922867,-75.186921,10.5,2017-09-16,Philadelphia,Pennsylvania,NA
+Philadelphia,39.922867,-75.186921,9.7,2017-09-17,Philadelphia,Pennsylvania,NA
+Philadelphia,39.922867,-75.186921,7.1,2017-09-18,Philadelphia,Pennsylvania,NA
+Philadelphia,39.922867,-75.186921,9.7,2017-09-19,Philadelphia,Pennsylvania,NA
+Philadelphia,39.922867,-75.186921,5.5,2017-09-21,Philadelphia,Pennsylvania,NA
+Philadelphia,39.922867,-75.186921,8,2017-09-22,Philadelphia,Pennsylvania,NA
+Philadelphia,39.922867,-75.186921,9.6,2017-09-24,Philadelphia,Pennsylvania,NA
+Philadelphia,39.922867,-75.186921,15.2,2017-09-25,Philadelphia,Pennsylvania,NA
+Philadelphia,39.922867,-75.186921,6.3,2017-09-29,Philadelphia,Pennsylvania,NA
+Philadelphia,39.922867,-75.186921,4,2017-09-30,Philadelphia,Pennsylvania,NA
+Philadelphia,39.960048,-75.142614,8.2,2017-09-01,Philadelphia,Pennsylvania,170
+Philadelphia,39.960048,-75.142614,7.733333,2017-09-02,Philadelphia,Pennsylvania,170
+Philadelphia,39.960048,-75.142614,8.520833,2017-09-03,Philadelphia,Pennsylvania,170
+Philadelphia,39.960048,-75.142614,15.8875,2017-09-04,Philadelphia,Pennsylvania,170
+Philadelphia,39.960048,-75.142614,22.066667,2017-09-05,Philadelphia,Pennsylvania,170
+Philadelphia,39.960048,-75.142614,23.8125,2017-09-06,Philadelphia,Pennsylvania,170
+Philadelphia,39.960048,-75.142614,15.191667,2017-09-07,Philadelphia,Pennsylvania,170
+Philadelphia,39.960048,-75.142614,10.266667,2017-09-08,Philadelphia,Pennsylvania,170
+Philadelphia,39.960048,-75.142614,8.791667,2017-09-09,Philadelphia,Pennsylvania,170
+Philadelphia,39.960048,-75.142614,8.7,2017-09-10,Philadelphia,Pennsylvania,170
+Philadelphia,39.960048,-75.142614,9.927273,2017-09-11,Philadelphia,Pennsylvania,170
+Philadelphia,39.960048,-75.142614,14.383333,2017-09-12,Philadelphia,Pennsylvania,170
+Philadelphia,39.960048,-75.142614,17.116667,2017-09-13,Philadelphia,Pennsylvania,170
+Philadelphia,39.960048,-75.142614,14.991667,2017-09-14,Philadelphia,Pennsylvania,170
+Philadelphia,39.960048,-75.142614,12.430435,2017-09-15,Philadelphia,Pennsylvania,170
+Philadelphia,39.960048,-75.142614,13.279167,2017-09-16,Philadelphia,Pennsylvania,170
+Philadelphia,39.960048,-75.142614,11.845833,2017-09-17,Philadelphia,Pennsylvania,170
+Philadelphia,39.960048,-75.142614,11.754167,2017-09-18,Philadelphia,Pennsylvania,170
+Philadelphia,39.960048,-75.142614,14.858333,2017-09-19,Philadelphia,Pennsylvania,170
+Philadelphia,39.960048,-75.142614,8.391667,2017-09-20,Philadelphia,Pennsylvania,170
+Philadelphia,39.960048,-75.142614,9.745455,2017-09-21,Philadelphia,Pennsylvania,170
+Philadelphia,39.960048,-75.142614,9.958333,2017-09-22,Philadelphia,Pennsylvania,170
+Philadelphia,39.960048,-75.142614,7.75,2017-09-23,Philadelphia,Pennsylvania,170
+Philadelphia,39.960048,-75.142614,11.958333,2017-09-24,Philadelphia,Pennsylvania,170
+Philadelphia,39.960048,-75.142614,17.529167,2017-09-25,Philadelphia,Pennsylvania,170
+Philadelphia,39.960048,-75.142614,8.6375,2017-09-26,Philadelphia,Pennsylvania,170
+Philadelphia,39.960048,-75.142614,8.75,2017-09-27,Philadelphia,Pennsylvania,170
+Philadelphia,39.960048,-75.142614,8.766667,2017-09-28,Philadelphia,Pennsylvania,170
+Philadelphia,39.960048,-75.142614,7.670833,2017-09-29,Philadelphia,Pennsylvania,170
+Philadelphia,39.960048,-75.142614,6.429167,2017-09-30,Philadelphia,Pennsylvania,170
+Philadelphia,39.960048,-75.142614,7.7,2017-09-02,Philadelphia,Pennsylvania,NA
+Philadelphia,39.960048,-75.142614,8.5,2017-09-03,Philadelphia,Pennsylvania,NA
+Philadelphia,39.960048,-75.142614,15.8,2017-09-04,Philadelphia,Pennsylvania,NA
+Philadelphia,39.960048,-75.142614,22,2017-09-05,Philadelphia,Pennsylvania,NA
+Philadelphia,39.960048,-75.142614,23.8,2017-09-06,Philadelphia,Pennsylvania,NA
+Philadelphia,39.960048,-75.142614,15.1,2017-09-07,Philadelphia,Pennsylvania,NA
+Philadelphia,39.960048,-75.142614,10.2,2017-09-08,Philadelphia,Pennsylvania,NA
+Philadelphia,39.960048,-75.142614,8.7,2017-09-09,Philadelphia,Pennsylvania,NA
+Philadelphia,39.960048,-75.142614,8.7,2017-09-10,Philadelphia,Pennsylvania,NA
+Philadelphia,39.960048,-75.142614,9.9,2017-09-11,Philadelphia,Pennsylvania,NA
+Philadelphia,39.960048,-75.142614,14.3,2017-09-12,Philadelphia,Pennsylvania,NA
+Philadelphia,39.960048,-75.142614,17.1,2017-09-13,Philadelphia,Pennsylvania,NA
+Philadelphia,39.960048,-75.142614,14.9,2017-09-14,Philadelphia,Pennsylvania,NA
+Philadelphia,39.960048,-75.142614,12.4,2017-09-15,Philadelphia,Pennsylvania,NA
+Philadelphia,39.960048,-75.142614,13.2,2017-09-16,Philadelphia,Pennsylvania,NA
+Philadelphia,39.960048,-75.142614,11.8,2017-09-17,Philadelphia,Pennsylvania,NA
+Philadelphia,39.960048,-75.142614,11.7,2017-09-18,Philadelphia,Pennsylvania,NA
+Philadelphia,39.960048,-75.142614,14.8,2017-09-19,Philadelphia,Pennsylvania,NA
+Philadelphia,39.960048,-75.142614,8.3,2017-09-20,Philadelphia,Pennsylvania,NA
+Philadelphia,39.960048,-75.142614,9.7,2017-09-21,Philadelphia,Pennsylvania,NA
+Philadelphia,39.960048,-75.142614,9.9,2017-09-22,Philadelphia,Pennsylvania,NA
+Philadelphia,39.960048,-75.142614,7.7,2017-09-23,Philadelphia,Pennsylvania,NA
+Philadelphia,39.960048,-75.142614,11.9,2017-09-24,Philadelphia,Pennsylvania,NA
+Philadelphia,39.960048,-75.142614,17.5,2017-09-25,Philadelphia,Pennsylvania,NA
+Philadelphia,39.960048,-75.142614,8.6,2017-09-26,Philadelphia,Pennsylvania,NA
+Philadelphia,39.960048,-75.142614,8.7,2017-09-27,Philadelphia,Pennsylvania,NA
+Philadelphia,39.960048,-75.142614,8.7,2017-09-28,Philadelphia,Pennsylvania,NA
+Philadelphia,39.960048,-75.142614,7.6,2017-09-29,Philadelphia,Pennsylvania,NA
+Philadelphia,39.960048,-75.142614,6.4,2017-09-30,Philadelphia,Pennsylvania,NA
+Philadelphia,40.054171,-74.985166,6.833333,2017-09-01,Philadelphia,Pennsylvania,170
+Philadelphia,40.054171,-74.985166,3.611111,2017-09-02,Philadelphia,Pennsylvania,170
+Philadelphia,40.054171,-74.985166,3.6,2017-09-03,Philadelphia,Pennsylvania,170
+Philadelphia,40.054171,-74.985166,7.666667,2017-09-04,Philadelphia,Pennsylvania,170
+Philadelphia,40.054171,-74.985166,12.166667,2017-09-05,Philadelphia,Pennsylvania,170
+Philadelphia,40.054171,-74.985166,14.583333,2017-09-06,Philadelphia,Pennsylvania,170
+Philadelphia,40.054171,-74.985166,8.883333,2017-09-07,Philadelphia,Pennsylvania,170
+Philadelphia,40.054171,-74.985166,4.625,2017-09-08,Philadelphia,Pennsylvania,170
+Philadelphia,40.054171,-74.985166,2.454167,2017-09-09,Philadelphia,Pennsylvania,170
+Philadelphia,40.054171,-74.985166,3.125,2017-09-10,Philadelphia,Pennsylvania,170
+Philadelphia,40.054171,-74.985166,3.708333,2017-09-11,Philadelphia,Pennsylvania,170
+Philadelphia,40.054171,-74.985166,9.975,2017-09-12,Philadelphia,Pennsylvania,170
+Philadelphia,40.054171,-74.985166,8.2875,2017-09-13,Philadelphia,Pennsylvania,170
+Philadelphia,40.054171,-74.985166,5.9375,2017-09-14,Philadelphia,Pennsylvania,170
+Philadelphia,40.054171,-74.985166,6.075,2017-09-15,Philadelphia,Pennsylvania,170
+Philadelphia,40.054171,-74.985166,6.625,2017-09-16,Philadelphia,Pennsylvania,170
+Philadelphia,40.054171,-74.985166,4.370833,2017-09-17,Philadelphia,Pennsylvania,170
+Philadelphia,40.054171,-74.985166,3.066667,2017-09-18,Philadelphia,Pennsylvania,170
+Philadelphia,40.054171,-74.985166,7.333333,2017-09-19,Philadelphia,Pennsylvania,170
+Philadelphia,40.054171,-74.985166,2.041667,2017-09-20,Philadelphia,Pennsylvania,170
+Philadelphia,40.054171,-74.985166,0.422222,2017-09-21,Philadelphia,Pennsylvania,170
+Philadelphia,40.054171,-74.985166,0.670833,2017-09-22,Philadelphia,Pennsylvania,170
+Philadelphia,40.054171,-74.985166,0.929167,2017-09-23,Philadelphia,Pennsylvania,170
+Philadelphia,40.054171,-74.985166,3.179167,2017-09-24,Philadelphia,Pennsylvania,170
+Philadelphia,40.054171,-74.985166,7.894737,2017-09-25,Philadelphia,Pennsylvania,170
+Philadelphia,40.054171,-74.985166,2.238462,2017-09-28,Philadelphia,Pennsylvania,170
+Philadelphia,40.054171,-74.985166,4.3125,2017-09-29,Philadelphia,Pennsylvania,170
+Philadelphia,40.054171,-74.985166,0.975,2017-09-30,Philadelphia,Pennsylvania,170
+Philadelphia,40.054171,-74.985166,6.8,2017-09-01,Philadelphia,Pennsylvania,NA
+Philadelphia,40.054171,-74.985166,3.6,2017-09-02,Philadelphia,Pennsylvania,NA
+Philadelphia,40.054171,-74.985166,7.6,2017-09-04,Philadelphia,Pennsylvania,NA
+Philadelphia,40.054171,-74.985166,12.1,2017-09-05,Philadelphia,Pennsylvania,NA
+Philadelphia,40.054171,-74.985166,14.5,2017-09-06,Philadelphia,Pennsylvania,NA
+Philadelphia,40.054171,-74.985166,8.8,2017-09-07,Philadelphia,Pennsylvania,NA
+Philadelphia,40.054171,-74.985166,4.6,2017-09-08,Philadelphia,Pennsylvania,NA
+Philadelphia,40.054171,-74.985166,2.4,2017-09-09,Philadelphia,Pennsylvania,NA
+Philadelphia,40.054171,-74.985166,3.1,2017-09-10,Philadelphia,Pennsylvania,NA
+Philadelphia,40.054171,-74.985166,3.7,2017-09-11,Philadelphia,Pennsylvania,NA
+Philadelphia,40.054171,-74.985166,9.9,2017-09-12,Philadelphia,Pennsylvania,NA
+Philadelphia,40.054171,-74.985166,8.2,2017-09-13,Philadelphia,Pennsylvania,NA
+Philadelphia,40.054171,-74.985166,5.9,2017-09-14,Philadelphia,Pennsylvania,NA
+Philadelphia,40.054171,-74.985166,6,2017-09-15,Philadelphia,Pennsylvania,NA
+Philadelphia,40.054171,-74.985166,6.6,2017-09-16,Philadelphia,Pennsylvania,NA
+Philadelphia,40.054171,-74.985166,4.3,2017-09-17,Philadelphia,Pennsylvania,NA
+Philadelphia,40.054171,-74.985166,3,2017-09-18,Philadelphia,Pennsylvania,NA
+Philadelphia,40.054171,-74.985166,7.3,2017-09-19,Philadelphia,Pennsylvania,NA
+Philadelphia,40.054171,-74.985166,0.6,2017-09-22,Philadelphia,Pennsylvania,NA
+Philadelphia,40.054171,-74.985166,0.9,2017-09-23,Philadelphia,Pennsylvania,NA
+Philadelphia,40.054171,-74.985166,3.1,2017-09-24,Philadelphia,Pennsylvania,NA
+Philadelphia,40.054171,-74.985166,7.8,2017-09-25,Philadelphia,Pennsylvania,NA
+Philadelphia,40.054171,-74.985166,4.3,2017-09-29,Philadelphia,Pennsylvania,NA
+Philadelphia,40.054171,-74.985166,0.9,2017-09-30,Philadelphia,Pennsylvania,NA
+Philadelphia,39.988842,-75.207205,8.1375,2017-09-01,Philadelphia,Pennsylvania,170
+Philadelphia,39.988842,-75.207205,1.676923,2017-09-03,Philadelphia,Pennsylvania,170
+Philadelphia,39.988842,-75.207205,8.391667,2017-09-04,Philadelphia,Pennsylvania,170
+Philadelphia,39.988842,-75.207205,13.0375,2017-09-05,Philadelphia,Pennsylvania,170
+Philadelphia,39.988842,-75.207205,13.879167,2017-09-06,Philadelphia,Pennsylvania,170
+Philadelphia,39.988842,-75.207205,4.554167,2017-09-07,Philadelphia,Pennsylvania,170
+Philadelphia,39.988842,-75.207205,1.9625,2017-09-08,Philadelphia,Pennsylvania,170
+Philadelphia,39.988842,-75.207205,1.108333,2017-09-09,Philadelphia,Pennsylvania,170
+Philadelphia,39.988842,-75.207205,1.920833,2017-09-10,Philadelphia,Pennsylvania,170
+Philadelphia,39.988842,-75.207205,2.344444,2017-09-11,Philadelphia,Pennsylvania,170
+Philadelphia,39.988842,-75.207205,6.75,2017-09-12,Philadelphia,Pennsylvania,170
+Philadelphia,39.988842,-75.207205,7.154167,2017-09-13,Philadelphia,Pennsylvania,170
+Philadelphia,39.988842,-75.207205,8.025,2017-09-14,Philadelphia,Pennsylvania,170
+Philadelphia,39.988842,-75.207205,3.625,2017-09-15,Philadelphia,Pennsylvania,170
+Philadelphia,39.988842,-75.207205,6.204167,2017-09-16,Philadelphia,Pennsylvania,170
+Philadelphia,39.988842,-75.207205,6.279167,2017-09-17,Philadelphia,Pennsylvania,170
+Philadelphia,39.988842,-75.207205,4.2125,2017-09-18,Philadelphia,Pennsylvania,170
+Philadelphia,39.988842,-75.207205,8.133333,2017-09-19,Philadelphia,Pennsylvania,170
+Philadelphia,39.988842,-75.207205,1.0875,2017-09-20,Philadelphia,Pennsylvania,170
+Philadelphia,39.988842,-75.207205,2.327273,2017-09-21,Philadelphia,Pennsylvania,170
+Philadelphia,39.988842,-75.207205,4.8375,2017-09-22,Philadelphia,Pennsylvania,170
+Philadelphia,39.988842,-75.207205,3.695833,2017-09-23,Philadelphia,Pennsylvania,170
+Philadelphia,39.988842,-75.207205,6.666667,2017-09-24,Philadelphia,Pennsylvania,170
+Philadelphia,39.988842,-75.207205,12.592857,2017-09-25,Philadelphia,Pennsylvania,170
+Philadelphia,39.988842,-75.207205,4.028571,2017-09-26,Philadelphia,Pennsylvania,170
+Philadelphia,39.988842,-75.207205,3.626667,2017-09-27,Philadelphia,Pennsylvania,170
+Philadelphia,39.988842,-75.207205,3.520833,2017-09-28,Philadelphia,Pennsylvania,170
+Philadelphia,39.988842,-75.207205,4.333333,2017-09-29,Philadelphia,Pennsylvania,170
+Philadelphia,39.988842,-75.207205,1.520833,2017-09-30,Philadelphia,Pennsylvania,170
+Philadelphia,39.988842,-75.207205,8.3,2017-09-04,Philadelphia,Pennsylvania,NA
+Philadelphia,39.988842,-75.207205,13,2017-09-05,Philadelphia,Pennsylvania,NA
+Philadelphia,39.988842,-75.207205,13.8,2017-09-06,Philadelphia,Pennsylvania,NA
+Philadelphia,39.988842,-75.207205,4.5,2017-09-07,Philadelphia,Pennsylvania,NA
+Philadelphia,39.988842,-75.207205,1.9,2017-09-08,Philadelphia,Pennsylvania,NA
+Philadelphia,39.988842,-75.207205,1.1,2017-09-09,Philadelphia,Pennsylvania,NA
+Philadelphia,39.988842,-75.207205,1.9,2017-09-10,Philadelphia,Pennsylvania,NA
+Philadelphia,39.988842,-75.207205,2.3,2017-09-11,Philadelphia,Pennsylvania,NA
+Philadelphia,39.988842,-75.207205,6.7,2017-09-12,Philadelphia,Pennsylvania,NA
+Philadelphia,39.988842,-75.207205,7.1,2017-09-13,Philadelphia,Pennsylvania,NA
+Philadelphia,39.988842,-75.207205,8,2017-09-14,Philadelphia,Pennsylvania,NA
+Philadelphia,39.988842,-75.207205,3.6,2017-09-15,Philadelphia,Pennsylvania,NA
+Philadelphia,39.988842,-75.207205,6.2,2017-09-16,Philadelphia,Pennsylvania,NA
+Philadelphia,39.988842,-75.207205,6.2,2017-09-17,Philadelphia,Pennsylvania,NA
+Philadelphia,39.988842,-75.207205,4.2,2017-09-18,Philadelphia,Pennsylvania,NA
+Philadelphia,39.988842,-75.207205,8.1,2017-09-19,Philadelphia,Pennsylvania,NA
+Philadelphia,39.988842,-75.207205,1,2017-09-20,Philadelphia,Pennsylvania,NA
+Philadelphia,39.988842,-75.207205,2.3,2017-09-21,Philadelphia,Pennsylvania,NA
+Philadelphia,39.988842,-75.207205,4.8,2017-09-22,Philadelphia,Pennsylvania,NA
+Philadelphia,39.988842,-75.207205,3.6,2017-09-23,Philadelphia,Pennsylvania,NA
+Philadelphia,39.988842,-75.207205,6.6,2017-09-24,Philadelphia,Pennsylvania,NA
+Philadelphia,39.988842,-75.207205,3.5,2017-09-28,Philadelphia,Pennsylvania,NA
+Philadelphia,39.988842,-75.207205,4.3,2017-09-29,Philadelphia,Pennsylvania,NA
+Philadelphia,39.988842,-75.207205,1.5,2017-09-30,Philadelphia,Pennsylvania,NA
+Pierre,44.373786,-100.287269,7.041667,2017-09-01,Hughes,South Dakota,170
+Pierre,44.373786,-100.287269,20.625,2017-09-02,Hughes,South Dakota,170
+Pierre,44.373786,-100.287269,34.420833,2017-09-03,Hughes,South Dakota,170
+Pierre,44.373786,-100.287269,5.308333,2017-09-04,Hughes,South Dakota,170
+Pierre,44.373786,-100.287269,2.725,2017-09-05,Hughes,South Dakota,170
+Pierre,44.373786,-100.287269,1.445833,2017-09-06,Hughes,South Dakota,170
+Pierre,44.373786,-100.287269,1.225,2017-09-07,Hughes,South Dakota,170
+Pierre,44.373786,-100.287269,6.804545,2017-09-08,Hughes,South Dakota,170
+Pierre,44.373786,-100.287269,8.3125,2017-09-09,Hughes,South Dakota,170
+Pierre,44.373786,-100.287269,7.466667,2017-09-10,Hughes,South Dakota,170
+Pierre,44.373786,-100.287269,8.6375,2017-09-11,Hughes,South Dakota,170
+Pierre,44.373786,-100.287269,7.491667,2017-09-12,Hughes,South Dakota,170
+Pierre,44.373786,-100.287269,3.525,2017-09-13,Hughes,South Dakota,170
+Pierre,44.373786,-100.287269,27.265217,2017-09-14,Hughes,South Dakota,170
+Pierre,44.373786,-100.287269,4.822727,2017-09-15,Hughes,South Dakota,170
+Pierre,44.373786,-100.287269,-0.154167,2017-09-16,Hughes,South Dakota,170
+Pierre,44.373786,-100.287269,-0.025,2017-09-17,Hughes,South Dakota,170
+Pierre,44.373786,-100.287269,2.166667,2017-09-18,Hughes,South Dakota,170
+Pierre,44.373786,-100.287269,5.170833,2017-09-19,Hughes,South Dakota,170
+Pierre,44.373786,-100.287269,-0.247826,2017-09-20,Hughes,South Dakota,170
+Pierre,44.373786,-100.287269,2.245455,2017-09-21,Hughes,South Dakota,170
+Pierre,44.373786,-100.287269,6.070833,2017-09-22,Hughes,South Dakota,170
+Pierre,44.373786,-100.287269,1.066667,2017-09-23,Hughes,South Dakota,170
+Pierre,44.373786,-100.287269,-0.7375,2017-09-24,Hughes,South Dakota,170
+Pierre,44.373786,-100.287269,-0.120833,2017-09-25,Hughes,South Dakota,170
+Pierre,44.373786,-100.287269,0.366667,2017-09-26,Hughes,South Dakota,170
+Pierre,44.373786,-100.287269,-0.204167,2017-09-27,Hughes,South Dakota,170
+Pierre,44.373786,-100.287269,1.395833,2017-09-28,Hughes,South Dakota,170
+Pierre,44.373786,-100.287269,1.475,2017-09-29,Hughes,South Dakota,170
+Pierre,44.373786,-100.287269,3.308333,2017-09-30,Hughes,South Dakota,170
+Pierre,44.373786,-100.287269,7,2017-09-01,Hughes,South Dakota,NA
+Pierre,44.373786,-100.287269,20.6,2017-09-02,Hughes,South Dakota,NA
+Pierre,44.373786,-100.287269,34.4,2017-09-03,Hughes,South Dakota,NA
+Pierre,44.373786,-100.287269,5.3,2017-09-04,Hughes,South Dakota,NA
+Pierre,44.373786,-100.287269,2.7,2017-09-05,Hughes,South Dakota,NA
+Pierre,44.373786,-100.287269,1.4,2017-09-06,Hughes,South Dakota,NA
+Pierre,44.373786,-100.287269,1.2,2017-09-07,Hughes,South Dakota,NA
+Pierre,44.373786,-100.287269,6.8,2017-09-08,Hughes,South Dakota,NA
+Pierre,44.373786,-100.287269,8.3,2017-09-09,Hughes,South Dakota,NA
+Pierre,44.373786,-100.287269,7.4,2017-09-10,Hughes,South Dakota,NA
+Pierre,44.373786,-100.287269,8.6,2017-09-11,Hughes,South Dakota,NA
+Pierre,44.373786,-100.287269,7.4,2017-09-12,Hughes,South Dakota,NA
+Pierre,44.373786,-100.287269,3.5,2017-09-13,Hughes,South Dakota,NA
+Pierre,44.373786,-100.287269,27.2,2017-09-14,Hughes,South Dakota,NA
+Pierre,44.373786,-100.287269,4.8,2017-09-15,Hughes,South Dakota,NA
+Pierre,44.373786,-100.287269,-0.1,2017-09-16,Hughes,South Dakota,NA
+Pierre,44.373786,-100.287269,0,2017-09-17,Hughes,South Dakota,NA
+Pierre,44.373786,-100.287269,2.1,2017-09-18,Hughes,South Dakota,NA
+Pierre,44.373786,-100.287269,5.1,2017-09-19,Hughes,South Dakota,NA
+Pierre,44.373786,-100.287269,-0.2,2017-09-20,Hughes,South Dakota,NA
+Pierre,44.373786,-100.287269,2.2,2017-09-21,Hughes,South Dakota,NA
+Pierre,44.373786,-100.287269,6,2017-09-22,Hughes,South Dakota,NA
+Pierre,44.373786,-100.287269,1,2017-09-23,Hughes,South Dakota,NA
+Pierre,44.373786,-100.287269,-0.7,2017-09-24,Hughes,South Dakota,NA
+Pierre,44.373786,-100.287269,-0.1,2017-09-25,Hughes,South Dakota,NA
+Pierre,44.373786,-100.287269,0.3,2017-09-26,Hughes,South Dakota,NA
+Pierre,44.373786,-100.287269,-0.2,2017-09-27,Hughes,South Dakota,NA
+Pierre,44.373786,-100.287269,1.3,2017-09-28,Hughes,South Dakota,NA
+Pierre,44.373786,-100.287269,1.4,2017-09-29,Hughes,South Dakota,NA
+Pierre,44.373786,-100.287269,3.3,2017-09-30,Hughes,South Dakota,NA
