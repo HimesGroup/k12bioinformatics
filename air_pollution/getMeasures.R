@@ -1,9 +1,14 @@
+
+############################################################
+## GET PM.25 AND CO EPA measures from pargasite package  ##
+############################################################
+
 library(pargasite)
 library(dplyr)
 library(data.table)
 
-#Get PM 2.5 measures for tab "EPA Measures in USA"
-k12 <- read.table("k12_sites.txt",header=TRUE,sep="/t")
+###Get PM 2.5 measures for tab "EPA Measures in USA"
+k12 <- read.table("../databases/k12_sites.txt",header=TRUE,sep="/t")
 long <- k12$Longitude
 lat <- k12$Latitude
 pm_list <- list()
@@ -19,7 +24,7 @@ write.csv(k12,"k12_sites.csv",row.names = FALSE)
 
 
 
-#Get PM2.5 and CO measures for all cities from 2007-2017 for tab "Seasonality of measures"
+###Get PM2.5 and CO measures for all cities from 2007-2017 for tab "Seasonality of measures"
 
 k12 <- read.csv("../databases/k12_sites.csv")
 dates <- seq(1,12)

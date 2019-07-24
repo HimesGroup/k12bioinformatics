@@ -1,0 +1,9 @@
+"City" "State" "Latitude" "Longitude"
+"Philadelphia" "PA" 39.95 -75.2
+"New York" "NY" 40.74 -73.99
+"Los Angeles" "CA" 34.04 -118.4
+"Miami" "FL" 25.76 -80.19
+"Pierre" "SD" 44.37 -100.31
+"Billings" "MO" 37.06 -93.55
+"Standing Rock" "NM" 35.8 -108.36
+"Portland" "OR" 45.51 -122.67

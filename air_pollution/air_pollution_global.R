@@ -4,6 +4,10 @@ library(reshape2)
 library(dplyr)
 library(RCurl) #to check if url exists
 
+########################################
+## Acquiring data from google sheets ##
+#######################################
+
 ##Get data
 #URL <- "https://docs.google.com/spreadsheets/d/1V5J_TuhfZTFBfPcg1JMavzFrbB2vavd3JMNX1f1oAQw/edit#gid=420394624"
 URL <- "https://docs.google.com/spreadsheets/d/13-F4sAcX5Ph-IKp0W8uTRfT1RmUeEGbwtK7PMVUylws/edit#gid=0"
@@ -48,6 +52,10 @@ names(tf) <- c("Name", "Latitude", "Longitude", "Date", "Time", "Site_Type", "Co
 clrs <- c("#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7","#7570B3", "#E7298A", "#66A61E", "#E6AB02", "#A6761D", "#666666","#8DD3C7","#BEBADA") #CB and Dark2
 
 
+##########################################
+## Acquiring EPA PM2.5 and CO datasets ##
+#########################################
+
 #Get PM2.5 data from EPA file
 k12_df <- read.csv("../databases/k12_sites.csv")
 ph_df <- read.csv("../databases/all_k12_sites_PM.csv")
@@ -62,14 +70,20 @@ co_df$Year <- as.factor(co_df$Year)
 co_df$State <- as.factor(co_df$State)
 co_df$Month <- factor(co_df$Month,levels=months)
 
+
+
+####################
+## VISUALIZATION ##
+####################
+
 ##Set colors
-#set colors
 color_status <- c("#56B4E9", "#009E73", "#F0E442", "#0072B2")
 names(color_status) <- as.vector(unique(tf$Variables))
 
 
 ##HISTOGRAM##
 #function
+#histogram for selected continuous variables from student data
 hist_func <- function(Con,var){
   data <- tf %>% dplyr::filter(Variables %in% var)
   df <- data[[Con]]
@@ -86,6 +100,7 @@ hist_func <- function(Con,var){
 
 ##BOXPLOT##
 #function
+#histogram for selected variables from student data
 boxplot_func_ap <- function(x,y,var){
   data <- tf %>% dplyr::filter(Variables %in% var)
   ggplot(data, aes_string(x=x,y=y)) + geom_boxplot(outlier.colour=NA, lwd=0.2, color="grey18",fill=color_status[[var]]) + 
@@ -95,7 +110,8 @@ boxplot_func_ap <- function(x,y,var){
           title = element_text(size=15),
           axis.text=element_text(size=14))}
 
-#Bivariate scatterplot
+##SCATTERPLOT##
+#Bivariate scatterplot for PM2.5 and CO, colored by date of entry and shapes by name of student.
 scatterplot_func <- function(var,pvar){
   data <- df %>% dplyr::select(var,pvar)
   sval = rep(0:25,10)
@@ -106,7 +122,8 @@ scatterplot_func <- function(var,pvar){
           axis.text=element_text(size=14))
 }
 
-#Barplot I
+##BARPLOT##
+#Barplot of PM.25 values for all 8 cities for Sept 2017
 col_status = rev(c("#ffffb2", "#fed976", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#b10026"))
 barplot_func <- function(data){
   ggplot(data, aes(x=City, y=PM, fill=PM)) + geom_bar(stat="identity",colour="black") + #scale_fill_viridis_c(option = "inferno",direction = 1) + 
@@ -122,7 +139,8 @@ barplot_func <- function(data){
       panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
 }
 
-#Barplot II
+##Ggiraph SCATTERPLOT##
+#Interactive scatterplot for PM.25 or CO values
 scatplot_func_ph <- function(data,title){
   col = brewer.pal(11, "Spectral")
   #col =  col[!col %in% "#FFFFBF"]
@@ -153,5 +171,5 @@ scatplot_func_ph <- function(data,title){
 # map.layer.a <- rasterize(mdata[,3:2], r, mdata[which(mdata$Variables=="AirQuality"),"Measurement"], fun = mean, na.rm = TRUE)
 # 
 # leaflet(data=mdata) %>% addTiles() %>%
-#     addRasterImage(map.layer.a,colors = "BuPu",opacity = 0.8)
+#   addRasterImage(map.layer.a,colors = "BuPu",opacity = 0.8)
 
