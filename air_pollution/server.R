@@ -16,7 +16,10 @@ shinyServer(function(input, output) {
     output$Warning <- renderText(message)
   } 
    
-  #Introduction
+  ###################
+  ## INTRODUCTION ##
+  ###################
+  
   output$airqdata <- renderDataTable({all_crowdsourced_data %>%
       dplyr::select("Group", "Name", "Date", "Time", "Site_Type (Indoor, Outdoor)", "Latitude", "Longitude", "PM2.5", "CO", "Comments")
   }, options = list(pageLength=10, searching=FALSE))
@@ -42,6 +45,10 @@ shinyServer(function(input, output) {
       filetype = "image/png",
       alt = "How Sensors Work"))}, deleteFile = FALSE)
   
+   ###################
+   ## VISUALIZATION ##
+   ###################
+   
   #Measurement I - PM2.5
   #Output
   output$distBoxplot <- renderPlot({
@@ -65,7 +72,17 @@ shinyServer(function(input, output) {
   output$Scatplot <- renderPlot({
     scatterplot_func("PM2.5","CO")})
   
-  ## Map
+  # Barplot for EPA cities
+  output$kbarPlot <- renderPlot({
+    data <- k12_df %>% dplyr::filter(State %in% input$kcity)
+    barplot_func(data)
+  })
+  
+  ####################
+  ## SELECTED DATA ##
+  ####################
+  
+  ## Data for Map
   data <- reactive({
     #all_dates <- setdiff(df$Date,seq(as.Date(input$dates[1]), as.Date(input$dates[2]), by="days"))
     all_dates <- as.character(seq(as.Date(input$dates[1]), as.Date(input$dates[2]), by="days"))
@@ -77,13 +94,18 @@ shinyServer(function(input, output) {
     }
   })
   
+  
+  ########################
+  ## GROUP and NAME UI ##
+  ########################
+  
   ##Group UI
   observe({
     if(isTRUE(group_status)){
       output$Group <- renderUI({selectInput("group","Select Group:", choices=unique(all_crowdsourced_data$Group), multiple=TRUE, selected=unique(all_crowdsourced_data$Group))})
     }})
   
-  #Name UI
+  #Name UI - select names to display accroding to group selected
   names_by_group <- reactive({
     if(isTRUE(group_status)){
       n <- unique(as.vector(all_crowdsourced_data %>% dplyr::filter(Group %in% input$group) %>% dplyr::select(Name)))
@@ -97,7 +119,9 @@ shinyServer(function(input, output) {
   })
   
   
-  #Images
+  ####################
+  ## DISPLAY IMAGES ##
+  ####################
   output$PhImage <- renderImage({
     return(list(
       src = "../databases/philadelphia_PM.tiff",
@@ -162,10 +186,16 @@ shinyServer(function(input, output) {
       filetype = "image/tiff",
       alt = "Portland, Oregon"))}, deleteFile = FALSE)
   
-  output$kbarPlot <- renderPlot({
-    data <- k12_df %>% dplyr::filter(State %in% input$kcity)
-    barplot_func(data)
-  })
+  
+  ####################
+  ## DATA DOWNLOAD ##
+  ####################
+  
+  ##Selected Data Download
+  output$selected_data_download <- downloadHandler(
+    filename= function(){paste0("Crowdsourced_measures_",gsub(":| ","-",Sys.time()),".csv")},
+    content=function(file){
+      write.csv(data(), file, row.names = FALSE, quote = FALSE)})
   
   ##EPA Data Download
   output$EPA_data_download <- downloadHandler(
@@ -173,7 +203,9 @@ shinyServer(function(input, output) {
     content=function(file){
       write.csv(EPA_data_file, file, row.names = FALSE, quote = FALSE)})
   
-  #Seasonality of measures
+  ##########################
+  ## PM.25 and CO PLOTS ##
+  ##########################
   
   #PM 2.5
   output$PMPlot <- renderggiraph({
@@ -187,6 +219,10 @@ shinyServer(function(input, output) {
     girafe(ggobj = scatplot_func_ph(codata, "CO (ppm)"))
   })
   
+  
+  ###########
+  ## MAPS ##
+  ###########
   
   #PM/CO public data map
   output$kmap <- renderLeaflet({
