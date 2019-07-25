@@ -131,6 +131,7 @@ barplot_func <- function(data){
     scale_fill_gradientn(colours=rev(col_status)) +
     labs(x="", y="PM2.5 (μg/m3)") + 
     scale_y_continuous(breaks=scales::pretty_breaks(n=10)) +
+    geom_text(aes(label=round(PM,2)), vjust=-0.3) +
     theme_bw() + 
     theme(
       legend.position = "none",
