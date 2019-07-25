@@ -69,7 +69,7 @@ shinyServer(function(input, output) {
   data <- reactive({
     #all_dates <- setdiff(df$Date,seq(as.Date(input$dates[1]), as.Date(input$dates[2]), by="days"))
     all_dates <- as.character(seq(as.Date(input$dates[1]), as.Date(input$dates[2]), by="days"))
-    x <- all_crowdsourced_data %>% dplyr::filter(Date %in% all_dates, Name %in% input$name, Variables == input$type)
+    x <- tf %>% dplyr::filter(Date %in% all_dates, Name %in% input$name, Variables == input$type)
   })
   
   output$Name <- renderUI({
