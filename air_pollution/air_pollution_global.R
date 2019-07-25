@@ -119,8 +119,8 @@ names(color_status) <- as.vector(unique(tf$Variables))
 ##HISTOGRAM##
 #function
 #histogram for selected continuous variables from student data
-hist_func <- function(Con, var){
-  data <- tf %>% dplyr::filter(Variables %in% var)
+hist_func <- function(Con, var,dataset){
+  data <- dataset %>% dplyr::filter(Variables %in% var)
   df <- data[[Con]]
   bw <- (2 * IQR(df)) / length(df)^(1/3) #Freedman-Diaconis rule 
   #breaks=seq(min(df), max(df)),
@@ -135,9 +135,9 @@ hist_func <- function(Con, var){
 
 ##BOXPLOT##
 #function
-#histogram for selected variables from student data
-boxplot_func_ap <- function(x,y,var){
-  data <- tf %>% dplyr::filter(Variables %in% var)
+#boxplot for selected variables from student data
+boxplot_func_ap <- function(x,y,var,dataset){
+  data <- dataset %>% dplyr::filter(Variables %in% var)
   ggplot(data, aes_string(x=x,y=y)) + geom_boxplot(outlier.colour=NA, lwd=0.2, color="grey18",fill=color_status[[var]]) + 
     stat_boxplot(geom ='errorbar', color="grey18") + 
     labs(x=" ", y=y) + geom_jitter(size=1,position = position_jitter(width=0.2)) + theme_bw() + 
@@ -147,10 +147,11 @@ boxplot_func_ap <- function(x,y,var){
 
 ##SCATTERPLOT##
 #Bivariate scatterplot for PM2.5 and CO, colored by date of entry and shapes by name of student.
-scatterplot_func <- function(var, pvar){
-  data <- all_crowdsourced_data %>% dplyr::select(var,pvar)
+scatterplot_func <- function(var, pvar,dataset){
+  dtt <- dataset %>% dplyr::select(Name,Latitude,Longitude,Date,Time)
+  data <- merge(all_crowdsourced_data,dtt,by=c("Name","Latitude","Longitude","Date","Time")) #Get values from selected input
   sval = rep(0:25,10)
-  ggplot(all_crowdsourced_data, aes_string(x=var, y=pvar)) + geom_point(aes(color=Date,shape = Name),size=3) + theme_bw() + scale_shape_manual(values=sval[0:length(all_crowdsourced_data$Name)]) + 
+  ggplot(data, aes_string(x=var, y=pvar)) + geom_point(aes(color=Date,shape = Name),size=3) + theme_bw() + scale_shape_manual(values=sval[0:length(data$Name)]) + 
     theme(legend.text = element_text(size=14),
           axis.title=element_text(size=15),
           title = element_text(size=15),

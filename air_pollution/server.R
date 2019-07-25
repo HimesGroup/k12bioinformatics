@@ -44,6 +44,32 @@ shinyServer(function(input, output) {
       height= 200,
       filetype = "image/png",
       alt = "How Sensors Work"))}, deleteFile = FALSE)
+   
+   
+   ####################
+   ## SELECTED DATA ##
+   ####################
+   
+   ## Data for Map
+   data <- reactive({
+     #all_dates <- setdiff(df$Date,seq(as.Date(input$dates[1]), as.Date(input$dates[2]), by="days"))
+     all_dates <- as.character(seq(as.Date(input$dates[1]), as.Date(input$dates[2]), by="days"))
+     #check for group_status
+     if (isFALSE(group_status)){
+       x <- tf %>% dplyr::filter(Date %in% all_dates, Name %in% input$name, Variables == input$type)
+     } else if (isTRUE(group_status)){
+       x <- tf %>% dplyr::filter(Date %in% all_dates, Name %in% input$name, Variables == input$type,Group %in% input$group)
+     }
+   })
+   
+   ## Data for plots
+   plot_data <- reactive({
+     #data() gives dataset with either PM2.5 or CO not both (depending upon input$type selection)
+     #Get both PM2.5 and CO values from the selected options
+     temp_df <- data() %>% dplyr::select(Name,Latitude,Longitude,Date,Time)
+     data <- merge(tf,temp_df,by=c("Name","Latitude","Longitude","Date","Time"))
+   })
+   
   
    ###################
    ## VISUALIZATION ##
@@ -52,25 +78,25 @@ shinyServer(function(input, output) {
   #Measurement I - PM2.5
   #Output
   output$distBoxplot <- renderPlot({
-    boxplot_func_ap("Variables", "Measurement", "PM2.5")
+    boxplot_func_ap("Variables", "Measurement", "PM2.5",plot_data())
   })
 
   output$disHist <- renderPlot({
-    hist_func("Measurement","PM2.5")})
+    hist_func("Measurement","PM2.5",plot_data())})
   
   #Measurement II - CO
   #Output
   output$pdistBoxplot <- renderPlot({
-    boxplot_func_ap("Variables", "Measurement", "CO")
+    boxplot_func_ap("Variables", "Measurement", "CO",plot_data())
   })
   
   output$pdisHist <- renderPlot({
-    hist_func("Measurement","CO")
+    hist_func("Measurement","CO",plot_data())
   })
   
   # Bivariate Scatterplot
   output$Scatplot <- renderPlot({
-    scatterplot_func("PM2.5","CO")})
+    scatterplot_func("PM2.5","CO",data())})
   
   # Barplot for EPA cities
   output$kbarPlot <- renderPlot({
@@ -78,21 +104,6 @@ shinyServer(function(input, output) {
     barplot_func(data)
   })
   
-  ####################
-  ## SELECTED DATA ##
-  ####################
-  
-  ## Data for Map
-  data <- reactive({
-    #all_dates <- setdiff(df$Date,seq(as.Date(input$dates[1]), as.Date(input$dates[2]), by="days"))
-    all_dates <- as.character(seq(as.Date(input$dates[1]), as.Date(input$dates[2]), by="days"))
-    #check for group_status
-    if (isFALSE(group_status)){
-      x <- tf %>% dplyr::filter(Date %in% all_dates, Name %in% input$name, Variables == input$type)
-    } else if (isTRUE(group_status)){
-      x <- tf %>% dplyr::filter(Date %in% all_dates, Name %in% input$name, Variables == input$type,Group %in% input$group)
-    }
-  })
   
   
   ########################

@@ -59,9 +59,8 @@ shinyUI(fluidPage(
 
              h3(p("Sept 2017 mean PM2.5 measures")),
              plotOutput("kbarPlot", width="700px"), 
-             br(),
-             p("A file of daily PM2.5 averages for Sept 2017 for an EPA monitor nearest to each of these sites can be downloaded here:", 
-               downloadLink(outputId="EPA_data_download", label="EPA Data Download."), 
+             downloadButton(outputId="EPA_data_download", label="Download EPA Data"), br(),br(),
+             p("Using the button above, you can download a file of daily PM2.5 averages for Sept 2017 for an EPA monitor nearest to each of these sites.", 
                "Use this file to get your own averages per site. How do they compare to the measures in the plot above?"),
              hr(),
     
