@@ -5,18 +5,24 @@ library(data.table)
 
 ##Get data from downloaded daily EPA data https://aqs.epa.gov/aqsweb/airdata/download_files.html
 
-daily_df <- read.csv("daily_88101_2017.csv",header=T)
-states <- c("Pennsylvania","New York","Florida","Montana","California","Maine","New Mexico","Oregon","South Dakota")
+daily_df <- read.csv("/Users/diwadkar/Desktop/daily_88101_2017.csv",header=T)
+states <- c("Pennsylvania","New York","Florida","Montana","California","New Mexico","Oregon","South Dakota")
 cities <- c("Albuquerque",as.vector(k12$City))
 k12 <- read.table("../databases/k12_sites.txt",header=TRUE)
 
-sdates <- grep("2017-09", levels(daily_df$Date.Local) ,value=T)
+sdates <- grep("2017-09",levels(daily_df$Date.Local),value=T)
 
 daily_k12_df <- daily_df %>% 
   dplyr::filter(State.Name %in% states,Date.Local %in% sdates,City.Name %in% cities) %>% 
   dplyr::select(City.Name,Latitude,Longitude,Arithmetic.Mean,Date.Local,County.Name,State.Name,Method.Code)
 
-write.csv(daily_k12_df,"../databases/EPA_measures_daily_average_Sept2017.csv",row.names = F,quote=F)
+ddf1 <- daily_k12_df %>% dplyr::filter(City.Name %in% c("Portland","Miami","Los Angeles"),Method.Code =="145")
+ddf2 <- daily_k12_df %>% dplyr::filter(City.Name %in% cities,!Method.Code %in% c("145","170","182"))
+
+final_ddf <- rbind(ddf1, ddf2)
+final_ddf <- final_ddf %>% dplyr::distinct(City.Name,Date.Local,.keep_all=TRUE) %>% dplyr::select(-Method.Code)
+
+write.csv(final_ddf,"../databases/EPA_measures_daily_average_Sept2017.csv",row.names = F,quote=F)
 
 ############################################################
 ## GET PM.25 AND CO EPA measures from pargasite package  ##
