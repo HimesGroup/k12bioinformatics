@@ -130,14 +130,17 @@ barplot_func <- function(data){
   ggplot(data, aes(x=City, y=PM, fill=PM)) + geom_bar(stat="identity",colour="black") + #scale_fill_viridis_c(option = "inferno",direction = 1) + 
     scale_fill_gradientn(colours=rev(col_status)) +
     labs(x="", y="PM2.5 (μg/m3)") + 
+    scale_y_continuous(breaks=scales::pretty_breaks(n=10)) +
     theme_bw() + 
     theme(
       legend.position = "none",
       axis.title=element_text(size=16),
       axis.text.x=element_text(size=16,angle=45, hjust=1),
       axis.text.y=element_text(size=16),
-      panel.border = element_blank(), panel.grid.major = element_blank(),
-      panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
+      panel.border = element_blank(), 
+      #panel.grid.major = element_blank(),
+      #panel.grid.minor = element_blank(), 
+      axis.line = element_line(colour = "black"))
 }
 
 ##Ggiraph SCATTERPLOT##

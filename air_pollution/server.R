@@ -73,7 +73,7 @@ shinyServer(function(input, output) {
   })
   
   output$Name <- renderUI({
-    selectInput("name","Select Name:",choices=unique(tf$Name), multiple=TRUE, selected=unique(tf$Name))
+    selectInput("name","Select Name:", choices=unique(tf$Name), multiple=TRUE, selected=unique(tf$Name))
   })
   
   

@@ -10,7 +10,7 @@ states <- c("Pennsylvania","New York","Florida","Montana","California","Maine","
 cities <- c("Albuquerque",as.vector(k12$City))
 k12 <- read.table("../databases/k12_sites.txt",header=TRUE)
 
-sdates <- grep("2017-09",levels(daily_df$Date.Local),value=T)
+sdates <- grep("2017-09", levels(daily_df$Date.Local) ,value=T)
 
 daily_k12_df <- daily_df %>% 
   dplyr::filter(State.Name %in% states,Date.Local %in% sdates,City.Name %in% cities) %>% 
