@@ -13,7 +13,8 @@ library(RCurl) #to check if url exists
 #URL <- "https://docs.google.com/spreadsheets/d/13-F4sAcX5Ph-IKp0W8uTRfT1RmUeEGbwtK7PMVUylws/edit#gid=0"
 gsheet_links <- read.csv("../databases/gsheet_links.csv", as.is=TRUE)
 message = NULL
-
+group_status = FALSE
+  
 #Function to handle errors with loading google spreadsheet 
 get_gsheet_data <- function(link) {
   curr_message = NULL
@@ -34,6 +35,7 @@ all_crowdsourced_data <- NULL
 for (i in c(1:dim(gsheet_links)[[1]])) {
   curr_data <- get_gsheet_data(gsheet_links[i, "URL"])
   if(dim(curr_data)[1]!=0){
+    group_status = TRUE
     curr_data <- mutate(curr_data, Group = gsheet_links[i, "Group"])
     all_crowdsourced_data <- bind_rows(all_crowdsourced_data, curr_data)
   } else{
@@ -44,6 +46,7 @@ for (i in c(1:dim(gsheet_links)[[1]])) {
 if (dim(all_crowdsourced_data)[1]==0){
   all_crowdsourced_data <- readRDS("../databases/AirQualityData_15thJuly_2019.RDS")
   message = "Warning: no contents in provided google sheets so old data loaded"
+  group_status = FALSE
 }
 
 # #Error handling 
