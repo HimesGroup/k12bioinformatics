@@ -59,13 +59,13 @@ shinyUI(fluidPage(
 
              h3(p("Sept 2017 mean PM2.5 measures")),
              plotOutput("kbarPlot", width="700px"), 
-             downloadButton(outputId="EPA_data_download", label="Download EPA Data"), br(),br(),
-             p("Using the button above, you can download a file of daily PM2.5 averages for Sept 2017 for an EPA monitor nearest to each of these sites.", 
+             p("Using the button below, you can download a file of daily PM2.5 averages for Sept 2017 for an EPA monitor nearest to each of these sites.", 
                "Use this file to get your own averages per site. How do they compare to the measures in the plot above?"),
+             downloadButton(outputId="EPA_data_download", label="Download EPA Data"), br(),br(),
              hr(),
     
              h3(p("Selected Cities")),
-             p("What differences in PM2.5 do you expect in different locations across the U.S.?"),
+             p("What differences in PM2.5 do you expect in these different locations across the U.S.?"),
              div(style="display: inline-block;",tags$a(imageOutput("PhImage",height="200px"), href="https://cdn.vox-cdn.com/thumbor/iz1UYrej5uzUbQZrtlu2tAxkoV4=/0x0:5959x3973/1200x900/filters:focal(2504x1511:3456x2463)/cdn.vox-cdn.com/uploads/chorus_image/image/54302495/shutterstock_618667091.0.jpg",target="_blank")),
              div(style="display: inline-block;",tags$a(imageOutput("NYImage",height="200px"),href="https://imgs.6sqft.com/wp-content/uploads/2016/06/13172431/Midtown-Skyline-in-2020.jpg",target="_blank")),
              div(style="display: inline-block;",tags$a(imageOutput("LAImage",height="200px"),href="https://upload.wikimedia.org/wikipedia/commons/3/30/Echo_Park_Lake_with_Downtown_Los_Angeles_Skyline.jpg",target="_blank")),

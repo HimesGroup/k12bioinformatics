@@ -49,25 +49,7 @@ if (dim(all_crowdsourced_data)[1]==0){
   group_status = FALSE
 }
 
-# #Error handling 
-# message = NULL
-# 
-# #Case: there is a problem with the google doc url or the column names 
-# if(url.exists(URL)){
-#   df <- gsheet2tbl(URL)
-#   if(length(setdiff(c("Timestamp","Name","Location","PM2.5","CO","Site_Type","Comment"),names(df)))!= 0){
-#     message = "Warning: google sheet did not load properly so a saved version is being used instead"
-#   } 
-# } else if(!url.exists(URL)){
-#   message = "Warning: google sheet did not load properly so a saved version is being used instead"
-# }
-# 
-# #Read in saved version
-# if (!is.null(message)){
-#   df <- readRDS("../databases/AirQualityData_15thJuly_2019.RDS")
-# }
-
-## Wrangle dataframe in customized format
+## Wrangle dataframe into customized format
 all_crowdsourced_data <- tidyr::separate(data=all_crowdsourced_data,
                        col="Location (Latitude, Longitude)",
                        into=c("Latitude", "Longitude"),
