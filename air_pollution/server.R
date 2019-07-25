@@ -17,10 +17,10 @@ shinyServer(function(input, output) {
   } 
    
   #Introduction
-  output$airqdata <- renderDataTable({ df %>%
-      dplyr::select(-Timestamp,-Location)
+  output$airqdata <- renderDataTable({all_crowdsourced_data %>%
+      dplyr::select("Group", "Name", "Date", "Time", "Site_Type (Indoor, Outdoor)", "Latitude", "Longitude", "PM2.5", "CO", "Comments")
   }, options = list(pageLength=10, searching=FALSE))
-  
+
   output$epa_monitor <- renderImage({
     return(list(
       src = "../databases/EPA_Monitors.png",
@@ -45,7 +45,7 @@ shinyServer(function(input, output) {
   #Measurement I - PM2.5
   #Output
   output$distBoxplot <- renderPlot({
-    boxplot_func_ap("Variables","Measurement","PM2.5")
+    boxplot_func_ap("Variables", "Measurement", "PM2.5")
   })
 
   output$disHist <- renderPlot({
@@ -54,7 +54,7 @@ shinyServer(function(input, output) {
   #Measurement II - CO
   #Output
   output$pdistBoxplot <- renderPlot({
-    boxplot_func_ap("Variables","Measurement","CO")
+    boxplot_func_ap("Variables", "Measurement", "CO")
   })
   
   output$pdisHist <- renderPlot({
@@ -69,11 +69,11 @@ shinyServer(function(input, output) {
   data <- reactive({
     #all_dates <- setdiff(df$Date,seq(as.Date(input$dates[1]), as.Date(input$dates[2]), by="days"))
     all_dates <- as.character(seq(as.Date(input$dates[1]), as.Date(input$dates[2]), by="days"))
-    x <- tf %>% dplyr::filter(Date %in% all_dates,Name %in% input$name,Variables == input$type)
+    x <- all_crowdsourced_data %>% dplyr::filter(Date %in% all_dates, Name %in% input$name, Variables == input$type)
   })
   
   output$Name <- renderUI({
-    selectInput("name","Select Name:", choices=unique(tf$Name), multiple=TRUE, selected=unique(tf$Name))
+    selectInput("name","Select Name:", choices=unique(all_crowdsourced_data$Name), multiple=TRUE, selected=unique(all_crowdsourced_data$Name))
   })
   
   
@@ -206,7 +206,7 @@ shinyServer(function(input, output) {
       addCircleMarkers(lng=~Longitude, lat=~Latitude, color=~ppal(Measurement), radius=7, stroke=FALSE, fillOpacity=1, #lapply(input$name,function(x) color_status[[x]])
                        popup = paste("Name", mdata$Name, "<br>",
                                      "Timestamp:", mdata$Timestamp, "<br>",
-                                     paste0(input$type,":"),mdata$Measurement, "<br>")) 
+                                     paste0(input$type,":"), mdata$Measurement, "<br>")) 
     
     m
   })

@@ -8,47 +8,78 @@ library(RCurl) #to check if url exists
 ## Acquiring data from google sheets ##
 #######################################
 
-##Get data
+##Get groups with corresponding URLs
 #URL <- "https://docs.google.com/spreadsheets/d/1V5J_TuhfZTFBfPcg1JMavzFrbB2vavd3JMNX1f1oAQw/edit#gid=420394624"
-URL <- "https://docs.google.com/spreadsheets/d/13-F4sAcX5Ph-IKp0W8uTRfT1RmUeEGbwtK7PMVUylws/edit#gid=0"
-
-#Error handling 
+#URL <- "https://docs.google.com/spreadsheets/d/13-F4sAcX5Ph-IKp0W8uTRfT1RmUeEGbwtK7PMVUylws/edit#gid=0"
+gsheet_links <- read.csv("../databases/gsheet_links.csv", as.is=TRUE)
 message = NULL
 
-#Case: there is a problem with the google doc url or the column names 
-if(url.exists(URL)){
-  df <- gsheet2tbl(URL)
-  if(length(setdiff(c("Timestamp","Name","Location","PM2.5","CO","Site_Type","Comment"),names(df)))!= 0){
-    message = "Warning: google sheet did not load properly so a saved version is being used instead"
-  } 
-} else if(!url.exists(URL)){
-  message = "Warning: google sheet did not load properly so a saved version is being used instead"
+#Function to handle errors with loading google spreadsheet 
+get_gsheet_data <- function(link) {
+  curr_message = NULL
+  #Case: there is a problem with the google doc url or the column names 
+  if(url.exists(link)){
+    df <- gsheet2tbl(link)
+    if(length(setdiff(c("Timestamp","Name","PM2.5","CO","Location (1,2,3,4)","Comments","Site_Type (Indoor, Outdoor)","Data_Collection_Time", "Location (Latitude, Longitude)"), names(df)))!= 0){
+      curr_message = paste("Warning: the google sheet did not load properly so it will be skipped:", link)
+    } 
+  } else if(!url.exists(URL)){
+    curr_message = paste("Warning: the google sheet did not load properly so it will be skipped:", link)
+  }
+  return(df)
 }
 
-#Read in saved version
-if (!is.null(message)){
-  df <- readRDS("../databases/AirQualityData_15thJuly_2019.RDS")
+#Load data from all the google sheets
+all_crowdsourced_data <- NULL
+for (i in c(1:dim(gsheet_links)[[1]])) {
+  curr_data <- get_gsheet_data(gsheet_links[i, "URL"])
+  if(dim(curr_data)[1]!=0){
+    curr_data <- mutate(curr_data, Group = gsheet_links[i, "Group"])
+    all_crowdsourced_data <- bind_rows(all_crowdsourced_data, curr_data)
+  } else{
+    next
+  }
 }
+
+if (dim(all_crowdsourced_data)[1]==0){
+  all_crowdsourced_data <- readRDS("../databases/AirQualityData_15thJuly_2019.RDS")
+  message = "Warning: no contents in provided google sheets so old data loaded"
+}
+
+# #Error handling 
+# message = NULL
+# 
+# #Case: there is a problem with the google doc url or the column names 
+# if(url.exists(URL)){
+#   df <- gsheet2tbl(URL)
+#   if(length(setdiff(c("Timestamp","Name","Location","PM2.5","CO","Site_Type","Comment"),names(df)))!= 0){
+#     message = "Warning: google sheet did not load properly so a saved version is being used instead"
+#   } 
+# } else if(!url.exists(URL)){
+#   message = "Warning: google sheet did not load properly so a saved version is being used instead"
+# }
+# 
+# #Read in saved version
+# if (!is.null(message)){
+#   df <- readRDS("../databases/AirQualityData_15thJuly_2019.RDS")
+# }
 
 ## Wrangle dataframe in customized format
-df <- tidyr::separate(data=df,
-                       col=Location,
+all_crowdsourced_data <- tidyr::separate(data=all_crowdsourced_data,
+                       col="Location (Latitude, Longitude)",
                        into=c("Latitude", "Longitude"),
                        sep=",",
                        remove=FALSE)
-
-
-df$Latitude <- as.numeric(df$Latitude)
-df$Longitude <- as.numeric(df$Longitude)
-#df <- df %>% dplyr::select(-ACTION)
-df$Date <- gsub(" .*"," ", df$Timestamp)
-df$Time <- gsub(".* ","", df$Timestamp)
-df$Date <-  gsub("*.EDT","",strptime(as.character(df$Date), "%m/%d/%Y"))
-df <- filter(df, PM2.5<500)
+all_crowdsourced_data$Latitude <- as.numeric(all_crowdsourced_data$Latitude)
+all_crowdsourced_data$Longitude <- as.numeric(all_crowdsourced_data$Longitude)
+all_crowdsourced_data$Date <- gsub(" .*"," ", all_crowdsourced_data$Data_Collection_Time)
+all_crowdsourced_data$Time <- gsub(".* ","", all_crowdsourced_data$Data_Collection_Time)
+all_crowdsourced_data$Date <-  gsub("*.EDT","",strptime(as.character(all_crowdsourced_data$Date), "%m/%d/%Y"))
+all_crowdsourced_data <- filter(all_crowdsourced_data, PM2.5<500 & PM2.5>=0)
 
 #Dataframe with column names as row names for "Variables" column
-tf <- melt(df %>% dplyr::select(Name,Latitude,Longitude,Date,Time,Site_Type,Comment,PM2.5,CO),id = c("Name","Latitude","Longitude","Date","Time","Site_Type","Comment"))
-names(tf) <- c("Name", "Latitude", "Longitude", "Date", "Time", "Site_Type", "Comment", "Variables", "Measurement")
+tf <- melt(all_crowdsourced_data %>% dplyr::select(Group,Name,Latitude,Longitude,Date,Time,"Site_Type (Indoor, Outdoor)",Comments,PM2.5,CO), id=c("Group","Name","Latitude","Longitude","Date","Time","Site_Type (Indoor, Outdoor)","Comments"))
+names(tf) <- c("Group", "Name", "Latitude", "Longitude", "Date", "Time", "Site_Type", "Comments", "Variables", "Measurement")
 clrs <- c("#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7","#7570B3", "#E7298A", "#66A61E", "#E6AB02", "#A6761D", "#666666","#8DD3C7","#BEBADA") #CB and Dark2
 
 
@@ -85,12 +116,12 @@ names(color_status) <- as.vector(unique(tf$Variables))
 ##HISTOGRAM##
 #function
 #histogram for selected continuous variables from student data
-hist_func <- function(Con,var){
+hist_func <- function(Con, var){
   data <- tf %>% dplyr::filter(Variables %in% var)
   df <- data[[Con]]
   bw <- (2 * IQR(df)) / length(df)^(1/3) #Freedman-Diaconis rule 
   #breaks=seq(min(df), max(df)),
-  ggplot(data=data, aes_string(Con)) + geom_histogram(col="grey18", fill=color_status[[var]],alpha=0.6,binwidth = bw) + labs(x=var, y="Count") + #xlim(c(min(df),max(df))) + 
+  ggplot(data=data, aes_string(Con)) + geom_histogram(col="grey18", fill=color_status[[var]], alpha=0.6, binwidth = bw) + labs(x=var, y="Count") + #xlim(c(min(df),max(df))) + 
     theme_bw() +
     theme(legend.text = element_text(size=14),
           axis.title=element_text(size=15),
@@ -113,10 +144,10 @@ boxplot_func_ap <- function(x,y,var){
 
 ##SCATTERPLOT##
 #Bivariate scatterplot for PM2.5 and CO, colored by date of entry and shapes by name of student.
-scatterplot_func <- function(var,pvar){
-  data <- df %>% dplyr::select(var,pvar)
+scatterplot_func <- function(var, pvar){
+  data <- all_crowdsourced_data %>% dplyr::select(var,pvar)
   sval = rep(0:25,10)
-  ggplot(df, aes_string(x=var, y=pvar)) + geom_point(aes(color=Date,shape = Name),size=3) + theme_bw() + scale_shape_manual(values=sval[0:length(df$Name)]) + 
+  ggplot(all_crowdsourced_data, aes_string(x=var, y=pvar)) + geom_point(aes(color=Date,shape = Name),size=3) + theme_bw() + scale_shape_manual(values=sval[0:length(all_crowdsourced_data$Name)]) + 
     theme(legend.text = element_text(size=14),
           axis.title=element_text(size=15),
           title = element_text(size=15),
@@ -146,7 +177,7 @@ barplot_func <- function(data){
 
 ##Ggiraph SCATTERPLOT##
 #Interactive scatterplot for PM.25 or CO values
-scatplot_func_ph <- function(data,title){
+scatplot_func_ph <- function(data, title){
   col = brewer.pal(11, "Spectral")
   #col =  col[!col %in% "#FFFFBF"]
   data$PM <- round(data$PM2.5,2)
