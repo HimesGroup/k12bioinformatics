@@ -69,11 +69,31 @@ shinyServer(function(input, output) {
   data <- reactive({
     #all_dates <- setdiff(df$Date,seq(as.Date(input$dates[1]), as.Date(input$dates[2]), by="days"))
     all_dates <- as.character(seq(as.Date(input$dates[1]), as.Date(input$dates[2]), by="days"))
-    x <- tf %>% dplyr::filter(Date %in% all_dates, Name %in% input$name, Variables == input$type)
+    #check for group_status
+    if (isFALSE(group_status)){
+      x <- tf %>% dplyr::filter(Date %in% all_dates, Name %in% input$name, Variables == input$type)
+    } else if (isTRUE(group_status)){
+      x <- tf %>% dplyr::filter(Date %in% all_dates, Name %in% input$name, Variables == input$type,Group %in% input$group)
+    }
+  })
+  
+  ##Group UI
+  observe({
+    if(isTRUE(group_status)){
+      output$Group <- renderUI({selectInput("group","Select Group:", choices=unique(all_crowdsourced_data$Group), multiple=TRUE, selected=unique(all_crowdsourced_data$Group))})
+    }})
+  
+  #Name UI
+  names_by_group <- reactive({
+    if(isTRUE(group_status)){
+      n <- unique(as.vector(all_crowdsourced_data %>% dplyr::filter(Group %in% input$group) %>% dplyr::select(Name)))
+    } else {
+      n <- unique(all_crowdsourced_data$Name)
+    }
   })
   
   output$Name <- renderUI({
-    selectInput("name","Select Name:", choices=unique(all_crowdsourced_data$Name), multiple=TRUE, selected=unique(all_crowdsourced_data$Name))
+    selectInput("name","Select Name:", choices=names_by_group(), multiple=TRUE, selected=unique(all_crowdsourced_data$Name))
   })
   
   

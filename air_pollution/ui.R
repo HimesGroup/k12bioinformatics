@@ -101,7 +101,8 @@ shinyUI(fluidPage(
              sidebarPanel(
                selectInput("type","Select Variable:", choices = c("PM2.5","CO") , selected = "PM2.5"),
                dateRangeInput("dates", label = "Date Range:", start = "2019-04-17", end = Sys.Date()),
-               uiOutput("Name"), br())),
+               uiOutput("Group"),
+               uiOutput("Name"),br())),
   
     tabPanel("Crowdsourced Summary Plots",br(),
              h3(p("Overall characterisitics of Crowdsourced Pollution Data")),
