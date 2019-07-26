@@ -12,7 +12,8 @@ shinyUI(fluidPage(
   theme = shinythemes::shinytheme("cerulean"),
   # 
   # Application title
-  titlePanel(h1("Air Pollution Visualization", align="center")),
+  titlePanel(h2("Air Pollution Visualization", align="center")),
+  hr(),
   
   tabsetPanel(
     tabPanel("Introduction",
