@@ -7,7 +7,7 @@ shinyUI(fluidPage(
   theme = shinythemes::shinytheme("cerulean"),
   
   # Application title
-  titlePanel(h1("Exploratory Data Analysis Tool", align="center")),
+  titlePanel(h1("Exploratory Data Analysis", align="center")),
   hr(),
   #mainPanel(
   tabsetPanel(

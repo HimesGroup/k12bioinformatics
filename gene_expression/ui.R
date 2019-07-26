@@ -5,7 +5,7 @@ shinyUI(fluidPage(
   theme = shinythemes::shinytheme("cerulean"),
   
   # Application title
-  titlePanel(h2("Gene Expression Microarray Tutorial", align="center")),
+  titlePanel(h1("Gene Expression Microarray Analysis", align="center")),
 
   tabsetPanel(
     tabPanel("Introduction",
