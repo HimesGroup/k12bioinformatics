@@ -1,0 +1,31 @@
+function action(e) {
+    var raw    = e.values[1] // Raw Data from Column 13
+    var sheet  = SpreadsheetApp.getActiveSheet();
+   
+    var doc = SpreadsheetApp.openById('<ADD GOOGLE SHEET ID HERE>')//bulk
+    //var sheet2 = doc.getSheets()[1];
+    var sheet2 = doc.getSheetByName("CleanData");
+  
+    var values = sheet.getDataRange().getValues();
+    var values2 = sheet2.getDataRange().getValues();
+  
+    var lastRow = values.length - 1;
+    //var lastRow2 = values2.length - 1;
+    var lastRow2=values2.length;
+  
+    var parsed = Utilities.parseCsv(raw) // parsing csv string
+
+   // sheet.getRange(parseInt(lastRow)+1, 5).clear();
+  
+    var c = 1;
+    var i=0;
+  for (var i=0; i < parsed.length; i++){
+    for (var d = 0; d < parsed[i].length; d++) {
+      sheet2.getRange(parseInt(lastRow2)+1+i, c).setValue(parsed[i][d]);
+   
+      
+      c++;
+    } 
+    c=1;
+   } 
+}

@@ -1,0 +1,110 @@
+#include <SoftwareSerial.h>
+#include "PMS.h"
+SoftwareSerial Ms(2, 3); // RX, TX
+PMS pms(Serial);
+PMS::DATA data;
+float a = 10.00, b = 20.00, c = 30.00, d = 40.00;
+int h=0;
+int value = 0;
+int Tanalog=A1;   // temperature analog 3.3v
+int Hanalog=A2;   // humidity analog 3.3v
+float tempvalue=0.0; //temp value
+float VT=0.0;
+float temp;
+
+float R0=1; // Get the value of R0 via in LPG
+
+void SendData() 
+{
+  String s;
+  s = "s " + String(h) + " " + String(b) + " " + String(c) + " " + String(d) + " e";
+  //Serial.println(s);
+  Ms.println(s);
+  //a += 1.0;
+}
+
+//PMS2.5>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+float pms7(void)
+{
+   if (pms.read(data))
+  {
+    
+ value  = data.PM_AE_UG_2_5;
+ //Serial.print("PM 2.5 (ug/m3): ");
+  // Serial.println(value);
+    return value;
+
+   }
+   
+  }
+  
+void setup()
+{
+  Serial.begin(9600);
+  Serial.println("Serial 9600");
+  Ms.begin(9600);
+  Serial.println("Bluetooth Ok");
+  //delay(10000); // warm up sensor
+    
+}
+
+void loop()
+{
+  
+
+  
+  //PMS2.5>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+ // a = pms7();
+ // Serial.print("PM 2.5 (ug/m3): ");
+ // Serial.println(a);
+  
+  //Temp>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  
+//tempvalue=map(analogRead(Tanalog),20,358,-40,125); // 100mV(-40C) equal to a digital value of 20  and  1.75V(125C)equal to a digital value of 358
+   
+  temp = analogRead(A1)*5/1024.0;
+  temp = temp - 0.5;
+  temp = temp / 0.01;
+  c=temp-5;
+  //c=tempvalue;
+  // Serial.print("Temp in C : ");
+  // Serial.println(c);
+  
+
+   //Humidity/////////////////////////////////////////////////////////
+  int hvalue=(analogRead(A2));
+  float voltage = hvalue * (5.0 / 1023.0);                  //digital value to voltage
+  float sensorRH=((voltage/3.3)-0.1515)/0.00635;           // equation to obtain relative humidity from datasheet: https://sensing.honeywell.com/index.php/ci_id/49692/la_id/1/document/1/re_id/0 
+  d=sensorRH;
+ // Serial.print("Relative Humidity %: ");
+ // Serial.println(d);
+   //a = pms7();
+
+    // MQ9>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  int alarm = 0;
+  float sensor_volt;
+  float RS_gas;
+  float ratio;
+  //-Replace the name "R0" with the value of R0 in the demo of First Test -/
+  //float R0 = 7.11;
+  int sensorValue = analogRead(A0);
+  sensor_volt = ((float)sensorValue / 1024) * 5.0;
+  RS_gas = (5.0 - sensor_volt) / sensor_volt; // Depend on RL on yor module
+  ratio = RS_gas / R0; // ratio = RS/R0
+  ratio =ratio-8; // JS's calibariton...
+  b = ratio;
+  
+   h = pms7();
+   
+//Bluetooth>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  if (Ms.available()) {
+    String m = Ms.readString();
+    //Serial.println(m);
+    if (m.indexOf("1") == 0) {
+      SendData();
+    }
+ 
+  }
+  
+
+}
