@@ -11,3 +11,5 @@ Web apps for:
 2) Gene expression microarray analysis
 
 3) Pollution measure analysis
+
+Sensor application development by Jooeun Shim (https://github.com/JShimLab/air_quality_sensor_app) 
