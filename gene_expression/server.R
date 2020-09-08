@@ -12,24 +12,33 @@ library(cowplot)
 source("functions.R")
 
 #Load phenotype and results data
-pheno <- read.table("../databases/GSE8823_Phenotype_withoutQC.txt", sep="\t", header=TRUE, as.is=TRUE)
-pheno <- pheno %>% dplyr::rename(ScanDate = ScanDate_Group)
+pheno <- read.table("databases/GSE8823_Phenotype_withoutQC.txt", sep="\t", header=TRUE, as.is=TRUE)
+pheno <- pheno %>% dplyr::rename("ScanDate" = "ScanDate_Group")
+pheno$Smoking_status <- as.factor(gsub(", ","-",pheno$Smoking_status))
 #pheno$Treatment <- as.factor(gsub("_","-",pheno$Treatment))
-de_results <- na.omit(read.csv("../databases/GSE8823_alveolar_macrophages_healthy_smoker_vs_non_smoker.csv",header=TRUE))
+de_results <- na.omit(read.csv("databases/GSE8823_alveolar_macrophages_healthy_smoker_vs_non_smoker.csv",header=TRUE))
 all_genes <- as.vector(unique(de_results$SYMBOL)[1:500]) #first 500 genes
-image1 <- "../databases/Raw_Probe_Intensities.tiff"
-image2 <- "../databases/Normalized_Probe_Intensities.tiff"
+image1 <- "databases/Raw_Probe_Intensities.tiff"
+image2 <- "databases/Normalized_Probe_Intensities.tiff"
 
 shinyServer(function(input, output,session) {
   genes <- reactive({selectizeInput("gene", "Official Gene Symbol:", all_genes, selected="SMAD7", width="185px", options = list(create = TRUE))})
   output$genesAvail <- renderUI({genes()})
   curr_gene <- reactive({gsub(" ", "", toString(input$gene), fixed = TRUE)})
+  
+  phenotable <- reactive({pheno %>%
+      dplyr::select(GEO_ID, Smoking_status, Sex, Age, Ancestry)})
 
   output$phenoTable <- renderDataTable({
-    pheno %>%
-      dplyr::select(GEO_ID, Smoking_status, Sex, Age, Ancestry)
+    phenotable()
   }, options = list(pageLength=10, searching=FALSE)
   )
+  
+  #Download phenotype information
+  output$pheno_data_download <- downloadHandler(
+    filename= function(){paste0("subject_characteristics.csv")},
+    content=function(file){
+      write.csv(phenotable(), file,row.names = FALSE, quote = FALSE)})
   
   #Sample characteristics
   #output$phenoData <- renderDataTable({pheno_QC %>% dplyr::select(GEO_ID, Smoking_status, Sex, Age, Ancestry)},options = list(pageLength=10, searching=FALSE))
@@ -50,15 +59,6 @@ shinyServer(function(input, output,session) {
   #output
   output$sboxPlot <- renderPlot({boxplot_func(input$comp,"Age",pheno_QC)})
   
-  #raw data image
-  output$affy_image <- renderImage({
-    return(list(
-      src = "../databases/affymetrix.tiff",
-      height= 380,
-      width = 550,
-      filetype = "image/tiff",
-      alt = "Affymetrix Chip"))}, deleteFile = FALSE)
-
   #RMA image
   output$RMAimage <- renderImage({ 
     if(input$rma == 0){fi = image1} # don't do anything if action button has been clicked 0 times
@@ -75,25 +75,7 @@ shinyServer(function(input, output,session) {
       width = 550,
       filetype = "image/tiff",
       alt = "Normalize data with RMA"))}, deleteFile = FALSE)
-  
-  
-  
-  #Boxplots for outliers
-  output$QCimage <- renderImage({
-    return(list(
-      src = "../databases/Outlier_barplot.tiff",
-      height= 800,
-      width = 550,
-      filetype = "image/tiff",
-      alt = "QC Outliers"))}, deleteFile = FALSE)
-  
-  output$DCimage <- renderImage({
-    return(list(
-      src = "../databases/Density_curves.tiff",
-      height= 480,
-      width = 610,
-      filetype = "image/tiff",
-      alt = "QC Outliers"))}, deleteFile = FALSE)
+
   
   #PCA
   output$PCAplot <- renderPlot({pca_plot(input$var)},height=400, width=600)
@@ -104,14 +86,6 @@ shinyServer(function(input, output,session) {
     de_df %>% dplyr::rename(`Gene Symbol`= SYMBOL)
   }, options = list(pageLength=10, searching=FALSE))
   
-  #Volcano plot image
-  output$volcanoPlot <- renderImage({ 
-    return(list(
-      src = "../databases/Volcano_plot_edited.tiff",
-      height=310,
-      width = 390,
-      filetype = "image/tiff",
-      alt = "Volcano Plot"))}, deleteFile = FALSE)
   
   #Genes selected
   gene_de <- reactive({de_results %>% dplyr::filter(SYMBOL == curr_gene())})
