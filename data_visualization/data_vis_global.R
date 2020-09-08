@@ -2,12 +2,12 @@
 #########################
 ## Read in data files ##
 ########################
-pheno_QC <- read.table("../databases/GSE8823_Phenotype_withQC.txt", sep="\t", header=TRUE)
+pheno_QC <- read.table("databases/GSE8823_Phenotype_withQC.txt", sep="\t", header=TRUE)
 pheno_QC <- pheno_QC %>% dplyr::filter(QC_Pass!=0) %>% rename(ScanDate=ScanDate_Group)
 pheno_QC$ScanDate <- as.factor(gsub("/([^/]*)$", " ", pheno_QC$ScanDate))
 pheno_QC$Treatment <- as.factor(gsub("_","-",pheno_QC$Treatment))
 pheno_QC$Donor <- as.factor(paste0("D",pheno_QC$Donor))
-iris_data <- read.csv("../databases/iris_dataset.csv")
+iris_data <- read.csv("databases/iris_dataset.csv")
 
 ########################
 ## HELPER FUNCTIONS  ##
