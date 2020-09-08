@@ -3,10 +3,10 @@
 #########################
 ## Read in data files ##
 ########################
-rma.data <- read_feather("../databases/GSE8823_pheno+rma_counts.feather")
+rma.data <- read_feather("databases/GSE8823_pheno+rma_counts.feather")
 rma.data$Treatment <- gsub("_","-",rma.data$Treatment)
-pheno_QC <- read.table("../databases/GSE8823_Phenotype_withQC.txt", sep="\t", header=TRUE)
-pheno_QC <- pheno_QC %>% dplyr::filter(QC_Pass!=0) %>% rename(ScanDate = ScanDate_Group)
+pheno_QC <- read.table("databases/GSE8823_Phenotype_withQC.txt", sep="\t", header=TRUE)
+pheno_QC <- pheno_QC %>% dplyr::filter(QC_Pass!=0) %>% rename("ScanDate" = "ScanDate_Group")
 pheno_QC$Treatment <- as.factor(gsub("_","-",pheno_QC$Treatment))
 pheno_QC$Donor <- paste0("D",pheno_QC$Donor)
 
@@ -103,7 +103,7 @@ pca_plot <- function(group_var){
   pc <- data.frame(pca$x)
   
   #group
-  group=pheno_QC[which(pheno_QC$Filename %in% row.names(pc)),group_var]
+  group=gsub(" ","",pheno_QC[which(pheno_QC$Filename %in% row.names(pc)),group_var])
   df <- data.frame(
     PC1=pc$PC1,
     PC2=pc$PC2,
@@ -111,8 +111,7 @@ pca_plot <- function(group_var){
   )
   
   #colors
-  i=length(levels(group))
-  group_col <- colours[1:i]
+  group_col <- colours[1:length(unique(group))]
   names(group_col) <- levels(pheno_QC[[group_var]]) # colour to corresponding group for plot
   #Plot
   ggplot(df,aes(PC1,PC2,color=group)) + geom_point(size=5) +

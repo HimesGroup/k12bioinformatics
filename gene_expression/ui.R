@@ -24,14 +24,14 @@ shinyUI(fluidPage(
              p("We used the information deposited by study authors into GEO to learn some basics about the experiment's study design, including what tissue was studied, 
                the characteristics of individuals selected for the study."),
              dataTableOutput("phenoTable"),
-             br(),
+             downloadButton(outputId="pheno_data_download", label="Download Phenotype Data"),
+             br(),hr(),
              p(h4("Raw Gene Expression Microarray Data")),
              p("From GEO, we also found out what microarray chip was used to obtain gene expression data (it was one called 
                Affymetrix HG-U133 Plus 2.0). Next, we obtained 24 files, each corresponding to the image intensities 
                captured across each chip for each individual."),
-             fluidRow(column(12, align="center",imageOutput("affy_image",height="420px"))),
-             #div(style="display: inline-block;",imageOutput("affy_image")),
-             #div(style="display: inline-block;",imageOutput("raw_image")))),
+             #fluidRow(column(12, align="center",imageOutput("/var/www/k12_images/affy_image",height="420px"))),
+             fluidRow(column(12, align="center",img(src="http://public.himeslab.org/k12_images/affymetrix.tiff",height="380px",width="550px", alt="Affymetrix Chip"))),
              hr(),
              p(h4("To Learn More")),
              p("For this tutorial, we analyzed data and provide it for you to explore gene expression data. 
@@ -92,12 +92,14 @@ shinyUI(fluidPage(
                Outlier detection is applied by computing a Kolmogorov-Smirnov statistic (Ka) between 
                log-intensity distribution for one array and the pooled array data, 
                where an array with a Ka beyond the upper whisker is designated as an outlier."),               
-             imageOutput("QCimage",height="800px"), br(), hr(),
+             #imageOutput("QCimage",height="800px"), br(), hr(),
+             img(src="http://public.himeslab.org/k12_images/Outlier_barplot.tiff",height="800px",width="550px", alt="QC Outliers"), br(), hr(),
              p("The intensity curves of all samples (arrays) are expected to have the similar shapes and ranges. 
                Samples with deviated curves are likely to have problematic experiments. 
                For example, high levels of background will shift an array’s distribution to the right. 
                Lack of signal diminishes its right right tail. A bulge at the upper end of the intensity range often indicates signal saturation."),
-             imageOutput("DCimage",height="800px")))),
+             #imageOutput("DCimage",height="800px")
+             img(src="http://public.himeslab.org/k12_images/Density_curves.tiff",height="500px",width="610px", alt="QC Outliers"),br(),br()))),
   
 
     tabPanel("Differential Expression Results",
@@ -105,7 +107,8 @@ shinyUI(fluidPage(
              p(h3("Identifying Differentially Expressed Genes")),
              fluidRow(column(12,p(h4("Volcano Plots")),
              p("Volcano plot (probes with an adjusted p-value <0.05 are present in red)"),
-             imageOutput("volcanoPlot",height="310px"))),
+             #imageOutput("volcanoPlot",height="310px")
+             img(src="http://public.himeslab.org/k12_images/Volcano_plot_edited.tiff",height="330px",width="390px", alt="Volcano Plot"))),
              br(),hr(),
              fluidRow(column(12,p(h4("Top 50 Differentially Expressed Genes")),
              p("Show top 50 probes sorted by p-values"),

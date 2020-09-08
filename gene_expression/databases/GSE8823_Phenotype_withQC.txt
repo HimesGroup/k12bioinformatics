@@ -1,0 +1,25 @@
+GEO_ID	Donor	Sample	Tissue	Treatment	Smoking_status	Sex	Age	Ancestry	Disease	ScanDate_Group	QC_Pass	Filename
+GSM219241	001	GSM219241_001	alveolar macrophages	non_smoker	non-smoker	M	41	 African	healthy	06/22/05	1	GSM219241.CEL.gz
+GSM219242	002	GSM219242_002	alveolar macrophages	non_smoker	non-smoker	M	61	 European	healthy	06/22/05	1	GSM219242.CEL.gz
+GSM219243	003	GSM219243_003	alveolar macrophages	non_smoker	non-smoker	F	37	 African	healthy	06/22/05	1	GSM219243.CEL.gz
+GSM219244	005	GSM219244_005	alveolar macrophages	non_smoker	non-smoker	M	35	 African	healthy	07/20/06	1	GSM219244.CEL.gz
+GSM219245	006	GSM219245_006	alveolar macrophages	non_smoker	non-smoker	M	47	 African	healthy	07/14/06	1	GSM219245.CEL.gz
+GSM219246	008	GSM219246_008	alveolar macrophages	non_smoker	non-smoker	M	36	 European	healthy	07/13/06	1	GSM219246.CEL.gz
+GSM219247	013	GSM219247_013	alveolar macrophages	non_smoker	non-smoker	M	45	 Hispanic	healthy	07/14/06	1	GSM219247.CEL.gz
+GSM219248	014	GSM219248_014	alveolar macrophages	non_smoker	non-smoker	M	45	 European	healthy	07/14/06	1	GSM219248.CEL.gz
+GSM219249	019	GSM219249_019	alveolar macrophages	non_smoker	non-smoker	F	49	 European	healthy	07/14/06	1	GSM219249.CEL.gz
+GSM219250	021	GSM219250_021	alveolar macrophages	non_smoker	non-smoker	M	38	 Hispanic	healthy	07/20/06	1	GSM219250.CEL.gz
+GSM219251	035	GSM219251_035	alveolar macrophages	non_smoker	non-smoker	M	45	 European	healthy	07/19/06	1	GSM219251.CEL.gz
+GSM219252	001	GSM219252_001	alveolar macrophages	smoker	smoker, 23 pack-years	F	37	 African	healthy	07/13/06	1	GSM219252.CEL.gz
+GSM219253	002	GSM219253_002	alveolar macrophages	smoker	smoker, 21 pack-years	M	46	 European	healthy	06/22/05	1	GSM219253.CEL.gz
+GSM219254	023	GSM219254_023	alveolar macrophages	smoker	smoker, 20 pack-years	M	41	 African	healthy	08/17/05	1	GSM219254.CEL.gz
+GSM219255	025	GSM219255_025	alveolar macrophages	smoker	smoker, 30 pack-years	F	44	 European	healthy	08/17/05	0	GSM219255.CEL.gz
+GSM219256	027	GSM219256_027	alveolar macrophages	smoker	smoker, 45 pack-years	M	44	 European	healthy	06/22/05	1	GSM219256.CEL.gz
+GSM219257	033	GSM219257_033	alveolar macrophages	smoker	smoker, 15 pack-years	M	48	 European	healthy	06/22/05	1	GSM219257.CEL.gz
+GSM219258	040	GSM219258_040	alveolar macrophages	smoker	smoker, 24 pack-years	M	40	 African	healthy	07/13/06	1	GSM219258.CEL.gz
+GSM219259	041	GSM219259_041	alveolar macrophages	smoker	smoker, 20 pack-years	M	48	 European	healthy	07/07/06	1	GSM219259.CEL.gz
+GSM219260	044	GSM219260_044	alveolar macrophages	smoker	smoker, 38 pack-years	M	50	 European	healthy	07/07/06	1	GSM219260.CEL.gz
+GSM219261	057	GSM219261_057	alveolar macrophages	smoker	smoker, 24 pack-years	M	45	 African	healthy	07/07/06	1	GSM219261.CEL.gz
+GSM219262	058	GSM219262_058	alveolar macrophages	smoker	smoker, 80 pack-years	M	56	 African	healthy	07/07/06	1	GSM219262.CEL.gz
+GSM219263	063	GSM219263_063	alveolar macrophages	smoker	smoker, 60 pack-years	M	59	 European	healthy	07/07/06	1	GSM219263.CEL.gz
+GSM219264	069	GSM219264_069	alveolar macrophages	smoker	smoker, 70 pack-years	M	45	 African	healthy	07/07/06	1	GSM219264.CEL.gz
