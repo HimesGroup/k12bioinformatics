@@ -8,7 +8,7 @@ library(data.table)
 daily_df <- read.csv("daily_88101_2017.csv",header=T)
 states <- c("Pennsylvania","New York","Florida","Montana","California","New Mexico","Oregon","South Dakota")
 cities <- c("Albuquerque",as.vector(k12$City))
-k12 <- read.table("../databases/k12_sites.txt",header=TRUE)
+k12 <- read.table("databases/k12_sites.txt",header=TRUE)
 
 sdates <- grep("2017-09",levels(daily_df$Date.Local),value=T)
 
@@ -22,7 +22,7 @@ ddf2 <- daily_k12_df %>% dplyr::filter(City.Name %in% cities,!Method.Code %in% c
 final_ddf <- rbind(ddf1, ddf2)
 final_ddf <- final_ddf %>% dplyr::distinct(City.Name,Date.Local,County.Name,.keep_all=TRUE) %>% dplyr::select(-Method.Code) %>% dplyr::filter(County.Name!="Bronx")
 
-write.csv(final_ddf,"../databases/EPA_measures_daily_average_Sept2017.csv",row.names = F,quote=F)
+write.csv(final_ddf,"databases/EPA_measures_daily_average_Sept2017.csv",row.names = F,quote=F)
 
 ############################################################
 ## GET PM.25 AND CO EPA measures from pargasite package  ##
@@ -44,7 +44,7 @@ write.csv(k12,"k12_sites.csv",row.names = FALSE)
 
 ###Get PM2.5 and CO measures for all cities from 2007-2017 for tab "Seasonality of measures"
 
-k12 <- read.csv("../databases/k12_sites.csv")
+k12 <- read.csv("databases/k12_sites.csv")
 dates <- seq(1,12)
 months <- c("Jan","Feb","Mar","Apr","May","June","Jul","Aug","Sept","Oct","Nov","Dec")
 years <- seq(2007,2017)
@@ -83,5 +83,5 @@ for (k in k12$State){
 ph_df <- rbindlist(ph_list, fill = TRUE)
 co_df <- rbindlist(ch_list, fill = TRUE)
 
-write.csv(ph_df,"../databases/all_k12_sites_PM.csv", row.names = FALSE)
-write.csv(co_df,"../databases/all_k12_sites_CO.csv", row.names = FALSE)
+write.csv(ph_df,"databases/all_k12_sites_PM.csv", row.names = FALSE)
+write.csv(co_df,"databases/all_k12_sites_CO.csv", row.names = FALSE)

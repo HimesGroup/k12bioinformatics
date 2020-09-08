@@ -11,7 +11,7 @@ library(RCurl) #to check if url exists
 ##Get groups with corresponding URLs
 #URL <- "https://docs.google.com/spreadsheets/d/1V5J_TuhfZTFBfPcg1JMavzFrbB2vavd3JMNX1f1oAQw/edit#gid=420394624"
 #URL <- "https://docs.google.com/spreadsheets/d/13-F4sAcX5Ph-IKp0W8uTRfT1RmUeEGbwtK7PMVUylws/edit#gid=0"
-gsheet_links <- read.csv("../databases/gsheet_links.csv", as.is=TRUE)
+gsheet_links <- read.csv("databases/gsheet_links_final.csv", as.is=TRUE) 
 message = NULL
 group_status = FALSE
   
@@ -32,31 +32,45 @@ get_gsheet_data <- function(link) {
 
 #Load data from all the google sheets
 all_crowdsourced_data <- NULL
+groups <- as.vector(gsheet_links$Group)
 for (i in c(1:dim(gsheet_links)[[1]])) {
   curr_data <- get_gsheet_data(gsheet_links[i, "URL"])
   if(dim(curr_data)[1]!=0){
     group_status = TRUE
-    curr_data <- mutate(curr_data, Group = gsheet_links[i, "Group"])
+    curr_data <- dplyr::mutate(curr_data, Group = gsheet_links[i, "Group"]) 
+    curr_data <- curr_data[, -grep("Class", colnames(curr_data))]
+    #curr_data$PM2.5 <- as.numeric(curr_data$PM2.5)
+    curr_data$Name <- as.character(curr_data$Name)
+    
+    #Correct colnames format
+    colnames(curr_data)[grepl("Site", names(curr_data))] <- "Site_Type (Indoor, Outdoor)"
+    colnames(curr_data)[grepl("LongLat", names(curr_data))] <- "Location (Latitude, Longitude)"
+    colnames(curr_data)[grepl("Location_1234", names(curr_data))] <- "Location (1,2,3,4)"
+    colnames(curr_data)[grepl("Group", names(curr_data))] <- "Group"
+    colnames(curr_data)[grepl("Data Collection Time", names(curr_data))] <- "Data_Collection_Time"
+    colnames(curr_data)[grepl("Raw Data", names(curr_data))] <- "Raw_Data"
     all_crowdsourced_data <- bind_rows(all_crowdsourced_data, curr_data)
+    all_crowdsourced_data <- na.omit(all_crowdsourced_data %>% dplyr::select(-Raw_Data))
   } else{
     next
   }
 }
 
 if (dim(all_crowdsourced_data)[1]==0){
-  all_crowdsourced_data <- readRDS("../databases/AirQualityData_15thJuly_2019.RDS")
+  all_crowdsourced_data <- readRDS("databases/AirQualityData_27thJan_2020.RDS")
   message = "Warning: no contents in provided google sheets so old data loaded"
   group_status = FALSE
 }
 
 ## Wrangle dataframe into customized format
 all_crowdsourced_data <- tidyr::separate(data=all_crowdsourced_data,
-                       col="Location (Latitude, Longitude)",
-                       into=c("Latitude", "Longitude"),
-                       sep=",",
-                       remove=FALSE)
+                                         col="Location (Latitude, Longitude)",
+                                         into=c("Latitude", "Longitude"),
+                                         sep=",",
+                                         remove=FALSE)
 all_crowdsourced_data$Latitude <- as.numeric(all_crowdsourced_data$Latitude)
 all_crowdsourced_data$Longitude <- as.numeric(all_crowdsourced_data$Longitude)
+all_crowdsourced_data$Group <- as.factor(all_crowdsourced_data$Group)
 all_crowdsourced_data$Date <- gsub(" .*"," ", all_crowdsourced_data$Data_Collection_Time)
 all_crowdsourced_data$Time <- gsub(".* ","", all_crowdsourced_data$Data_Collection_Time)
 all_crowdsourced_data$Date <-  gsub("*.EDT","",strptime(as.character(all_crowdsourced_data$Date), "%m/%d/%Y"))
@@ -67,27 +81,30 @@ tf <- melt(all_crowdsourced_data %>% dplyr::select(Group,Name,Latitude,Longitude
 names(tf) <- c("Group", "Name", "Latitude", "Longitude", "Date", "Time", "Site_Type", "Comments", "Variables", "Measurement")
 clrs <- c("#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7","#7570B3", "#E7298A", "#66A61E", "#E6AB02", "#A6761D", "#666666","#8DD3C7","#BEBADA") #CB and Dark2
 
+#Debug new data error
+tf$Measurement <- as.numeric(tf$Measurement)
+tf <- tf %>% dplyr::filter(Measurement <= 100)
 
 ##########################################
 ## Acquiring EPA PM2.5 and CO datasets ##
 #########################################
 
 #Get PM2.5 data from EPA file
-k12_df <- read.csv("../databases/k12_sites.csv")
-ph_df <- read.csv("../databases/all_k12_sites_PM.csv")
+k12_df <- read.csv("databases/k12_sites.csv")
+ph_df <- read.csv("databases/all_k12_sites_PM.csv")
 months <- c("Jan","Feb","Mar","Apr","May","June","Jul","Aug","Sept","Oct","Nov","Dec")
 ph_df$Year <- as.factor(ph_df$Year)
 ph_df$State <- as.factor(ph_df$State)
 ph_df$Month <- factor(ph_df$Month,levels=months)
 
 #Get CO data from EPA file
-co_df <- read.csv("../databases/all_k12_sites_CO.csv")
+co_df <- read.csv("databases/all_k12_sites_CO.csv")
 co_df$Year <- as.factor(co_df$Year)
 co_df$State <- as.factor(co_df$State)
 co_df$Month <- factor(co_df$Month,levels=months)
 
 #EPA daily average over Sept 2017
-EPA_data_file <- read.csv("../databases/EPA_measures_daily_average_Sept2017.csv")
+EPA_data_file <- read.csv("databases/EPA_measures_daily_average_Sept2017.csv")
 
 ####################
 ## VISUALIZATION ##
@@ -129,15 +146,17 @@ boxplot_func_ap <- function(x,y,var,dataset){
 
 ##SCATTERPLOT##
 #Bivariate scatterplot for PM2.5 and CO, colored by date of entry and shapes by name of student.
-scatterplot_func <- function(var, pvar,dataset){
-  dtt <- dataset %>% dplyr::select(Name,Latitude,Longitude,Date,Time)
-  data <- merge(all_crowdsourced_data,dtt,by=c("Name","Latitude","Longitude","Date","Time")) #Get values from selected input
+scatterplot_func <- function(var, pvar){
+  #dtt <- tf %>% dplyr::select(Name,Latitude,Longitude,Date,Time)
+  #data <- merge(all_crowdsourced_data,dtt,by=c("Name","Latitude","Longitude","Date","Time")) #Get values from selected input
+  data <- all_crowdsourced_data
   sval = rep(0:25,10)
-  ggplot(data, aes_string(x=var, y=pvar)) + geom_point(aes(color=Date,shape = Name),size=3) + theme_bw() + scale_shape_manual(values=sval[0:length(data$Name)]) + 
+  ggplot(data, aes_string(x=var, y=pvar)) + geom_point(aes(color=Date,shape = Group),size=3) + theme_bw() + scale_shape_manual(values=sval[0:length(data$Group)]) + 
+    scale_x_continuous(name="PM2.5",limits = c(0,50))+ #, breaks=c("0","10","15")
     theme(legend.text = element_text(size=14),
           axis.title=element_text(size=15),
           title = element_text(size=15),
-          axis.text=element_text(size=14))
+          axis.text=element_text(size=14),)
 }
 
 ##BARPLOT##
