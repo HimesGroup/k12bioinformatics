@@ -23,27 +23,6 @@ shinyServer(function(input, output) {
   output$airqdata <- renderDataTable({all_crowdsourced_data %>%
       dplyr::select("Group", "Name", "Date", "Time", "Site_Type (Indoor, Outdoor)", "Latitude", "Longitude", "PM2.5", "CO", "Comments")
   }, options = list(pageLength=10, searching=FALSE))
-
-  output$epa_monitor <- renderImage({
-    return(list(
-      src = "../databases/EPA_Monitors.png",
-      height= 280,
-      filetype = "image/png",
-      alt = "EPA Monitors"))}, deleteFile = FALSE)
-
-  output$sensor_setup <- renderImage({
-    return(list(
-      src = "../databases/sensor_setup.png",
-      height= 200,
-      filetype = "image/png",
-      alt = "Sensor Package"))}, deleteFile = FALSE)
- 
-   output$sensor_working <- renderImage({
-    return(list(
-      src = "../databases/sensor_working.png",
-      height= 200,
-      filetype = "image/png",
-      alt = "How Sensors Work"))}, deleteFile = FALSE)
    
    
    ####################
@@ -58,7 +37,7 @@ shinyServer(function(input, output) {
      if (isFALSE(group_status)){
        x <- tf %>% dplyr::filter(Date %in% all_dates, Name %in% input$name, Variables == input$type)
      } else if (isTRUE(group_status)){
-       x <- tf %>% dplyr::filter(Date %in% all_dates, Name %in% input$name, Variables == input$type,Group %in% input$group)
+       x <- tf %>% dplyr::filter(Date %in% all_dates, Name %in% input$name, Variables == input$type, Group %in% input$group)
      }
    })
    
@@ -96,7 +75,9 @@ shinyServer(function(input, output) {
   
   # Bivariate Scatterplot
   output$Scatplot <- renderPlot({
-    scatterplot_func("PM2.5","CO",data())})
+    #scatterplot_func("PM2.5","CO",data())
+    scatterplot_func("PM2.5","CO")
+    })
   
   # Barplot for EPA cities
   output$kbarPlot <- renderPlot({
@@ -113,7 +94,7 @@ shinyServer(function(input, output) {
   ##Group UI
   observe({
     if(isTRUE(group_status)){
-      output$Group <- renderUI({selectInput("group","Select Group:", choices=unique(all_crowdsourced_data$Group), multiple=TRUE, selected=unique(all_crowdsourced_data$Group))})
+      output$Group <- renderUI({pickerInput("group","Select School:", choices=unique(as.character(all_crowdsourced_data$Group)), multiple=TRUE, selected="J R Masterman")})
     }})
   
   #Name UI - select names to display accroding to group selected
@@ -129,73 +110,6 @@ shinyServer(function(input, output) {
     selectInput("name","Select Name:", choices=names_by_group(), multiple=TRUE, selected=unique(all_crowdsourced_data$Name))
   })
   
-  
-  ####################
-  ## DISPLAY IMAGES ##
-  ####################
-  output$PhImage <- renderImage({
-    return(list(
-      src = "../databases/philadelphia_PM.tiff",
-      height= 200,
-      width = 250,
-      filetype = "image/tiff",
-      alt = "Philadelphia"))}, deleteFile = FALSE)
-  
-  output$NYImage <- renderImage({
-    return(list(
-      src = "../databases/Midtown_Manhattan.tiff",
-      height= 200,
-      width = 250,
-      filetype = "image/tiff",
-      alt = "Midtown Manhattan, NY"))}, deleteFile = FALSE)
-  
-  output$LAImage <- renderImage({
-    return(list(
-      src = "../databases/Los_Angeles_CA.tiff",
-      height= 200,
-      width = 250,
-      filetype = "image/tiff",
-      alt = "Los Angeles, CA"))}, deleteFile = FALSE)
-  
-  output$MAImage <- renderImage({
-    return(list(
-      src = "../databases/Miami_Florida.tiff",
-      height= 200,
-      width = 250,
-      filetype = "image/tiff",
-      alt = "Miami, Florida"))}, deleteFile = FALSE)
-  
-  output$PRImage <- renderImage({
-    return(list(
-      src = "../databases/Pierre_SD.tiff",
-      height= 200,
-      width = 250,
-      filetype = "image/tiff",
-      alt = "Pierre, South Dakota"))}, deleteFile = FALSE)
-  
-  output$BLImage <- renderImage({
-    return(list(
-      src = "../databases/billings_montana.tiff",
-      height= 200,
-      width = 250,
-      filetype = "image/tiff",
-      alt = "Billings, Montana"))}, deleteFile = FALSE)
-  
-  output$SRImage <- renderImage({
-    return(list(
-      src = "../databases/Shiprock_New Mexico.tiff",
-      height= 200,
-      width = 250,
-      filetype = "image/tiff",
-      alt = "Standing Rock, New Mexico"))}, deleteFile = FALSE)
-  
-  output$POImage <- renderImage({
-    return(list(
-      src = "../databases/Portland_Oregon.tiff",
-      height= 200,
-      width = 250,
-      filetype = "image/tiff",
-      alt = "Portland, Oregon"))}, deleteFile = FALSE)
   
   
   ####################
@@ -259,8 +173,9 @@ shinyServer(function(input, output) {
   #Student data map
   output$mymap <- renderLeaflet({
     mdata <- data()
-    #col_status = terrain.colors(8)[1:7]
-    col_status = rev(c("#ffffb2", "#fed976", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#b10026"))
+    col_status = heat.colors(8)[1:5]
+    #col_status = rev(c("#ffffb2", "#fed976", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#b10026"))
+    #col_status = rev(terrain.colors(8)[1:7])
     #pal <- colorFactor(palette = col_status,levels = unique(mdata$Measurement))
     pal <- colorNumeric(palette=col_status, domain=c(mdata$Measurement))
     ppal <- colorNumeric(palette=rev(col_status), domain=c(mdata$Measurement))
@@ -270,7 +185,7 @@ shinyServer(function(input, output) {
       setView(-75.19, 39.95, zoom=13) %>%
       #fitBounds(~min(mdata$Longitude), ~min(mdata$Latitude), ~max(mdata$Longitude), ~max(mdata$Latitude)) %>% 
       addLegend(pal = pal,values = unique(mdata$Measurement),position ="bottomleft", title=input$type, opacity=1, labFormat=labelFormat(transform = function(x) sort(x, decreasing = TRUE))) %>%
-      addCircleMarkers(lng=~Longitude, lat=~Latitude, color=~ppal(Measurement), radius=7, stroke=FALSE, fillOpacity=1, #lapply(input$name,function(x) color_status[[x]])
+      addCircleMarkers(lng=~Longitude, lat=~Latitude, fillColor=~ppal(Measurement), stroke=TRUE, fillOpacity=0.5,color= "black", radius = 7,weight = 1.5, #lapply(input$name,function(x) color_status[[x]])
                        popup = paste("Name", mdata$Name, "<br>",
                                      "Timestamp:", mdata$Timestamp, "<br>",
                                      paste0(input$type,":"), mdata$Measurement, "<br>")) 

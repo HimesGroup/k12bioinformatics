@@ -1,0 +1,195 @@
+City.Name,Latitude,Longitude,Arithmetic.Mean,Date.Local,County.Name,State.Name
+Los Angeles,34.06659,-118.22688,16.6,2017-09-01,Los Angeles,California
+Los Angeles,34.06659,-118.22688,17.5,2017-09-02,Los Angeles,California
+Los Angeles,34.06659,-118.22688,12,2017-09-03,Los Angeles,California
+Los Angeles,34.06659,-118.22688,11,2017-09-04,Los Angeles,California
+Los Angeles,34.06659,-118.22688,11.6,2017-09-05,Los Angeles,California
+Los Angeles,34.06659,-118.22688,14.4,2017-09-06,Los Angeles,California
+Los Angeles,34.06659,-118.22688,16,2017-09-07,Los Angeles,California
+Los Angeles,34.06659,-118.22688,15.8,2017-09-08,Los Angeles,California
+Los Angeles,34.06659,-118.22688,13.2,2017-09-09,Los Angeles,California
+Los Angeles,34.06659,-118.22688,12.7,2017-09-10,Los Angeles,California
+Los Angeles,34.06659,-118.22688,13.2,2017-09-11,Los Angeles,California
+Los Angeles,34.06659,-118.22688,9.6,2017-09-12,Los Angeles,California
+Los Angeles,34.06659,-118.22688,8,2017-09-13,Los Angeles,California
+Los Angeles,34.06659,-118.22688,6.7,2017-09-14,Los Angeles,California
+Los Angeles,34.06659,-118.22688,7.6,2017-09-15,Los Angeles,California
+Los Angeles,34.06659,-118.22688,9.7,2017-09-16,Los Angeles,California
+Los Angeles,34.06659,-118.22688,10.5,2017-09-17,Los Angeles,California
+Los Angeles,34.06659,-118.22688,12,2017-09-18,Los Angeles,California
+Los Angeles,34.06659,-118.22688,9.7,2017-09-19,Los Angeles,California
+Los Angeles,34.06659,-118.22688,9,2017-09-20,Los Angeles,California
+Los Angeles,34.06659,-118.22688,7.6,2017-09-21,Los Angeles,California
+Los Angeles,34.06659,-118.22688,7.4,2017-09-22,Los Angeles,California
+Los Angeles,34.06659,-118.22688,8.8,2017-09-23,Los Angeles,California
+Los Angeles,34.06659,-118.22688,8.2,2017-09-24,Los Angeles,California
+Los Angeles,34.06659,-118.22688,6.4,2017-09-25,Los Angeles,California
+Los Angeles,34.06659,-118.22688,12.6,2017-09-26,Los Angeles,California
+Los Angeles,34.06659,-118.22688,14.5,2017-09-27,Los Angeles,California
+Los Angeles,34.06659,-118.22688,14.7,2017-09-28,Los Angeles,California
+Los Angeles,34.06659,-118.22688,13.8,2017-09-29,Los Angeles,California
+Los Angeles,34.06659,-118.22688,21.7,2017-09-30,Los Angeles,California
+Miami,25.794222,-80.215556,7.5,2017-09-01,Miami-Dade,Florida
+Miami,25.794222,-80.215556,7.5,2017-09-04,Miami-Dade,Florida
+Miami,25.794222,-80.215556,8.2,2017-09-22,Miami-Dade,Florida
+Miami,25.794222,-80.215556,10.3,2017-09-25,Miami-Dade,Florida
+Miami,25.794222,-80.215556,6.9,2017-09-28,Miami-Dade,Florida
+Portland,45.496641,-122.602877,5,2017-09-01,Multnomah,Oregon
+Portland,45.496641,-122.602877,15.2,2017-09-04,Multnomah,Oregon
+Portland,45.496641,-122.602877,19.9,2017-09-07,Multnomah,Oregon
+Portland,45.496641,-122.602877,3.1,2017-09-10,Multnomah,Oregon
+Portland,45.496641,-122.602877,4.6,2017-09-13,Multnomah,Oregon
+Portland,45.496641,-122.602877,53.1,2017-09-16,Multnomah,Oregon
+Portland,45.496641,-122.602877,2.3,2017-09-19,Multnomah,Oregon
+Portland,45.496641,-122.602877,10.3,2017-09-22,Multnomah,Oregon
+Portland,45.496641,-122.602877,11,2017-09-25,Multnomah,Oregon
+Portland,45.496641,-122.602877,8.2,2017-09-28,Multnomah,Oregon
+Billings,45.7804,-108.511542,43.1,2017-09-01,Yellowstone,Montana
+Billings,45.7804,-108.511542,31.3,2017-09-02,Yellowstone,Montana
+Billings,45.7804,-108.511542,42.5,2017-09-03,Yellowstone,Montana
+Billings,45.7804,-108.511542,7.8,2017-09-04,Yellowstone,Montana
+Billings,45.7804,-108.511542,9.3,2017-09-05,Yellowstone,Montana
+Billings,45.7804,-108.511542,16,2017-09-06,Yellowstone,Montana
+Billings,45.7804,-108.511542,17.3,2017-09-07,Yellowstone,Montana
+Billings,45.7804,-108.511542,18.1,2017-09-08,Yellowstone,Montana
+Billings,45.7804,-108.511542,18.4,2017-09-09,Yellowstone,Montana
+Billings,45.7804,-108.511542,15.2,2017-09-10,Yellowstone,Montana
+Billings,45.7804,-108.511542,25.7,2017-09-11,Yellowstone,Montana
+Billings,45.7804,-108.511542,29.2,2017-09-12,Yellowstone,Montana
+Billings,45.7804,-108.511542,51.6,2017-09-13,Yellowstone,Montana
+Billings,45.7804,-108.511542,12.4,2017-09-14,Yellowstone,Montana
+Billings,45.7804,-108.511542,6.7,2017-09-15,Yellowstone,Montana
+Billings,45.7804,-108.511542,6.7,2017-09-16,Yellowstone,Montana
+Billings,45.7804,-108.511542,6.5,2017-09-17,Yellowstone,Montana
+Billings,45.7804,-108.511542,8.3,2017-09-18,Yellowstone,Montana
+Billings,45.7804,-108.511542,1.3,2017-09-19,Yellowstone,Montana
+Billings,45.7804,-108.511542,2.7,2017-09-20,Yellowstone,Montana
+Billings,45.7804,-108.511542,3.3,2017-09-21,Yellowstone,Montana
+Billings,45.7804,-108.511542,7,2017-09-22,Yellowstone,Montana
+Billings,45.7804,-108.511542,7,2017-09-23,Yellowstone,Montana
+Billings,45.7804,-108.511542,7.1,2017-09-24,Yellowstone,Montana
+Billings,45.7804,-108.511542,5.4,2017-09-25,Yellowstone,Montana
+Billings,45.7804,-108.511542,6.9,2017-09-26,Yellowstone,Montana
+Billings,45.7804,-108.511542,8.6,2017-09-27,Yellowstone,Montana
+Billings,45.7804,-108.511542,8.1,2017-09-28,Yellowstone,Montana
+Billings,45.7804,-108.511542,9.4,2017-09-29,Yellowstone,Montana
+Billings,45.7804,-108.511542,3.8,2017-09-30,Yellowstone,Montana
+Albuquerque,35.1343,-106.5852,7.7,2017-09-01,Bernalillo,New Mexico
+Albuquerque,35.1343,-106.5852,9.2,2017-09-02,Bernalillo,New Mexico
+Albuquerque,35.1343,-106.5852,12.4,2017-09-03,Bernalillo,New Mexico
+Albuquerque,35.1343,-106.5852,6.9,2017-09-04,Bernalillo,New Mexico
+Albuquerque,35.1343,-106.5852,15.5,2017-09-05,Bernalillo,New Mexico
+Albuquerque,35.1343,-106.5852,9.9,2017-09-06,Bernalillo,New Mexico
+Albuquerque,35.1343,-106.5852,6.7,2017-09-07,Bernalillo,New Mexico
+Albuquerque,35.1343,-106.5852,8.4,2017-09-08,Bernalillo,New Mexico
+Albuquerque,35.1343,-106.5852,8.2,2017-09-09,Bernalillo,New Mexico
+Albuquerque,35.1343,-106.5852,6,2017-09-10,Bernalillo,New Mexico
+Albuquerque,35.1343,-106.5852,6.4,2017-09-11,Bernalillo,New Mexico
+Albuquerque,35.1343,-106.5852,7.7,2017-09-12,Bernalillo,New Mexico
+Albuquerque,35.1343,-106.5852,3.2,2017-09-14,Bernalillo,New Mexico
+Albuquerque,35.1343,-106.5852,3.1,2017-09-15,Bernalillo,New Mexico
+Albuquerque,35.1343,-106.5852,1.7,2017-09-16,Bernalillo,New Mexico
+Albuquerque,35.1343,-106.5852,2.2,2017-09-17,Bernalillo,New Mexico
+Albuquerque,35.1343,-106.5852,2.7,2017-09-18,Bernalillo,New Mexico
+Albuquerque,35.1343,-106.5852,2.5,2017-09-19,Bernalillo,New Mexico
+Albuquerque,35.1343,-106.5852,1.9,2017-09-20,Bernalillo,New Mexico
+Albuquerque,35.1343,-106.5852,3.6,2017-09-21,Bernalillo,New Mexico
+Albuquerque,35.1343,-106.5852,1.8,2017-09-22,Bernalillo,New Mexico
+Albuquerque,35.1343,-106.5852,2,2017-09-23,Bernalillo,New Mexico
+Albuquerque,35.1343,-106.5852,1.6,2017-09-24,Bernalillo,New Mexico
+Albuquerque,35.1343,-106.5852,1.4,2017-09-25,Bernalillo,New Mexico
+Albuquerque,35.1343,-106.5852,3.8,2017-09-26,Bernalillo,New Mexico
+Albuquerque,35.1343,-106.5852,1.5,2017-09-27,Bernalillo,New Mexico
+Albuquerque,35.1343,-106.5852,1.6,2017-09-28,Bernalillo,New Mexico
+Albuquerque,35.1343,-106.5852,1.7,2017-09-29,Bernalillo,New Mexico
+Albuquerque,35.1343,-106.5852,1.9,2017-09-30,Bernalillo,New Mexico
+New York,40.73614,-73.82153,3.8,2017-09-01,Queens,New York
+New York,40.73614,-73.82153,3.6,2017-09-02,Queens,New York
+New York,40.73614,-73.82153,3.5,2017-09-03,Queens,New York
+New York,40.73614,-73.82153,9.7,2017-09-04,Queens,New York
+New York,40.73614,-73.82153,14.2,2017-09-05,Queens,New York
+New York,40.73614,-73.82153,14,2017-09-06,Queens,New York
+New York,40.73614,-73.82153,7.9,2017-09-07,Queens,New York
+New York,40.73614,-73.82153,3.9,2017-09-08,Queens,New York
+New York,40.73614,-73.82153,2.8,2017-09-09,Queens,New York
+New York,40.73614,-73.82153,3.4,2017-09-10,Queens,New York
+New York,40.73614,-73.82153,4.2,2017-09-11,Queens,New York
+New York,40.73614,-73.82153,9,2017-09-12,Queens,New York
+New York,40.73614,-73.82153,9,2017-09-13,Queens,New York
+New York,40.73614,-73.82153,8.7,2017-09-14,Queens,New York
+New York,40.73614,-73.82153,8.7,2017-09-15,Queens,New York
+New York,40.73614,-73.82153,15.5,2017-09-16,Queens,New York
+New York,40.73614,-73.82153,16.1,2017-09-17,Queens,New York
+New York,40.73614,-73.82153,4.3,2017-09-18,Queens,New York
+New York,40.73614,-73.82153,5.3,2017-09-19,Queens,New York
+New York,40.73614,-73.82153,3.3,2017-09-20,Queens,New York
+New York,40.73614,-73.82153,5.5,2017-09-21,Queens,New York
+New York,40.73614,-73.82153,3.9,2017-09-22,Queens,New York
+New York,40.73614,-73.82153,4.3,2017-09-23,Queens,New York
+New York,40.73614,-73.82153,9.7,2017-09-24,Queens,New York
+New York,40.73614,-73.82153,10.8,2017-09-25,Queens,New York
+New York,40.73614,-73.82153,3.6,2017-09-26,Queens,New York
+New York,40.73614,-73.82153,3.4,2017-09-27,Queens,New York
+New York,40.73614,-73.82153,2.1,2017-09-28,Queens,New York
+New York,40.73614,-73.82153,2.6,2017-09-29,Queens,New York
+New York,40.73614,-73.82153,4.8,2017-09-30,Queens,New York
+Philadelphia,39.991389,-75.080833,6.6,2017-09-01,Philadelphia,Pennsylvania
+Philadelphia,39.991389,-75.080833,2.7,2017-09-02,Philadelphia,Pennsylvania
+Philadelphia,39.991389,-75.080833,4,2017-09-03,Philadelphia,Pennsylvania
+Philadelphia,39.991389,-75.080833,9.9,2017-09-04,Philadelphia,Pennsylvania
+Philadelphia,39.991389,-75.080833,16.9,2017-09-05,Philadelphia,Pennsylvania
+Philadelphia,39.991389,-75.080833,18.8,2017-09-06,Philadelphia,Pennsylvania
+Philadelphia,39.991389,-75.080833,10.2,2017-09-07,Philadelphia,Pennsylvania
+Philadelphia,39.991389,-75.080833,4,2017-09-08,Philadelphia,Pennsylvania
+Philadelphia,39.991389,-75.080833,5.3,2017-09-09,Philadelphia,Pennsylvania
+Philadelphia,39.991389,-75.080833,3,2017-09-10,Philadelphia,Pennsylvania
+Philadelphia,39.991389,-75.080833,5.9,2017-09-11,Philadelphia,Pennsylvania
+Philadelphia,39.991389,-75.080833,11.1,2017-09-12,Philadelphia,Pennsylvania
+Philadelphia,39.991389,-75.080833,10.6,2017-09-13,Philadelphia,Pennsylvania
+Philadelphia,39.991389,-75.080833,9.2,2017-09-14,Philadelphia,Pennsylvania
+Philadelphia,39.991389,-75.080833,5.7,2017-09-15,Philadelphia,Pennsylvania
+Philadelphia,39.991389,-75.080833,5.3,2017-09-16,Philadelphia,Pennsylvania
+Philadelphia,39.991389,-75.080833,4.7,2017-09-17,Philadelphia,Pennsylvania
+Philadelphia,39.991389,-75.080833,3.7,2017-09-18,Philadelphia,Pennsylvania
+Philadelphia,39.991389,-75.080833,8.4,2017-09-19,Philadelphia,Pennsylvania
+Philadelphia,39.991389,-75.080833,3.3,2017-09-20,Philadelphia,Pennsylvania
+Philadelphia,39.991389,-75.080833,3.8,2017-09-21,Philadelphia,Pennsylvania
+Philadelphia,39.991389,-75.080833,5.8,2017-09-22,Philadelphia,Pennsylvania
+Philadelphia,39.991389,-75.080833,5.1,2017-09-23,Philadelphia,Pennsylvania
+Philadelphia,39.991389,-75.080833,8.9,2017-09-24,Philadelphia,Pennsylvania
+Philadelphia,39.991389,-75.080833,11.3,2017-09-25,Philadelphia,Pennsylvania
+Philadelphia,39.991389,-75.080833,1.9,2017-09-26,Philadelphia,Pennsylvania
+Philadelphia,39.991389,-75.080833,1,2017-09-27,Philadelphia,Pennsylvania
+Philadelphia,39.991389,-75.080833,6.3,2017-09-28,Philadelphia,Pennsylvania
+Philadelphia,39.991389,-75.080833,3,2017-09-29,Philadelphia,Pennsylvania
+Philadelphia,39.991389,-75.080833,2.9,2017-09-30,Philadelphia,Pennsylvania
+Pierre,44.373786,-100.287269,7,2017-09-01,Hughes,South Dakota
+Pierre,44.373786,-100.287269,20.6,2017-09-02,Hughes,South Dakota
+Pierre,44.373786,-100.287269,34.4,2017-09-03,Hughes,South Dakota
+Pierre,44.373786,-100.287269,5.3,2017-09-04,Hughes,South Dakota
+Pierre,44.373786,-100.287269,2.7,2017-09-05,Hughes,South Dakota
+Pierre,44.373786,-100.287269,1.4,2017-09-06,Hughes,South Dakota
+Pierre,44.373786,-100.287269,1.2,2017-09-07,Hughes,South Dakota
+Pierre,44.373786,-100.287269,6.8,2017-09-08,Hughes,South Dakota
+Pierre,44.373786,-100.287269,8.3,2017-09-09,Hughes,South Dakota
+Pierre,44.373786,-100.287269,7.4,2017-09-10,Hughes,South Dakota
+Pierre,44.373786,-100.287269,8.6,2017-09-11,Hughes,South Dakota
+Pierre,44.373786,-100.287269,7.4,2017-09-12,Hughes,South Dakota
+Pierre,44.373786,-100.287269,3.5,2017-09-13,Hughes,South Dakota
+Pierre,44.373786,-100.287269,27.2,2017-09-14,Hughes,South Dakota
+Pierre,44.373786,-100.287269,4.8,2017-09-15,Hughes,South Dakota
+Pierre,44.373786,-100.287269,-0.1,2017-09-16,Hughes,South Dakota
+Pierre,44.373786,-100.287269,0,2017-09-17,Hughes,South Dakota
+Pierre,44.373786,-100.287269,2.1,2017-09-18,Hughes,South Dakota
+Pierre,44.373786,-100.287269,5.1,2017-09-19,Hughes,South Dakota
+Pierre,44.373786,-100.287269,-0.2,2017-09-20,Hughes,South Dakota
+Pierre,44.373786,-100.287269,2.2,2017-09-21,Hughes,South Dakota
+Pierre,44.373786,-100.287269,6,2017-09-22,Hughes,South Dakota
+Pierre,44.373786,-100.287269,1,2017-09-23,Hughes,South Dakota
+Pierre,44.373786,-100.287269,-0.7,2017-09-24,Hughes,South Dakota
+Pierre,44.373786,-100.287269,-0.1,2017-09-25,Hughes,South Dakota
+Pierre,44.373786,-100.287269,0.3,2017-09-26,Hughes,South Dakota
+Pierre,44.373786,-100.287269,-0.2,2017-09-27,Hughes,South Dakota
+Pierre,44.373786,-100.287269,1.3,2017-09-28,Hughes,South Dakota
+Pierre,44.373786,-100.287269,1.4,2017-09-29,Hughes,South Dakota
+Pierre,44.373786,-100.287269,3.3,2017-09-30,Hughes,South Dakota
