@@ -17,6 +17,8 @@ shinyServer(function(input, output){
   ##Read in uploaded dataset
   contents <- reactive({if(!is.null(input$file1)){
     df <- read.csv(input$file1$datapath, header = TRUE, sep = ",", na.strings=c("","NA"))
+    i <- sapply(df, is.character)
+    df[i] <- lapply(df[i], as.factor)
     na.omit(df)}
     })
   output$contents <- renderDataTable({contents()}, options = list(pageLength=10, searching=FALSE))
