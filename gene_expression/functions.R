@@ -10,6 +10,13 @@ pheno_QC <- pheno_QC %>% dplyr::filter(QC_Pass!=0) %>% rename("ScanDate" = "Scan
 pheno_QC$Treatment <- as.factor(gsub("_","-",pheno_QC$Treatment))
 pheno_QC$Donor <- paste0("D",pheno_QC$Donor)
 
+#Convert into factors
+choices = c("Treatment","Sex","Ancestry","ScanDate")
+for (i in choices) { 
+  pheno_QC[, i] <- as.factor(pheno_QC[, i])
+}
+
+
 ###################################
 ## Dataframe formatting function ##
 ###################################
@@ -103,7 +110,7 @@ pca_plot <- function(group_var){
   pc <- data.frame(pca$x)
   
   #group
-  group=gsub(" ","",pheno_QC[which(pheno_QC$Filename %in% row.names(pc)),group_var])
+  group=pheno_QC[which(pheno_QC$Filename %in% row.names(pc)),group_var]
   df <- data.frame(
     PC1=pc$PC1,
     PC2=pc$PC2,
@@ -138,7 +145,7 @@ set_colors <- function(data){
   choices = c("Treatment","Sex","Ancestry","ScanDate")
   color_list = list()
   for (i in choices) { 
-    color_list =  append(color_list,levels(data[[i]]))
+    color_list =  unlist(append(color_list,levels(data[[i]])))
   }
   col = clrs[1:length(color_list)]
   names(col) <- color_list
