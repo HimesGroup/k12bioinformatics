@@ -101,7 +101,7 @@ corplot_func <- function(top_probes) {  # m: correlation matrix, colour_status_l
 ##################################
 
 pca_plot <- function(group_var){
-  tb <- dcast(rma.data,Probes ~ variable)
+  tb <- reshape2::dcast(rma.data,Probes ~ variable)
   raw.data.pca <- na.omit(as.matrix(tibble::column_to_rownames(tb,var="Probes")))
   sd <- apply(raw.data.pca,1,sd)
   raw.data.pca <- raw.data.pca[!sd==0,]

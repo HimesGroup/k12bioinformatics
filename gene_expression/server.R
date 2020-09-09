@@ -59,6 +59,26 @@ shinyServer(function(input, output,session) {
   #output
   output$sboxPlot <- renderPlot({boxplot_func(input$comp,"Age",pheno_QC)})
   
+  #Affy Image
+  output$Affyimage <- renderImage({fi="databases/affymetrix.tiff"
+                                  return(list(src = fi,height= 380,width = 550,filetype = "image/tiff",
+                                              alt = "Normalize data with RMA"))}, deleteFile = FALSE)
+  
+  #Outlier plot Image
+  output$QCimage <- renderImage({fi="databases/Outlier_barplot.tiff"
+  return(list(src = fi,height= 800,width = 550,filetype = "image/tiff",
+              alt = "QC Outliers"))}, deleteFile = FALSE)
+  
+  #Density Curves Image
+  output$DCimage <- renderImage({fi="databases/Density_curves.tiff"
+  return(list(src = fi,height= 500,width = 610,filetype = "image/tiff",
+              alt = "Density Curve Outliers"))}, deleteFile = FALSE)
+  
+  #Volcano Plot Image
+  output$volcanoPlot <- renderImage({fi="databases/Volcano_plot_edited.tiff"
+  return(list(src = fi,height= 330,width = 390,filetype = "image/tiff",
+              alt = "Volcano Plot"))}, deleteFile = FALSE)                                
+  
   #RMA image
   output$RMAimage <- renderImage({ 
     if(input$rma == 0){fi = image1} # don't do anything if action button has been clicked 0 times
