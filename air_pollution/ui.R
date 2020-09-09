@@ -32,19 +32,19 @@ shinyUI(fluidPage(
                a("criteria pollutants.", href="https://www3.epa.gov/airquality/cleanair.html"),
                "Reference monitors placed across the United States monitor compliance to air quality legislation.
                The second and third tabs of this app show trends of PM2.5 and CO at eight locations in the United States."),
-             #imageOutput("epa_monitor", height= "290px")
-             div(style="display: inline-block;", tags$a(img(src="http://public.himeslab.org/k12_images/EPA_Monitors.png",height="280px",alt="EPA Monitors"), href="http://pargasite.org/",target="_blank")),
+             div(style="display: inline-block;", tags$a(imageOutput("epa_monitor",height="280px",inline = T), href="http://pargasite.org/",target="_blank")),
+             #div(style="display: inline-block;", tags$a(img(src="http://public.himeslab.org/k12_images/EPA_Monitors.png",height="280px",alt="EPA Monitors"), href="http://pargasite.org/",target="_blank")),
              
              h4(p("Portable Pollution Sensors")),
              p("Concern for pollution’s effect on health and broad demand for accessible environmental monitoring have led researchers and manufacturers to develop 
               low-cost, portable pollution sensors. Although these sensors are less accurate and reliable than reference monitors, they provide some information
               on locations that may be of concern to citizens. We assembled our own PM and CO sensors using commercially available components for teaching purposes.
               Students are handed a sensor, Android device and charger to take measures:"),
-             #imageOutput("sensor_setup", height= "200px")
-             div(style="display: inline-block;", tags$a(img(src="http://public.himeslab.org/k12_images/sensor_setup.png",height="200px",alt="Sensor Package"), target="_blank")),
+             div(style="display: inline-block;", imageOutput("sensor_setup", height= "200px",inline = T)),
+             #div(style="display: inline-block;", tags$a(img(src="http://public.himeslab.org/k12_images/sensor_setup.png",height="200px",alt="Sensor Package"), target="_blank")),
              p("Sensors send measures to a smartphone (paired via Bluetooth), and data from all smartphones is gathered in a Google Spreadsheet:"),
-             #imageOutput("sensor_working", height= "200px")
-             div(style="display: inline-block;", tags$a(img(src="http://public.himeslab.org/k12_images/sensor_working.png",height="200px",alt="How Sensors Work"), target="_blank")),
+             div(style="display: inline-block;", imageOutput("sensor_working", height= "200px",inline = T)),
+             #div(style="display: inline-block;", tags$a(img(src="http://public.himeslab.org/k12_images/sensor_working.png",height="200px",alt="How Sensors Work"), target="_blank")),
 
              br(),
              h4(p("Crowdsourced Pollution Measures")),
@@ -71,14 +71,14 @@ shinyUI(fluidPage(
     
              h3(p("Selected Cities")),
              p("What differences in PM2.5 do you expect in these different locations across the U.S.?"),
-             div(style="display: inline-block;",tags$a(img(src="http://public.himeslab.org/k12_images/philadelphia_PM.tiff",height="200px",width="250px",alt="Philadelphia,PA"), href="https://cdn.vox-cdn.com/thumbor/iz1UYrej5uzUbQZrtlu2tAxkoV4=/0x0:5959x3973/1200x900/filters:focal(2504x1511:3456x2463)/cdn.vox-cdn.com/uploads/chorus_image/image/54302495/shutterstock_618667091.0.jpg",target="_blank")),
-             div(style="display: inline-block;",tags$a(img(src="http://public.himeslab.org/k12_images/Midtown_Manhattan.tiff",height="200px",width="250px",alt="Midtown Manhattan,NY"),href="https://imgs.6sqft.com/wp-content/uploads/2016/06/13172431/Midtown-Skyline-in-2020.jpg",target="_blank")),
-             div(style="display: inline-block;",tags$a(img(src="http://public.himeslab.org/k12_images/Los_Angeles_CA.tiff",height="200px",width="250px",alt="Los Angeles,CA"),href="https://upload.wikimedia.org/wikipedia/commons/3/30/Echo_Park_Lake_with_Downtown_Los_Angeles_Skyline.jpg",target="_blank")),
-             div(style="display: inline-block;",tags$a(img(src="http://public.himeslab.org/k12_images/Miami_Florida.tiff",height="200px",width="250px",alt="Miami, FL"),href="https://img1.coastalliving.timeinc.net/sites/default/files/styles/landscape_3_2/public/image/2017/01/main/miami-florida-luxury-destination-2017-144863422.jpg",target="_blank")),
-             div(style="display: inline-block;",tags$a(img(src="http://public.himeslab.org/k12_images/Pierre_SD.tiff",height="200px",width="250px",alt="Pierre, South Dakota"),href="https://www.cityofpierre.org/ImageRepository/Document?documentID=2587",target="_blank")),
-             div(style="display: inline-block;",tags$a(img(src="http://public.himeslab.org/k12_images/billings_montana.tiff",height="200px",width="250px",alt="Billings, Montana"),href="https://www.visitmt.com/binaries/small/content/gallery/MTOT/responsive/media-carousel-h/cities-towns/billings/cvb-night-cityscape_credit-visit-billings.jpg",target="_blank")),
-             div(style="display: inline-block;",tags$a(img(src="http://public.himeslab.org/k12_images/Shiprock_New Mexico.tiff",height="200px",width="250px",alt="Standing Rock, New Mexico"),href="https://imgur.com/wMBC0",target="_blank")),
-             div(style="display: inline-block;",tags$a(img(src="http://public.himeslab.org/k12_images/Portland_Oregon.tiff",height="200px",width="250px",alt="Portland, Oregon"),href="https://localadventurer.com/wp-content/uploads/2017/08/things-to-do-in-portland-bucket-list.jpg",target="_blank")),
+             div(style="display: inline-block;",tags$a(imageOutput("philadelphia",height="200px",width="250px"), href="https://cdn.vox-cdn.com/thumbor/iz1UYrej5uzUbQZrtlu2tAxkoV4=/0x0:5959x3973/1200x900/filters:focal(2504x1511:3456x2463)/cdn.vox-cdn.com/uploads/chorus_image/image/54302495/shutterstock_618667091.0.jpg",target="_blank")),
+             div(style="display: inline-block;",tags$a(imageOutput("newyork",height="200px",width="250px"),href="https://imgs.6sqft.com/wp-content/uploads/2016/06/13172431/Midtown-Skyline-in-2020.jpg",target="_blank")),
+             div(style="display: inline-block;",tags$a(imageOutput("los_angeles",height="200px",width="250px"),href="https://upload.wikimedia.org/wikipedia/commons/3/30/Echo_Park_Lake_with_Downtown_Los_Angeles_Skyline.jpg",target="_blank")),
+             div(style="display: inline-block;",tags$a(imageOutput("miami",height="200px",width="250px"),href="https://img1.coastalliving.timeinc.net/sites/default/files/styles/landscape_3_2/public/image/2017/01/main/miami-florida-luxury-destination-2017-144863422.jpg",target="_blank")),
+             div(style="display: inline-block;",tags$a(imageOutput("pierre",height="200px",width="250px"),href="https://www.cityofpierre.org/ImageRepository/Document?documentID=2587",target="_blank")),
+             div(style="display: inline-block;",tags$a(imageOutput("billings",height="200px",width="250px"),href="https://www.visitmt.com/binaries/small/content/gallery/MTOT/responsive/media-carousel-h/cities-towns/billings/cvb-night-cityscape_credit-visit-billings.jpg",target="_blank")),
+             div(style="display: inline-block;",tags$a(imageOutput("shiprock",height="200px",width="250px"),href="https://imgur.com/wMBC0",target="_blank")),
+             div(style="display: inline-block;",tags$a(imageOutput("portland",height="200px",width="250px"),href="https://localadventurer.com/wp-content/uploads/2017/08/things-to-do-in-portland-bucket-list.jpg",target="_blank")),
              br(), br()),
     
     tabPanel("EPA Measures Plots",br(),

@@ -54,6 +54,56 @@ shinyServer(function(input, output) {
    ## VISUALIZATION ##
    ###################
    
+   #Images
+   #EPA Monitors
+   output$epa_monitor <- renderImage({fi="databases/EPA_Monitors.png"
+   return(list(src = fi,height= 290,filetype = "image/png",
+               alt = "EPA Monitors"))}, deleteFile = FALSE) 
+   
+   #Sensor Setup
+   output$sensor_setup <- renderImage({fi="databases/sensor_setup.png"
+   return(list(src = fi,height= 200,filetype = "image/png",
+               alt = "Sensor Setup"))}, deleteFile = FALSE) 
+   
+   #Sensor Working
+   output$sensor_working <- renderImage({fi="databases/sensor_working.png"
+   return(list(src = fi,height= 200,filetype = "image/png",
+               alt = "How Sensors Work"))}, deleteFile = FALSE) 
+   
+   #City Images
+   output$philadelphia <- renderImage({fi="databases/philadelphia_PM.tiff"
+   return(list(src = fi,height= 200,width=250,filetype = "image/png",
+               alt="Philadelphia,PA"))}, deleteFile = FALSE)
+   
+   output$newyork <- renderImage({fi="databases/Midtown_Manhattan.tiff"
+   return(list(src = fi,height= 200,width=250,filetype = "image/png",
+               alt="Midtown Manhattan,NY"))}, deleteFile = FALSE)
+   
+   output$los_angeles <- renderImage({fi="databases/Los_Angeles_CA.tiff"
+   return(list(src = fi,height= 200,width=250,filetype = "image/png",
+               alt="Los Angeles,CA"))}, deleteFile = FALSE)
+   
+   output$miami <- renderImage({fi="databases/Miami_Florida.tiff"
+   return(list(src = fi,height= 200,width=250,filetype = "image/png",
+               alt="Miami,FL"))}, deleteFile = FALSE)
+   
+   output$pierre <- renderImage({fi="databases/Pierre_SD.tiff"
+   return(list(src = fi,height= 200,width=250,filetype = "image/png",
+               alt="Pierre,South Dakota"))}, deleteFile = FALSE)
+   
+   output$billings <- renderImage({fi="databases/billings_montana.tiff"
+   return(list(src = fi,height= 200,width=250,filetype = "image/png",
+               alt="Billings,Montana"))}, deleteFile = FALSE)
+   
+   output$shiprock <- renderImage({fi="databases/Shiprock_New Mexico.tiff"
+   return(list(src = fi,height= 200,width=250,filetype = "image/png",
+               alt="Shiprock, New Mexico"))}, deleteFile = FALSE)
+   
+   output$portland <- renderImage({fi="databases/Portland_Oregon.tiff"
+   return(list(src = fi,height= 200,width=250,filetype = "image/png",
+               alt="Portland, Oregon"))}, deleteFile = FALSE)
+   
+   
   #Measurement I - PM2.5
   #Output
   output$distBoxplot <- renderPlot({
