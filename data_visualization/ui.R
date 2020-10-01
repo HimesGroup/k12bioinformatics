@@ -7,7 +7,12 @@ shinyUI(fluidPage(
   theme = shinythemes::shinytheme("cerulean"),
   
   # Application title
-  titlePanel(h2("Exploratory Data Analysis and Visualization", align="center")),
+  tags$head(
+    tags$style(
+      ".title {margin: auto; width: 600px}"
+    )
+  ),
+  tags$div(class="title", titlePanel("Exploratory Data Analysis and Visualization")),
   hr(),
   #mainPanel(
   tabsetPanel(
