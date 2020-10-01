@@ -5,7 +5,12 @@ shinyUI(fluidPage(
   theme = shinythemes::shinytheme("cerulean"),
   
   # Application title
-  titlePanel(h2("Gene Expression Microarray Analysis", align="center")),
+  tags$head(
+    tags$style(
+      ".title {margin: auto; width: 600px}"
+    )
+  ),
+  tags$div(class="title", titlePanel("Gene Expression Microarray Analysis")),
   hr(),
   tabsetPanel(
     tabPanel("Introduction",

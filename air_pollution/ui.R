@@ -11,9 +11,14 @@ cities <- c("Los Angeles, CA"="CA", "Miami, FL"="FL", "Billings, MO"="MO", "Stan
 
 shinyUI(fluidPage(
   theme = shinythemes::shinytheme("cerulean"),
-  # 
+
   # Application title
-  titlePanel(h2("Air Pollution Visualization", align="center")),
+  tags$head(
+    tags$style(
+      ".title {margin: auto; width: 600px}"
+    )
+  ),
+  tags$div(class="title", titlePanel("Air Pollution Visualization")),
   hr(),
   
   tabsetPanel(
