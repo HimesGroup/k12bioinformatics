@@ -85,7 +85,7 @@ shinyServer(function(input, output){
   
   ##Mean output for all variables in the dataset
   output$cont_mean <- renderText({validate(need(!is.null(input$cont), "No continuous variable found."))
-    paste("The mean of all measures is:", get_mean(input$bcont, contents()))})
+    paste("For the data loaded in the barplot below, the mean of all displayed measures is:", get_mean(input$bcont, contents()))})
   
   ##Boxplot
   output$boxPlotUP <- renderPlot({boxplot_func(input$bdisc,input$bcont,contents())},width = get_width_bi)

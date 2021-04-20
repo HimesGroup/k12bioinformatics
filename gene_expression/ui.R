@@ -57,24 +57,36 @@ shinyUI(fluidPage(
              p("Here, we can explore the phenotype data attributes. First, lets look at the distribution of all the variables using barplots.
                A barplot (or barchart) is one of the most common type of plot.
                It shows the relationship between a numerical variable and a categorical variable."),
+             p("Using the dropdown menu, you can select the variable of choice to generate different barplots."),
+             p("In the loaded barplot below, we can see the distribution of the main outcome variable, i.e. treatment, by frequency/counts and by percentage as a subset of the data. Here, we can see that there are 
+               slightly more smokers than non-smokers in the dataset."),
              selectInput("feat",label="Select variable:",choices=c("Treatment","Sex","Ancestry","ScanDate"),multiple=FALSE,width="220px",selected = "Treatment"),
              plotOutput("barPlot",height="400px",width="750px"),
              br(),hr(),
-             p("We can explore the phenotype data attributes with respect to the two main groups - smoker versus non-smoker."),
+             p("Next, we can explore the phenotype data attributes of the selected variable with respect to the outcome variable groups - smoker versus non-smoker."),
+             p("Using the dropdown menu, you can select the variable of choice to generate different barplots."),
+             p("In the loaded barplots below, we can see the distribution of the treatment groups split by the sex of the samples. Here, we can see that the 
+              females are majorly non-smokers while in males, there are slightly more smokers than non-smokers."),
              selectInput("svar",label="Select feature:",choices=c("Sex","Ancestry","ScanDate"),multiple=FALSE,width="220px",selected = "Sex"),
              plotOutput("fbarPlot",height="400px",width="1350px"))),
              hr(),
              fluidRow(column(12,h4(p("Continuous Variables")),
+             p("Next, we can explore the distribution of continuous variables using histograms."),
              p("A histogram shows the distribution of any numerical data using a single variable as input.
-               The variable is cut into multiple bins, where the height of the bin represents the number of observations per bin.
-               Here, we are using bins of size=2."),
+               The variable is cut into multiple bins, where the height of the bin represents the number of observations per bin."),
+             p("In the loaded plot below, we are looking at the distribution of the only continuous variable available in the dataset, i.e. age. Here, we can see 
+               that majority of samples are from donors between the age groups of 40-50 years old."),
              sidebarLayout(sidebarPanel(sliderInput(inputId = "bins",label = "Number of bins:",min = 1,max = 20,value = 5)),
              plotOutput("histPlot",height="400px",width="550px")))),
              br(),br(),br(),br(),br(),br(),br(),hr(),
              fluidRow(column(12,h3(p("Bivariate Analysis")),
              h4(p("Continuous Variable vs. Categorical Variable")),
+             p("Next, we can explore the relationship between continuous and categorical variables of interest using boxplots."),
+             p("Using the dropdown menu, you can select the variable of choice to generate different boxplots."),
              p("The boxplot gives summary of numerical values. The line in the middle denotes the median while the upper
-               and lower lines denote upper and lower quartiles."),
+               and lower lines denote upper (75th percentile) and lower (25th percentile) quartiles."),
+             p("In the loaded boxplot below, we are looking at the distribution of age split by the treatment groups. Here, we can see that the median age of 
+               smokers is greater than that of non-smokers."),
              selectInput("comp",label="Select feature:",choices=c("Sex","Ancestry","Treatment"),multiple=FALSE,width="220px",selected = "Treatment"),
              plotOutput("sboxPlot",height="400px",width="550px")))),
     
