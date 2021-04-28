@@ -14,9 +14,18 @@ shinyServer(function(input, output){
     content=function(file){
       write.csv(iris_data, file, row.names = FALSE, quote = FALSE)})
   
+  #Chose dataset
+  data_load <- reactive({
+    if(!is.null(input$file1)){
+      df <- read.csv(input$file1$datapath, header = TRUE, sep = ",", na.strings=c("","NA"))
+    } else if (input$iris){
+      df <- iris_data
+    } else {NULL}
+  })
+  
   ##Read in uploaded dataset
-  contents <- reactive({if(!is.null(input$file1)){
-    df <- read.csv(input$file1$datapath, header = TRUE, sep = ",", na.strings=c("","NA"))
+  contents <- reactive({if(!is.null(data_load())){
+    df <- data_load()
     i <- sapply(df, is.character)
     df[i] <- lapply(df[i], as.factor)
     na.omit(df)}
@@ -69,6 +78,13 @@ shinyServer(function(input, output){
   output$histPlotUP <- renderPlot({validate(need(!is.null(input$cont), "No data file found. Please upload csv file to perform analysis."))
                                   hist_func(input$cont, contents(), input$bins)}, width = 600)
   
+  #Interpretation of iris data in text for uni
+  output$iris_disc <- renderText({validate(need(identical(data_load(), iris_data), ""))
+    paste("For the loaded iris dataset, there are 50 counts for each of the three species i.e. setosa, versicolor, and virginica.")})
+  
+  output$iris_cont <- renderText({validate(need(identical(data_load(), iris_data), ""))
+  paste("For the loaded iris dataset, majority of the entries across all species have sepal lengths close to 5.")})
+  
   ########################
   ## BIVARIATE PLOTS  ##
   ########################
@@ -85,10 +101,19 @@ shinyServer(function(input, output){
   
   ##Mean output for all variables in the dataset
   output$cont_mean <- renderText({validate(need(!is.null(input$cont), "No continuous variable found."))
-    paste("For the data loaded in the barplot below, the mean of all displayed measures is:", get_mean(input$bcont, contents()))})
+    paste("For the data loaded in the barplot above, the mean of all displayed measures is:", get_mean(input$bcont, contents()))})
   
   ##Boxplot
   output$boxPlotUP <- renderPlot({boxplot_func(input$bdisc,input$bcont,contents())},width = get_width_bi)
+  
+  #Interpretation of iris data in text for bi
+  output$iris_bdisc <- renderText({validate(need(identical(data_load(), iris_data), ""))
+    paste("For the loaded iris dataset, the mean sepal length is displayed for each of the species category, 
+          i.e. setosa (5.01), versicolor (5.94) and virginica (6.59)")})
+  
+  output$iris_bcont <- renderText({validate(need(identical(data_load(), iris_data), ""))
+    paste("For the loaded iris dataset, the distribution of the sepal length across all three species is normal and not skewed. Virginica has the highest maximum sepal 
+          length while setosa has the lowest minimum sepal length. A single outlier is seen for virginica and none for others.")})
   
   #DATE scatterplot
   #if Date exists, plot average of values across available timepoints
