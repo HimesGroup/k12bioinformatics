@@ -1,13 +1,3 @@
-library(shiny)
-library(shinythemes)
-library(leaflet)
-library(ggiraph)
-library(shinyWidgets)
-
-#Set choices of cities for UI
-cities <- c("Los Angeles, CA"="CA", "Miami, FL"="FL", "Billings, MO"="MO", "Standing Rock, NM"="NM",
-            "Midtown Manhattan, NY"="NY","Portland, OR"="OR","Philadelphia, PA"="PA",
-            "Pierre, SD"="SD")
 
 shinyUI(fluidPage(
   theme = shinythemes::shinytheme("cerulean"),
@@ -123,6 +113,97 @@ shinyUI(fluidPage(
              div(style="display: inline-block;",plotOutput("pdistBoxplot",height="300px",width = "300px")),
              div(style="display: inline-block;",plotOutput("pdisHist",height="300px",width = "500px")),br(), hr(),
              h4(p("Bivariate Plot")),
-             div(style="display: inline-block;",plotOutput("Scatplot",height="600px",width = "900px")),br(), br()))
+             div(style="display: inline-block;",plotOutput("Scatplot",height="600px",width = "900px")),br(), br()),
+    tabPanel("Crowdsourced Sensor Data",br(),
+             h4(p("Sensor-based Analysis of Pollution in the Philadelphia Region with Information on Neighborhoods and the Environment")),
+             p("Here, we have an interactive geospatial-analysis tool that allows users to visualize pollution and other 
+                  data throughout the Greater Philadelphia Area."),
+             p("Adjust the parameters below to your desired values, and then click \"Load Map\" to display the corresponding map. Slider bars can be fine-tuned using arrow keys.
+                  Within the map, you will be able to switch between interactive displays for the measurements listed in the upper right corner, and, for sensor measures, you will 
+                  be able to visualize either the measurement value or the measurement density."),
+             p("The Sensors, Date, Time, Latitude and Longitude options selected above are used to filter the data and generate these maps to visualize the estimates geospatially."),
+             wellPanel(fluidRow(
+               column(4,#Dropdown list for selecting data by sensor
+                      pickerInput("sensors",
+                                  label = "Low-cost pollution sensors to include",
+                                  choices = sensor.names,
+                                  multiple = TRUE,
+                                  selected = sensor.names,
+                                  options = list(`actions-Box` = TRUE, `none-Selected-Text` = "None",
+                                                 `selected-Text-Format`= "count"))), #End column 1
+                 column(4,#Dual textbox for entering in a date range
+                        dateRangeInput("dates", label = "Date range", start = "2015-06-01", end = "2019-12-31", startview = "decade",
+                                       min = "2015-06-01", max = "2019-12-31"),
+                        #Slider bar for selecting a time-of-day-range
+                        sliderTextInput("times",
+                                        label = "Time of day",
+                                        choices = hours,
+                                        selected = c("00:00", "23:59"),
+                                        force_edges = TRUE,
+                                        width = "50%"
+                        )), #End column 2
+                 column(4,#Slider for selecting raster boundaries
+                        sliderInput("lat.range",
+                                    label = "Latitude Range",
+                                    min = 38.85,
+                                    max = 40.60,
+                                    value = c(39.87, 40.17),
+                                    step = 0.00001,
+                                    sep = ""
+                        ),
+                        sliderInput("lon.range",
+                                    label = "Longitude Range",
+                                    min = -76.40,
+                                    max = -74.40,
+                                    value = c(-75.28, -74.96),
+                                    step = 0.00001,
+                                    sep = ""
+                        )) )), #End column 3
+             column(12,fluidRow(actionButton("go", "Load Map",class = "btn-warning")), align="center"), 
+             br(), br(),
+             tabsetPanel(tabPanel("Philadelphia Region Map", br(), br(),
+                                  p("Here, you can visualize the estimates for a selected variable across the Philadelphia region."),
+                                  p("Instruction:"), 
+                                  p("1. Choose the variable of interest from the options displayed in the upper right corner"),
+                                  p("2. You can click and drag, or use the zoom in and out buttons on the left to navigate the map."), 
+                                  p("3. You can click at the center of each colored square to open a pop-up that provides the estimate measures for all available variables for that location."),
+                                  p("4. The pop-ups display a 'Google Earth URL'. You can click on it to navigate to Google Earth to visualize the geographical area for that specific region."),
+                                  p("5. The 'Download Data' button at the bottom allows you to download the data for the selected variable in the map."),br(), 
+                                 column(12,uiOutput("download.ras"),align="center"), hr(),br(),
+                                 column(1),
+                                 column(10, leafletOutput("int.map", height = 700)),
+                                 column(1),
+                                 br(), br()),
+                         tabPanel("Grid Maps", br(), br(),
+                                  p("Here, you can visualize multiple selected variables in a grid to compare estimates geospatially."),
+                                  p("In this map, you can choose different plot variables and display synchronized maps side-by-side.
+                                  For example, you can select PM2.5, Humidity, Traffic, and Int. EPA PM2.5 plot to display four different maps at the same time to compare them."),
+                                  p("Instruction:"), 
+                                  p("1. Choose multiple variables from the list 'Plot variables'"),
+                                  p("2. Click 'Update grid'."), 
+                                  p("3. You can click and drag the map to move and change the area displayed."),br(), hr(),
+                                  fluidRow(column(6, br(), fluidRow(pickerInput('grid.vars',
+                                                      #label = 'Plot variables',
+                                                      choices = list(
+                                                        "PM\u2082.\u2085" = "pm25", 
+                                                        "PM\u2081" = "pm1",
+                                                        "PM\u2081\u2080" = "pm10",
+                                                        "Temperature" = "temp",
+                                                        "Humidity" = "humid",
+                                                        "Crime" = "crime",
+                                                        "Area Deprivation Index" = 'pov',
+                                                        "Traffic" = 'tr'),
+                                                      multiple = TRUE,
+                                                      selected = c('pm25', 'temp', 'humid'),
+                                                      options = list(`actions-Box` = TRUE, `none-Selected-Text` = "None",
+                                                                     `selected-Text-Format`= "count")), align="right"),style="z-index:10000;"),
+                                         column(6,
+                                                br(),
+                                                actionButton('grid.update', 'Update Grid',class = "btn-primary"), align="left")), br(),
+                                  column(1),
+                                  column(10, uiOutput("all.maps", height = 700)),
+                                  column(1),
+                                  br(), br())) #End inner tabPanel and tabsetPanel
+     ))
              
 ))

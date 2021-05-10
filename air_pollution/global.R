@@ -1,8 +1,31 @@
+library(shiny)
+library(shinythemes)
+library(shinyjs)
+library(shinyWidgets)
+library(leaflet)
 library(gsheet)
 library(tidyr)
 library(reshape2)
 library(dplyr)
 library(RCurl) #to check if url exists
+library(lubridate)
+library(raster)
+library(mapview)
+library(data.table)
+library(feather)
+library(DescTools)
+library(stringr)
+library(tools)
+library(gstat)
+library(prevR)
+library(leafsync)
+library(dplyr)
+library(viridis)
+library(tidyverse)
+library(RColorBrewer)
+library(gdtools)
+library(ggiraph)
+
 
 ########################################
 ## Acquiring data from google sheets ##
@@ -14,7 +37,7 @@ library(RCurl) #to check if url exists
 gsheet_links <- read.csv("databases/gsheet_links_final.csv", as.is=TRUE) 
 message = NULL
 group_status = FALSE
-  
+
 #Function to handle errors with loading google spreadsheet 
 get_gsheet_data <- function(link) {
   curr_message = NULL
@@ -77,7 +100,7 @@ all_crowdsourced_data$Date <-  gsub("*.EDT","",strptime(as.character(all_crowdso
 all_crowdsourced_data <- filter(all_crowdsourced_data, PM2.5<500 & PM2.5>=0)
 
 #Dataframe with column names as row names for "Variables" column
-tf <- melt(all_crowdsourced_data %>% dplyr::select(Group,Name,Latitude,Longitude,Date,Time,"Site_Type (Indoor, Outdoor)",Comments,PM2.5,CO), id=c("Group","Name","Latitude","Longitude","Date","Time","Site_Type (Indoor, Outdoor)","Comments"))
+tf <- reshape2::melt(all_crowdsourced_data %>% dplyr::select(Group,Name,Latitude,Longitude,Date,Time,"Site_Type (Indoor, Outdoor)",Comments,PM2.5,CO), id=c("Group","Name","Latitude","Longitude","Date","Time","Site_Type (Indoor, Outdoor)","Comments"))
 names(tf) <- c("Group", "Name", "Latitude", "Longitude", "Date", "Time", "Site_Type", "Comments", "Variables", "Measurement")
 clrs <- c("#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7","#7570B3", "#E7298A", "#66A61E", "#E6AB02", "#A6761D", "#666666","#8DD3C7","#BEBADA") #CB and Dark2
 
@@ -109,6 +132,11 @@ EPA_data_file <- read.csv("databases/EPA_measures_daily_average_Sept2017.csv")
 ####################
 ## VISUALIZATION ##
 ####################
+
+#Set choices of cities for UI
+cities <- c("Los Angeles, CA"="CA", "Miami, FL"="FL", "Billings, MO"="MO", "Standing Rock, NM"="NM",
+            "Midtown Manhattan, NY"="NY","Portland, OR"="OR","Philadelphia, PA"="PA",
+            "Pierre, SD"="SD")
 
 ##Set colors
 color_status <- c("#56B4E9", "#009E73", "#F0E442", "#0072B2")
@@ -193,24 +221,159 @@ scatplot_func_ph <- function(data, title){
     theme(legend.text = element_text(size=10),
           axis.title=element_text(size=10),
           axis.text=element_text(size=10)) 
-    
+  
 }
 
-## Making rasters of data
+#############################################
+## SAPPHHIRINE : CROWDSOURCED SENSOR DATA ##
+#############################################
 
-# library(raster)
-# library(dplyr)
-# library(leaflet)
-# library(rgdal)
-# 
-# 
-# mdata <- tf #%>% dplyr::filter(Variables == "Humidity") 
-# r <- raster(xmn = -124, xmx = -66, ymn = 17.9, ymx = 50, nrows = 20, ncols = 20)
-# map.layer.h <- rasterize(mdata[,3:2], r, mdata[which(mdata$Variables=="Humidity"),"Measurement"], fun = mean, na.rm = TRUE)
-# map.layer.d <- rasterize(mdata[,3:2], r, mdata[which(mdata$Variables=="DustPM"),"Measurement"], fun = mean, na.rm = TRUE)
-# map.layer.t <- rasterize(mdata[,3:2], r, mdata[which(mdata$Variables=="Temperature"),"Measurement"], fun = mean, na.rm = TRUE)
-# map.layer.a <- rasterize(mdata[,3:2], r, mdata[which(mdata$Variables=="AirQuality"),"Measurement"], fun = mean, na.rm = TRUE)
-# 
-# leaflet(data=mdata) %>% addTiles() %>%
-#   addRasterImage(map.layer.a,colors = "BuPu",opacity = 0.8)
+app.data <- read_feather("sapphirine_data/local_data.feather")
 
+hours <- c("00:00",
+           "01:00",
+           "02:00",
+           "03:00",
+           "04:00",
+           "05:00",
+           "06:00",
+           "07:00",
+           "08:00",
+           "09:00",
+           "10:00",
+           "11:00",
+           "12:00",
+           "13:00",
+           "14:00",
+           "15:00",
+           "16:00",
+           "17:00",
+           "18:00",
+           "19:00",
+           "20:00",
+           "21:00",
+           "22:00",
+           "23:00",
+           "23:59"
+)
+
+mins <- as_datetime(hm('0:00')): as_datetime(hm('23:59')) %>%
+  as_datetime() %>%
+  strftime(format = '%H:%M') %>%
+  unique() %>%
+  sort()
+
+#Creates character list that will be indexed for temporal subsetting
+#Use UTC for online and New York for local
+
+sensor.measures <- c("Temperature", "Humidity", "PM1", "PM2.5", "PM10")
+other.measures <- c("Crime", "Area Deprivation Index", "Traffic")
+all.measures <- c(sensor.measures, other.measures)
+
+#Subscript version of measurements
+sensor.measures.sub <- c("Temperature", "Humidity", "PM\u2081", 
+                         "PM\u2082.\u2085", "PM\u2081\u2080")
+all.measures.sub <- c(sensor.measures.sub, other.measures)
+
+titles.list <- c("Avg. Temp. (\u00B0C)", "Avg. Humidity (%)", 
+                 "Avg. PM\u2081 Conc. (\u03BCg/m\u00B3)", 
+                 "Avg. PM\u2082.\u2085 Conc. (\u03BCg/m\u00B3)", 
+                 "Avg. PM\u2081\u2080 Conc. (\u03BCg/m\u00B3)", 
+                 "# of Reported Crimes", "Avg. ADI", "Avg. AADT")
+
+suffix.list <- c(".t", ".h", ".pm1", ".pm2.5", ".pm10", ".c", ".pov", ".tr")
+
+titles.df <- data.frame(cbind(all.measures, titles.list, suffix.list))
+
+f.titles <- function(y){
+  index <- which(titles.df[,1] == y)
+  return(titles.df[index, 2])
+}
+
+f.plaintext <- function(b){
+  if(length(b) > 0){
+    if(b == 'PM\u2082.\u2085'){return('PM2.5')}
+    else if(b == 'PM\u2081'){return('PM1')}
+    else if(b == 'PM\u2081\u2080'){return('PM10')}
+    else{return(b)}
+  } else{return(b)}
+}
+
+f.titles.d <- function(w){paste("log\u2081\u2080 # of", w, "data points")}
+
+f.titles.epa <- function(a){
+  index <- which(epa.titles.df[,1] == a)
+  return(epa.titles.df[index, 2])
+}
+
+f.suffix <- function(z){
+  index <- which(titles.df[,1] == z)
+  return(titles.df[index, 3])
+}
+
+f.zoom <- function(x, y){
+  val <- ifelse(x > y, x, y)
+  return(as.integer(round(11.47 - 1.5*val, digits = 0)))
+}
+
+f.top <- function(x){
+  no.string <- toString(as.integer(x))
+  lead.digit <- as.numeric(substr(no.string, 1, 1))
+  no.digits <- nchar(no.string)
+  if(lead.digit == 1){
+    if(x == 100){
+      return(100)
+    }
+    else{
+      return(RoundTo(x, multiple = 2*10**(no.digits - 2), FUN = ceiling))
+    }
+  }
+  else if(lead.digit >= 2 && lead.digit <= 4){
+    return(RoundTo(x, multiple = 5*10**(no.digits - 2), FUN = ceiling))
+  }
+  else if(lead.digit >= 5){
+    return(RoundTo(x, multiple = 10**(no.digits - 1), FUN = ceiling))
+  }
+}
+
+pov.shp <- shapefile("sapphirine_data/ADI_data/ADI_data.shp")
+
+our.sensors <- fread("sapphirine_data/LIMEA_AIRBEAM_SUMMARY.csv", 
+                     header = TRUE, stringsAsFactors = FALSE)$AirBeamID[1:15]
+our.sensors <- paste0("AirBeam:", our.sensors)
+
+sensor.names <- levels(app.data$Sensor.ID)
+
+GPA_counties <- shapefile("sapphirine_data/gpa_counties/gpa_counties.shp") %>%
+  spTransform(CRSobj = "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0")
+
+city.border <- GPA_counties[GPA_counties$NAME == 'Philadelphia',]
+
+traffic.raster <- raster("sapphirine_data/traffic/traffic_raster.grd")
+
+#Reverse legend direction
+myLabelFormat = function(prefix = "", suffix = "", between = " &ndash; ", digits = 3, 
+                         big.mark = ",", transform = identity, t.val = Inf) {
+  formatNum <- function(x) {
+    format(round(transform(x), digits), trim = TRUE, scientific = FALSE, 
+           big.mark = big.mark)
+  }
+  function(type, ...) {
+    switch(type, numeric = (function(cuts) {
+      cuts <- sort(cuts, decreasing = T) #just added
+      paste0(prefix, formatNum(cuts), ifelse(cuts == t.val, "+", ""))
+    })(...), bin = (function(cuts) {
+      n <- length(cuts)
+      paste0(prefix, formatNum(cuts[-n]), between, formatNum(cuts[-1]), 
+             suffix)
+    })(...), quantile = (function(cuts, p) {
+      n <- length(cuts)
+      p <- paste0(round(p * 100), "%")
+      cuts <- paste0(formatNum(cuts[-n]), between, formatNum(cuts[-1]))
+      paste0("<span title=\"", cuts, "\">", prefix, p[-n], 
+             between, p[-1], suffix, "</span>")
+    })(...), factor = (function(cuts) {
+      paste0(prefix, as.character(transform(cuts)), suffix)
+    })(...))
+  }
+}
