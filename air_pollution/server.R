@@ -283,13 +283,13 @@ server <- shinyServer(function(input, output, session) {
     ## Value map layers: -------------
     
     # Crime raster
-    crime.data <- app.data %>% dplyr::filter(!is.na(Crime))
-    assign("map.layer.c", rasterize(crime.data[,3:2], r, crime.data$Crime, fun = sum, na.rm = TRUE), 
-           envir = .GlobalEnv)
-    
-    # Poverty raster
-    assign("map.layer.pov", rasterize(pov.shp, r, field = pov.shp$ADI_NAT, fun = mean, na.rm = TRUE),
-           envir = .GlobalEnv)
+    # crime.data <- app.data %>% dplyr::filter(!is.na(Crime))
+    # assign("map.layer.c", rasterize(crime.data[,3:2], r, crime.data$Crime, fun = sum, na.rm = TRUE), 
+    #        envir = .GlobalEnv)
+    # 
+    # # Poverty raster
+    # assign("map.layer.pov", rasterize(pov.shp, r, field = pov.shp$ADI_NAT, fun = mean, na.rm = TRUE),
+    #        envir = .GlobalEnv)
     
     # Traffic raster
     assign("map.layer.tr", 
@@ -364,34 +364,34 @@ server <- shinyServer(function(input, output, session) {
     pm10l[which(!is.na(values(map.layer.pm10)))] <- paste0("Avg. PM<sub>10</sub>: ","<b style = \"color:DodgerBlue\">", round(values(map.layer.pm10)[which(!is.na(values(map.layer.pm10)))], digits = 2)," \u03BCg/m\u00B3", "</b>"," (", values(map.layer.pm10.d)[which(!is.na(values(map.layer.pm10)))], ")","<br/>")
     pm10l[which(is.na(values(map.layer.pm10)))] <- paste0("Avg. PM<sub>10</sub>: ","<b style = \"color:Tomato\">", "no data", "</b>", " (0)", "<br/>")
     
-    # Crime
-    crimel <- vector()
-    cpoints <- point.in.SpatialPolygons(
-      xFromCell(map.layer.c, total_length), 
-      yFromCell(map.layer.c, total_length),
-      city.border)
+    # # Crime
+    # crimel <- vector()
+    # cpoints <- point.in.SpatialPolygons(
+    #   xFromCell(map.layer.c, total_length), 
+    #   yFromCell(map.layer.c, total_length),
+    #   city.border)
     
     # not NA with cpoint = 1
-    indx1 <- intersect(which(!is.na(values(map.layer.c))),which(cpoints==1))
-    crimel[indx1] <- paste0("# reported crimes: ","<b style = \"color:DodgerBlue\">", values(map.layer.c)[indx1], "</b>","<br/>")
+    # indx1 <- intersect(which(!is.na(values(map.layer.c))),which(cpoints==1))
+    # crimel[indx1] <- paste0("# reported crimes: ","<b style = \"color:DodgerBlue\">", values(map.layer.c)[indx1], "</b>","<br/>")
+    # 
+    # # NA with cpoint = 1
+    # indx2 <- intersect(which(is.na(values(map.layer.c))),which(cpoints==1))
+    # crimel[indx2] <- paste0("# reported crimes: ","<b style = \"color:DodgerBlue\">", "0", "</b>","<br/>")
+    # 
+    # # not NA with cpoint != 1
+    # indx3 <- intersect(which(!is.na(values(map.layer.c))),which(cpoints!=1))
+    # crimel[indx3] <- paste0("# reported crimes: ","<b style = \"color:DodgerBlue\">", values(map.layer.c)[indx3], "</b>",
+    #                         " (", "<b style = \"color:Tomato\">", "Phil. only", "</b>", ")","<br/>")
+    # 
+    # # NA with cpoint != 1
+    # indx4 <- intersect(which(is.na(values(map.layer.c))),which(cpoints!=1))
+    # crimel[indx4] <- paste0("# reported crimes: ","<b style = \"color:Tomato\">", "no data", "</b>","<br/>")
     
-    # NA with cpoint = 1
-    indx2 <- intersect(which(is.na(values(map.layer.c))),which(cpoints==1))
-    crimel[indx2] <- paste0("# reported crimes: ","<b style = \"color:DodgerBlue\">", "0", "</b>","<br/>")
-    
-    # not NA with cpoint != 1
-    indx3 <- intersect(which(!is.na(values(map.layer.c))),which(cpoints!=1))
-    crimel[indx3] <- paste0("# reported crimes: ","<b style = \"color:DodgerBlue\">", values(map.layer.c)[indx3], "</b>",
-                            " (", "<b style = \"color:Tomato\">", "Phil. only", "</b>", ")","<br/>")
-    
-    # NA with cpoint != 1
-    indx4 <- intersect(which(is.na(values(map.layer.c))),which(cpoints!=1))
-    crimel[indx4] <- paste0("# reported crimes: ","<b style = \"color:Tomato\">", "no data", "</b>","<br/>")
-    
-    # Poverty
-    povl <- vector()
-    povl[which(!is.na(values(map.layer.pov)))] <- paste0("Avg. ADI: ","<b style = \"color:DodgerBlue\">", round(values(map.layer.pov)[which(!is.na(values(map.layer.pov)))], digits = 2), "</b>","<br/>")
-    povl[which(is.na(values(map.layer.pov)))] <- paste0("Avg. ADI: ","<b style = \"color:Tomato\">", "no data", "</b>", "<br/>")
+    # # Poverty
+    # povl <- vector()
+    # povl[which(!is.na(values(map.layer.pov)))] <- paste0("Avg. ADI: ","<b style = \"color:DodgerBlue\">", round(values(map.layer.pov)[which(!is.na(values(map.layer.pov)))], digits = 2), "</b>","<br/>")
+    # povl[which(is.na(values(map.layer.pov)))] <- paste0("Avg. ADI: ","<b style = \"color:Tomato\">", "no data", "</b>", "<br/>")
     
     # Traffic
     trafl <- vector()
@@ -413,10 +413,10 @@ server <- shinyServer(function(input, output, session) {
                            " (", "<b style = \"color:Tomato\">", "Phil. only", "</b>", ")","<br/>","</b>")
     
     ## Final content vector -------------
-    content <- paste0(lat_lon,gmaps,templ,humidl,pm1l,pm2.5l,pm10l,crimel,povl,trafl)
+    content <- paste0(lat_lon,gmaps,templ,humidl,pm1l,pm2.5l,pm10l,trafl) #crimel,povl,
     
     #Remove big objects -------------
-    rm(lat_lon,gmaps,templ,humidl,pm1l,pm2.5l,pm10l,crimel,povl,trafl)
+    rm(lat_lon,gmaps,templ,humidl,pm1l,pm2.5l,pm10l,trafl)#crimel,povl,
     
     #Indicies for removing popups with all NA
     inds.df <- cbind(values(map.layer.t),
@@ -424,8 +424,8 @@ server <- shinyServer(function(input, output, session) {
                      values(map.layer.pm1),
                      values(map.layer.pm2.5),
                      values(map.layer.pm10),
-                     values(map.layer.c),
-                     values(map.layer.pov),
+                     #values(map.layer.c),
+                     #values(map.layer.pov),
                      values(map.layer.tr)
     )
     
@@ -604,27 +604,27 @@ server <- shinyServer(function(input, output, session) {
                 #group = "Measurement value",
                 labFormat = labelFormat(transform = function(x) sort(x, decreasing = TRUE)))
     
-    #Make crime maps
-    valsc <- values(map.layer.c)
-    crime <- leaflet(content.df) %>%
-      setView(lng = lon.center, lat = lat.center, zoom = zoom.no) %>%
-      addProviderTiles(providers$Esri.WorldTopoMap) %>%
-      addRasterImage(map.layer.c, colors = pal.c, opacity = 0.8, group = "Measurement value", method = "ngb") %>%
-      addLegend(pal = leg.pal.c, values = valsc, opacity = 1,
-                title = toString(f.titles("Crime")), position = "topright",
-                #group = "Measurement value",
-                labFormat = labelFormat(transform = function(x) sort(x, decreasing = TRUE)))
-    
-    #Make poverty maps
-    valspov <- values(map.layer.pov)
-    pov <- leaflet(content.df) %>%
-      setView(lng = lon.center, lat = lat.center, zoom = zoom.no) %>%
-      addProviderTiles(providers$Esri.WorldTopoMap) %>%
-      addRasterImage(map.layer.pov, colors = pal.pov, opacity = 0.8, group = "Measurement value", method = "ngb") %>%
-      addLegend(pal = leg.pal.pov, values = valspov, opacity = 1,
-                title = toString(f.titles("Poverty")), position = "topright",
-                #group = "Measurement value",
-                labFormat = labelFormat(transform = function(x) sort(x, decreasing = TRUE)))
+    # #Make crime maps
+    # valsc <- values(map.layer.c)
+    # crime <- leaflet(content.df) %>%
+    #   setView(lng = lon.center, lat = lat.center, zoom = zoom.no) %>%
+    #   addProviderTiles(providers$Esri.WorldTopoMap) %>%
+    #   addRasterImage(map.layer.c, colors = pal.c, opacity = 0.8, group = "Measurement value", method = "ngb") %>%
+    #   addLegend(pal = leg.pal.c, values = valsc, opacity = 1,
+    #             title = toString(f.titles("Crime")), position = "topright",
+    #             #group = "Measurement value",
+    #             labFormat = labelFormat(transform = function(x) sort(x, decreasing = TRUE)))
+    # 
+    # #Make poverty maps
+    # valspov <- values(map.layer.pov)
+    # pov <- leaflet(content.df) %>%
+    #   setView(lng = lon.center, lat = lat.center, zoom = zoom.no) %>%
+    #   addProviderTiles(providers$Esri.WorldTopoMap) %>%
+    #   addRasterImage(map.layer.pov, colors = pal.pov, opacity = 0.8, group = "Measurement value", method = "ngb") %>%
+    #   addLegend(pal = leg.pal.pov, values = valspov, opacity = 1,
+    #             title = toString(f.titles("Poverty")), position = "topright",
+    #             #group = "Measurement value",
+    #             labFormat = labelFormat(transform = function(x) sort(x, decreasing = TRUE)))
     
     #Make traffic maps
     valstr <- values(map.layer.tr)
@@ -637,8 +637,180 @@ server <- shinyServer(function(input, output, session) {
                 #group = "Measurement value",
                 labFormat = labelFormat(transform = function(x) sort(x, decreasing = TRUE)))
     
-    #make list of all maps
-    maps <- list(main = content_map, pm25=pm25, pm1=pm1, pm10=pm10,temp=temp,humid=humid,crime=crime, pov=pov,tr=tr)
+    #####Make EPA maps
+    epa.dates <- input$dates[1]:input$dates[2]
+    
+    #PM2.5
+    epa.pm25.ras <- getEPAraster('PM2.5', epa.dates) #Also returns epa.df for downloading data
+    epa.pm25.ras[epa.pm25.ras == -1] <- NA #Non-values are given as -1 by raster function
+    epa.pm25.ras <- crop(epa.pm25.ras, extent(county.borders)) %>% mask(county.borders)
+    epa.vals.pm25 <- values(epa.pm25.ras)
+    
+    epa.pal.pm25 <- colorNumeric(palette = brewer.pal(7, "YlOrRd"),
+                                 domain = epa.vals.pm25,
+                                 na.color = "transparent"
+    )
+    epa.leg.pal.pm25 <- colorNumeric(palette = brewer.pal(7, "YlOrRd"),
+                                     domain = epa.vals.pm25,
+                                     na.color = "transparent",
+                                     reverse = TRUE
+    )
+    
+    epa.pm25 <- leaflet() %>%
+      setView(lng = lon.center, lat = lat.center, zoom = zoom.no) %>%
+      addProviderTiles(providers$Esri.WorldTopoMap) %>%
+      addRasterImage(epa.pm25.ras, colors = epa.pal.pm25, opacity = 0.8, method = "ngb") %>%
+      addLegend(pal = epa.leg.pal.pm25, values = epa.vals.pm25, opacity = 1,
+                title = toString(f.titles.epa('PM2.5')), position = "topright",
+                labFormat = myLabelFormat()) %>%
+      addEasyButton(easyButton(
+        icon = "fa-crosshairs", title = "Recenter",
+        onClick = JS(paste(button.js))
+      ))
+    
+    ##PM10
+    epa.pm10.ras <- getEPAraster('PM10', epa.dates) #Also returns epa.df for downloading data
+    epa.pm10.ras[epa.pm10.ras == -1] <- NA #Non-values are given as -1 by raster function
+    epa.pm10.ras <- crop(epa.pm10.ras, extent(county.borders)) %>% mask(county.borders)
+    epa.vals.pm10 <- values(epa.pm10.ras)
+    
+    epa.pal.pm10 <- colorNumeric(palette = brewer.pal(7, "YlOrRd"),
+                                 domain = epa.vals.pm10,
+                                 na.color = "transparent"
+    )
+    epa.leg.pal.pm10 <- colorNumeric(palette = brewer.pal(7, "YlOrRd"),
+                                     domain = epa.vals.pm10,
+                                     na.color = "transparent",
+                                     reverse = TRUE
+    )
+    
+    epa.pm10 <- leaflet() %>%
+      setView(lng = lon.center, lat = lat.center, zoom = zoom.no) %>%
+      addProviderTiles(providers$Esri.WorldTopoMap) %>%
+      addRasterImage(epa.pm10.ras, colors = epa.pal.pm10, opacity = 0.8, method = "ngb") %>%
+      addLegend(pal = epa.leg.pal.pm10, values = epa.vals.pm10, opacity = 1,
+                title = toString(f.titles.epa('PM10')), position = "topright",
+                labFormat = myLabelFormat()) %>%
+      addEasyButton(easyButton(
+        icon = "fa-crosshairs", title = "Recenter",
+        onClick = JS(paste(button.js))
+      ))
+    
+    ##SO2
+    epa.so2.ras <- getEPAraster('SO2', epa.dates) #Also returns epa.df for downloading data
+    epa.so2.ras[epa.so2.ras == -1] <- NA #Non-values are given as -1 by raster function
+    epa.so2.ras <- crop(epa.so2.ras, extent(county.borders)) %>% mask(county.borders)
+    epa.vals.so2 <- values(epa.so2.ras)
+    
+    epa.pal.so2 <- colorNumeric(palette = brewer.pal(7, "YlOrRd"),
+                                domain = epa.vals.so2,
+                                na.color = "transparent"
+    )
+    epa.leg.pal.so2 <- colorNumeric(palette = brewer.pal(7, "YlOrRd"),
+                                    domain = epa.vals.so2,
+                                    na.color = "transparent",
+                                    reverse = TRUE
+    )
+    
+    epa.so2 <- leaflet() %>%
+      setView(lng = lon.center, lat = lat.center, zoom = zoom.no) %>%
+      addProviderTiles(providers$Esri.WorldTopoMap) %>%
+      addRasterImage(epa.so2.ras, colors = epa.pal.so2, opacity = 0.8, method = "ngb") %>%
+      addLegend(pal = epa.leg.pal.so2, values = epa.vals.so2, opacity = 1,
+                title = toString(f.titles.epa('SO2')), position = "topright",
+                labFormat = myLabelFormat()) %>%
+      addEasyButton(easyButton(
+        icon = "fa-crosshairs", title = "Recenter",
+        onClick = JS(paste(button.js))
+      ))
+    
+    ##O3
+    epa.o3.ras <- getEPAraster('O3', epa.dates) #Also returns epa.df for downloading data
+    epa.o3.ras[epa.o3.ras == -1] <- NA #Non-values are given as -1 by raster function
+    epa.o3.ras <- crop(epa.o3.ras, extent(county.borders)) %>% mask(county.borders)
+    epa.vals.o3 <- values(epa.o3.ras)
+    
+    epa.pal.o3 <- colorNumeric(palette = brewer.pal(7, "YlOrRd"),
+                               domain = epa.vals.o3,
+                               na.color = "transparent"
+    )
+    epa.leg.pal.o3 <- colorNumeric(palette = brewer.pal(7, "YlOrRd"),
+                                   domain = epa.vals.o3,
+                                   na.color = "transparent",
+                                   reverse = TRUE
+    )
+    
+    epa.o3 <- leaflet() %>%
+      setView(lng = lon.center, lat = lat.center, zoom = zoom.no) %>%
+      addProviderTiles(providers$Esri.WorldTopoMap) %>%
+      addRasterImage(epa.o3.ras, colors = epa.pal.o3, opacity = 0.8, method = "ngb") %>%
+      addLegend(pal = epa.leg.pal.o3, values = epa.vals.o3, opacity = 1,
+                title = toString(f.titles.epa('O3')), position = "topright",
+                labFormat = myLabelFormat()) %>%
+      addEasyButton(easyButton(
+        icon = "fa-crosshairs", title = "Recenter",
+        onClick = JS(paste(button.js))
+      ))
+    
+    ##NO2
+    epa.no2.ras <- getEPAraster('NO2', epa.dates) #Also returns epa.df for downloading data
+    epa.no2.ras[epa.no2.ras == -1] <- NA #Non-values are given as -1 by raster function
+    epa.no2.ras <- crop(epa.no2.ras, extent(county.borders)) %>% mask(county.borders)
+    epa.vals.no2 <- values(epa.no2.ras)
+    
+    epa.pal.no2 <- colorNumeric(palette = brewer.pal(7, "YlOrRd"),
+                                domain = epa.vals.no2,
+                                na.color = "transparent"
+    )
+    epa.leg.pal.no2 <- colorNumeric(palette = brewer.pal(7, "YlOrRd"),
+                                    domain = epa.vals.no2,
+                                    na.color = "transparent",
+                                    reverse = TRUE
+    )
+    
+    epa.no2 <- leaflet() %>%
+      setView(lng = lon.center, lat = lat.center, zoom = zoom.no) %>%
+      addProviderTiles(providers$Esri.WorldTopoMap) %>%
+      addRasterImage(epa.no2.ras, colors = epa.pal.no2, opacity = 0.8, method = "ngb") %>%
+      addLegend(pal = epa.leg.pal.no2, values = epa.vals.no2, opacity = 1,
+                title = toString(f.titles.epa('NO2')), position = "topright",
+                labFormat = myLabelFormat()) %>%
+      addEasyButton(easyButton(
+        icon = "fa-crosshairs", title = "Recenter",
+        onClick = JS(paste(button.js))
+      ))
+    
+    ##CO
+    epa.co.ras <- getEPAraster('CO', epa.dates) #Also returns epa.df for downloading data
+    epa.co.ras[epa.co.ras == -1] <- NA #Non-values are given as -1 by raster function
+    epa.co.ras <- crop(epa.co.ras, extent(county.borders)) %>% mask(county.borders)
+    epa.vals.co <- values(epa.co.ras)
+    
+    epa.pal.co <- colorNumeric(palette = brewer.pal(7, "YlOrRd"),
+                               domain = epa.vals.co,
+                               na.color = "transparent"
+    )
+    epa.leg.pal.co <- colorNumeric(palette = brewer.pal(7, "YlOrRd"),
+                                   domain = epa.vals.co,
+                                   na.color = "transparent",
+                                   reverse = TRUE
+    )
+    
+    epa.co <- leaflet() %>%
+      setView(lng = lon.center, lat = lat.center, zoom = zoom.no) %>%
+      addProviderTiles(providers$Esri.WorldTopoMap) %>%
+      addRasterImage(epa.co.ras, colors = epa.pal.co, opacity = 0.8, method = "ngb") %>%
+      addLegend(pal = epa.leg.pal.co, values = epa.vals.co, opacity = 1,
+                title = toString(f.titles.epa('CO')), position = "topright",
+                labFormat = myLabelFormat()) %>%
+      addEasyButton(easyButton(
+        icon = "fa-crosshairs", title = "Recenter",
+        onClick = JS(paste(button.js))
+      ))
+    
+    #make list of all maps #crime=crime, pov=pov,
+    maps <- list(main = content_map, pm25=pm25, pm1=pm1, pm10=pm10,temp=temp,humid=humid,tr=tr,epa.pm25 = epa.pm25,
+                 epa.pm10 = epa.pm10, epa.so2 = epa.so2,epa.no2 = epa.no2,epa.o3 = epa.o3, epa.co = epa.co)
     maps
     
   }) #End eventReactive

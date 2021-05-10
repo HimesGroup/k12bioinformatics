@@ -115,13 +115,25 @@ shinyUI(fluidPage(
              h4(p("Bivariate Plot")),
              div(style="display: inline-block;",plotOutput("Scatplot",height="600px",width = "900px")),br(), br()),
     tabPanel("Crowdsourced Sensor Data",br(),
-             h4(p("Sensor-based Analysis of Pollution in the Philadelphia Region with Information on Neighborhoods and the Environment")),
+             h3(p("Sensor-based Analysis of Pollution in the Philadelphia Region with Information on Neighborhoods and the Environment")),
              p("Here, we have an interactive geospatial-analysis tool that allows users to visualize pollution and other 
                   data throughout the Greater Philadelphia Area."),
-             p("Adjust the parameters below to your desired values, and then click \"Load Map\" to display the corresponding map. Slider bars can be fine-tuned using arrow keys.
-                  Within the map, you will be able to switch between interactive displays for the measurements listed in the upper right corner, and, for sensor measures, you will 
-                  be able to visualize either the measurement value or the measurement density."),
-             p("The Sensors, Date, Time, Latitude and Longitude options selected above are used to filter the data and generate these maps to visualize the estimates geospatially."),
+             p(h4("Data Sources:")),
+             p(h5("Sensor Data")),
+             p("We acquired data for temperature, humidity and pollutants like PM2.5, PM1, and PM10 measured by portable sensors 
+             such as AirBeam from Habitat Map website and low-cost stationary sensors such as Purple Air from their own official website. 
+             Additional AirBeam data taken by members of our lab between October 23, 2017, and July 26, 2018 were included as well."),
+             p(h5("EPA Data")),
+             p("Daily-averaged measurements of PM2.5, PM10, SO2, NO2, O3, and CO concentrations from EPA monitors were 
+               downloaded from the EPA Air Data Portal for the greater Philadelphia region."),
+             p(h5("Traffic Data")),
+             p("Traffic volume line data containing the AADT of all road segments in Pennsylvania was downloaded from the Pennsylvania Department 
+               of Transportation Open Data Portal and subsetted to the six GPA counties in Pennsylvania (Berks, Bucks, Chester, Delaware, Montgomery, Philadelphia.
+               The traffic data is recorded as Annual Average Daily Traffic (AADT), which is the typical daily traffic volume of a segment of road calculated by dividing the 
+               total number of vehicles traveling across a road segment in a year by 365."),
+             p(h4("Generate Maps:")),
+             p("The panel below provides options to chose the sensors, and range of date, time, latitude and longitude. Adjust the parameters to your desired values, and then click \"Load Map\" to display the corresponding map. 
+               Slider bars can be fine-tuned using arrow keys. Depending on your selections, the data will be selected to generate geospatial estimates for visualization."), br(), 
              wellPanel(fluidRow(
                column(4,#Dropdown list for selecting data by sensor
                       pickerInput("sensors",
@@ -174,7 +186,7 @@ shinyUI(fluidPage(
                                  column(10, leafletOutput("int.map", height = 700)),
                                  column(1),
                                  br(), br()),
-                         tabPanel("Grid Maps", br(), br(),
+                         tabPanel("Grid Maps", br(),
                                   p("Here, you can visualize multiple selected variables in a grid to compare estimates geospatially."),
                                   p("In this map, you can choose different plot variables and display synchronized maps side-by-side.
                                   For example, you can select PM2.5, Humidity, Traffic, and Int. EPA PM2.5 plot to display four different maps at the same time to compare them."),
@@ -190,9 +202,16 @@ shinyUI(fluidPage(
                                                         "PM\u2081\u2080" = "pm10",
                                                         "Temperature" = "temp",
                                                         "Humidity" = "humid",
-                                                        "Crime" = "crime",
-                                                        "Area Deprivation Index" = 'pov',
-                                                        "Traffic" = 'tr'),
+                                                        # "Crime" = "crime",
+                                                        # "Area Deprivation Index" = 'pov',
+                                                        "Traffic" = 'tr',
+                                                        "Int. EPA PM\u2082.\u2085 plot" = 'epa.pm25',
+                                                        "Int. EPA PM\u2081\u2080 plot" = 'epa.pm10',
+                                                        "Int. EPA SO\u2080\u2082 plot" = 'epa.so2',
+                                                        "Int. EPA NO\u2080\u2082 plot" = 'epa.no2',
+                                                        "Int. EPA O\u2083 plot" = 'epa.o3',
+                                                        "Int. EPA CO plot" = 'epa.co'
+                                                      ),
                                                       multiple = TRUE,
                                                       selected = c('pm25', 'temp', 'humid'),
                                                       options = list(`actions-Box` = TRUE, `none-Selected-Text` = "None",

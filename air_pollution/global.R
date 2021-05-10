@@ -267,7 +267,7 @@ mins <- as_datetime(hm('0:00')): as_datetime(hm('23:59')) %>%
 #Use UTC for online and New York for local
 
 sensor.measures <- c("Temperature", "Humidity", "PM1", "PM2.5", "PM10")
-other.measures <- c("Crime", "Area Deprivation Index", "Traffic")
+other.measures <- c("Traffic") #"Crime", "Area Deprivation Index", 
 all.measures <- c(sensor.measures, other.measures)
 
 #Subscript version of measurements
@@ -278,12 +278,19 @@ all.measures.sub <- c(sensor.measures.sub, other.measures)
 titles.list <- c("Avg. Temp. (\u00B0C)", "Avg. Humidity (%)", 
                  "Avg. PM\u2081 Conc. (\u03BCg/m\u00B3)", 
                  "Avg. PM\u2082.\u2085 Conc. (\u03BCg/m\u00B3)", 
-                 "Avg. PM\u2081\u2080 Conc. (\u03BCg/m\u00B3)", 
-                 "# of Reported Crimes", "Avg. ADI", "Avg. AADT")
+                 "Avg. PM\u2081\u2080 Conc. (\u03BCg/m\u00B3)", "Avg. AADT")
+                # "# of Reported Crimes", "Avg. ADI", 
 
-suffix.list <- c(".t", ".h", ".pm1", ".pm2.5", ".pm10", ".c", ".pov", ".tr")
+suffix.list <- c(".t", ".h", ".pm1", ".pm2.5", ".pm10", ".tr") #".c", ".pov",
 
 titles.df <- data.frame(cbind(all.measures, titles.list, suffix.list))
+
+epa.titles.df <- cbind(c("SO2", "NO2", "O3", "CO", "PM2.5", "PM10"),
+                       c("Avg. SO\u2082 Conc. (ppb)", "Avg. NO\u2082 Conc. (ppb)", 
+                         "Avg. O\u2083 Conc. (ppb)", "Avg CO Conc. (ppm)",
+                         "Avg. PM\u2082.\u2085 Conc. (\u03BCg/m\u00B3)", 
+                         "Avg. PM\u2081\u2080 Conc. (\u03BCg/m\u00B3)")
+)
 
 f.titles <- function(y){
   index <- which(titles.df[,1] == y)
@@ -336,7 +343,7 @@ f.top <- function(x){
   }
 }
 
-pov.shp <- shapefile("sapphirine_data/ADI_data/ADI_data.shp")
+#pov.shp <- shapefile("sapphirine_data/ADI_data/ADI_data.shp")
 
 our.sensors <- fread("sapphirine_data/LIMEA_AIRBEAM_SUMMARY.csv", 
                      header = TRUE, stringsAsFactors = FALSE)$AirBeamID[1:15]
@@ -344,12 +351,71 @@ our.sensors <- paste0("AirBeam:", our.sensors)
 
 sensor.names <- levels(app.data$Sensor.ID)
 
-GPA_counties <- shapefile("sapphirine_data/gpa_counties/gpa_counties.shp") %>%
+county.borders <- shapefile("sapphirine_data/gpa_counties/gpa_counties.shp") %>%
   spTransform(CRSobj = "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0")
 
-city.border <- GPA_counties[GPA_counties$NAME == 'Philadelphia',]
+city.border <- county.borders[county.borders$NAME == 'Philadelphia',]
 
 traffic.raster <- raster("sapphirine_data/traffic/traffic_raster.grd")
+
+#Read in EPA data frames
+EPA_data <- read_feather('sapphirine_data/EPA_data.feather')
+
+#EPA raster function
+getEPAraster <- function(variable, dates){
+  
+  col.name <- names(EPA_data)[grep(variable, names(EPA_data))]
+  
+  dat <- EPA_data %>%
+    dplyr::select(1:9, .data[[col.name]]) %>%
+    dplyr::filter(Date %in% dates) %>%
+    dplyr::filter(!is.na(.data[[col.name]]), .data[[col.name]] >= 0)
+  
+  assign('epa.df', dat, envir = .GlobalEnv) 
+  #Creates subsetted frame to be downloaded
+  
+  dat <- dat %>%
+    dplyr::group_by(Latitude, Longitude) %>%
+    dplyr::summarise(avg = mean(.data[[col.name]], na.rm = TRUE))
+  
+  ## Gives averages of daily-averaged values over range of dates (mean of mean-values)
+  ## Get one row per location by averaging all entries
+  
+  if(nrow(dat) > 0){
+    coordinates(dat) = ~Longitude+Latitude
+    crs(dat) <- CRS("+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0")
+    
+    ## make base raster
+    #find distance between the latitude and longitudes and convert to km (*111 for 1km)
+    r <- raster(nrow = 451, ncol = 736, extent(-80.51985, -73.88506, 38.45113, 42.51607)) #1km
+    crs(r) <- CRS("+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0")
+    ## generate raster (idw with 5 nearest sites)
+    gs <- gstat(formula=avg~1, data=dat, nmax = 5)
+    nn <- interpolate(r, gs)
+    
+    return(nn)
+  } else{
+    print("zero")
+    #find distance between the latitude and longitudes and convert to km (*111 for 1km)
+    r <- raster(nrow = 451, ncol = 736, extent(-80.51985, -73.88506, 38.45113, 42.51607)) #1km
+    crs(r) <- CRS("+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0")
+    values(r) <- rep(-1, 331936)
+    return(r)
+  }
+}
+
+#Function for adding circles to EPA monitor legend
+addLegendEPA <- function(map, colors, labels, sizes, opacity = 0.8){
+  colorAdditions <- paste0(colors, "; border-radius: 50%; width:", sizes, 
+                           "px;margin-top: 4.5px;height:", sizes, "px")  
+  labelAdditions <- paste0("<div style='display: inline-block;height: ", sizes, 
+                           "px;margin-top: 0px;line-height: ", sizes, "px;'>", 
+                           labels, "</div>")
+  
+  return(addLegend(map, colors = colorAdditions, 
+                   labels = labelAdditions, opacity = opacity))
+}
+
 
 #Reverse legend direction
 myLabelFormat = function(prefix = "", suffix = "", between = " &ndash; ", digits = 3, 
