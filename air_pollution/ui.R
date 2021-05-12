@@ -93,8 +93,7 @@ shinyUI(fluidPage(
       #p("Mean CO levels across each year from 2007 to 2017."),
       ggiraphOutput("COPlot",height="500px",width="700px"),br(), 
       br()),
-
-    tabPanel("Crowdsourced Map",br(),
+    tabPanel("K12 Map",br(),
              mainPanel(
                leafletOutput("mymap", height = 700)),
              sidebarPanel(
@@ -103,8 +102,7 @@ shinyUI(fluidPage(
                uiOutput("Group"),
                uiOutput("Name"),
                downloadButton(outputId="selected_data_download", label="Download selected data"),br())),
-  
-    tabPanel("Crowdsourced Summary Plots",br(),
+    tabPanel("K12 Summary Plots",br(),
              h3(p("Overall characterisitics of Crowdsourced Pollution Data")),
              h4(p("Univariate Plots - PM2.5")), 
              div(style="display: inline-block;",plotOutput("distBoxplot",height="300px",width = "300px")),
@@ -173,7 +171,7 @@ shinyUI(fluidPage(
                         )) )), #End column 3
              column(12,fluidRow(actionButton("go", "Load Map",class = "btn-warning")), align="center"), 
              br(), br(),
-             tabsetPanel(tabPanel("Philadelphia Region Map", br(), br(),
+             tabsetPanel(tabPanel("Philadelphia Region Map", br(),
                                   p("Here, you can visualize the estimates for a selected variable across the Philadelphia region."),
                                   p("Instruction:"), 
                                   p("1. Choose the variable of interest from the options displayed in the upper right corner"),
