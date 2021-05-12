@@ -364,35 +364,6 @@ server <- shinyServer(function(input, output, session) {
     pm10l[which(!is.na(values(map.layer.pm10)))] <- paste0("Avg. PM<sub>10</sub>: ","<b style = \"color:DodgerBlue\">", round(values(map.layer.pm10)[which(!is.na(values(map.layer.pm10)))], digits = 2)," \u03BCg/m\u00B3", "</b>"," (", values(map.layer.pm10.d)[which(!is.na(values(map.layer.pm10)))], ")","<br/>")
     pm10l[which(is.na(values(map.layer.pm10)))] <- paste0("Avg. PM<sub>10</sub>: ","<b style = \"color:Tomato\">", "no data", "</b>", " (0)", "<br/>")
     
-    # # Crime
-    # crimel <- vector()
-    # cpoints <- point.in.SpatialPolygons(
-    #   xFromCell(map.layer.c, total_length), 
-    #   yFromCell(map.layer.c, total_length),
-    #   city.border)
-    
-    # not NA with cpoint = 1
-    # indx1 <- intersect(which(!is.na(values(map.layer.c))),which(cpoints==1))
-    # crimel[indx1] <- paste0("# reported crimes: ","<b style = \"color:DodgerBlue\">", values(map.layer.c)[indx1], "</b>","<br/>")
-    # 
-    # # NA with cpoint = 1
-    # indx2 <- intersect(which(is.na(values(map.layer.c))),which(cpoints==1))
-    # crimel[indx2] <- paste0("# reported crimes: ","<b style = \"color:DodgerBlue\">", "0", "</b>","<br/>")
-    # 
-    # # not NA with cpoint != 1
-    # indx3 <- intersect(which(!is.na(values(map.layer.c))),which(cpoints!=1))
-    # crimel[indx3] <- paste0("# reported crimes: ","<b style = \"color:DodgerBlue\">", values(map.layer.c)[indx3], "</b>",
-    #                         " (", "<b style = \"color:Tomato\">", "Phil. only", "</b>", ")","<br/>")
-    # 
-    # # NA with cpoint != 1
-    # indx4 <- intersect(which(is.na(values(map.layer.c))),which(cpoints!=1))
-    # crimel[indx4] <- paste0("# reported crimes: ","<b style = \"color:Tomato\">", "no data", "</b>","<br/>")
-    
-    # # Poverty
-    # povl <- vector()
-    # povl[which(!is.na(values(map.layer.pov)))] <- paste0("Avg. ADI: ","<b style = \"color:DodgerBlue\">", round(values(map.layer.pov)[which(!is.na(values(map.layer.pov)))], digits = 2), "</b>","<br/>")
-    # povl[which(is.na(values(map.layer.pov)))] <- paste0("Avg. ADI: ","<b style = \"color:Tomato\">", "no data", "</b>", "<br/>")
-    
     # Traffic
     trafl <- vector()
     tpoints <- point.in.SpatialPolygons(
@@ -523,7 +494,7 @@ server <- shinyServer(function(input, output, session) {
     content_map <- leaflet(content.df) %>%
       setView(lng = lon.center, lat = lat.center, zoom = zoom.no) %>%
       addProviderTiles(providers$Esri.WorldTopoMap) %>%
-      addRasterImage(map.layer.pm2.5, colors = pal.pm2.5, opacity = 0.8, group = "Measurement value",method = "ngb") %>%
+      addRasterImage(map.layer.pm2.5, colors = pal.pm2.5, opacity = 0.6, group = "Measurement value",method = "ngb") %>%
       addLegend(pal = leg.pal.pm2.5, values = vals, opacity = 1,
                 title = toString(f.titles("PM2.5")), position = "topright",
                 group = "Measurement value",
@@ -554,7 +525,7 @@ server <- shinyServer(function(input, output, session) {
     pm25 <- leaflet(content.df) %>%
       setView(lng = lon.center, lat = lat.center, zoom = zoom.no) %>%
       addProviderTiles(providers$Esri.WorldTopoMap) %>%
-      addRasterImage(map.layer.pm2.5, colors = pal.pm2.5, opacity = 0.8, group = "Measurement value", method = "ngb") %>%
+      addRasterImage(map.layer.pm2.5, colors = pal.pm2.5, opacity = 0.6, group = "Measurement value", method = "ngb") %>%
       addLegend(pal = leg.pal.pm2.5, values = vals, opacity = 1,
                 title = toString(f.titles("PM2.5")), position = "topright",
                 #group = "Measurement value",
@@ -565,7 +536,7 @@ server <- shinyServer(function(input, output, session) {
     pm1 <- leaflet(content.df) %>%
       setView(lng = lon.center, lat = lat.center, zoom = zoom.no) %>%
       addProviderTiles(providers$Esri.WorldTopoMap) %>%
-      addRasterImage(map.layer.pm1, colors = pal.pm1, opacity = 0.8, group = "Measurement value", method = "ngb") %>%
+      addRasterImage(map.layer.pm1, colors = pal.pm1, opacity = 0.6, group = "Measurement value", method = "ngb") %>%
       addLegend(pal = leg.pal.pm1, values = vals1, opacity = 1,
                 title = toString(f.titles("PM1")), position = "topright",
                 #group = "Measurement value",
@@ -576,7 +547,7 @@ server <- shinyServer(function(input, output, session) {
     pm10 <- leaflet(content.df) %>%
       setView(lng = lon.center, lat = lat.center, zoom = zoom.no) %>%
       addProviderTiles(providers$Esri.WorldTopoMap) %>%
-      addRasterImage(map.layer.pm10, colors = pal.pm10, opacity = 0.8, group = "Measurement value", method = "ngb") %>%
+      addRasterImage(map.layer.pm10, colors = pal.pm10, opacity = 0.6, group = "Measurement value", method = "ngb") %>%
       addLegend(pal = leg.pal.pm10, values = vals10, opacity = 1,
                 title = toString(f.titles("PM10")), position = "topright",
                 #group = "Measurement value",
@@ -587,7 +558,7 @@ server <- shinyServer(function(input, output, session) {
     temp <- leaflet(content.df) %>%
       setView(lng = lon.center, lat = lat.center, zoom = zoom.no) %>%
       addProviderTiles(providers$Esri.WorldTopoMap) %>%
-      addRasterImage(map.layer.t, colors = pal.t, opacity = 0.8, group = "Measurement value", method = "ngb") %>%
+      addRasterImage(map.layer.t, colors = pal.t, opacity = 0.6, group = "Measurement value", method = "ngb") %>%
       addLegend(pal = leg.pal.t, values = valst, opacity = 1,
                 title = toString(f.titles("Temperature")), position = "topright",
                 #group = "Measurement value",
@@ -598,7 +569,7 @@ server <- shinyServer(function(input, output, session) {
     humid <- leaflet(content.df) %>%
       setView(lng = lon.center, lat = lat.center, zoom = zoom.no) %>%
       addProviderTiles(providers$Esri.WorldTopoMap) %>%
-      addRasterImage(map.layer.h, colors = pal.h, opacity = 0.8, group = "Measurement value", method = "ngb") %>%
+      addRasterImage(map.layer.h, colors = pal.h, opacity = 0.6, group = "Measurement value", method = "ngb") %>%
       addLegend(pal = leg.pal.h, values = valsh, opacity = 1,
                 title = toString(f.titles("Humidity")), position = "topright",
                 #group = "Measurement value",
@@ -609,7 +580,7 @@ server <- shinyServer(function(input, output, session) {
     # crime <- leaflet(content.df) %>%
     #   setView(lng = lon.center, lat = lat.center, zoom = zoom.no) %>%
     #   addProviderTiles(providers$Esri.WorldTopoMap) %>%
-    #   addRasterImage(map.layer.c, colors = pal.c, opacity = 0.8, group = "Measurement value", method = "ngb") %>%
+    #   addRasterImage(map.layer.c, colors = pal.c, opacity = 0.6, group = "Measurement value", method = "ngb") %>%
     #   addLegend(pal = leg.pal.c, values = valsc, opacity = 1,
     #             title = toString(f.titles("Crime")), position = "topright",
     #             #group = "Measurement value",
@@ -620,7 +591,7 @@ server <- shinyServer(function(input, output, session) {
     # pov <- leaflet(content.df) %>%
     #   setView(lng = lon.center, lat = lat.center, zoom = zoom.no) %>%
     #   addProviderTiles(providers$Esri.WorldTopoMap) %>%
-    #   addRasterImage(map.layer.pov, colors = pal.pov, opacity = 0.8, group = "Measurement value", method = "ngb") %>%
+    #   addRasterImage(map.layer.pov, colors = pal.pov, opacity = 0.6, group = "Measurement value", method = "ngb") %>%
     #   addLegend(pal = leg.pal.pov, values = valspov, opacity = 1,
     #             title = toString(f.titles("Poverty")), position = "topright",
     #             #group = "Measurement value",
@@ -631,7 +602,7 @@ server <- shinyServer(function(input, output, session) {
     tr <- leaflet(content.df) %>%
       setView(lng = lon.center, lat = lat.center, zoom = zoom.no) %>%
       addProviderTiles(providers$Esri.WorldTopoMap) %>%
-      addRasterImage(map.layer.tr, colors = pal.tr, opacity = 0.8, group = "Measurement value", method = "ngb") %>%
+      addRasterImage(map.layer.tr, colors = pal.tr, opacity = 0.6, group = "Measurement value", method = "ngb") %>%
       addLegend(pal = leg.pal.tr, values = valstr, opacity = 1,
                 title = toString(f.titles("Traffic")), position = "topright",
                 #group = "Measurement value",
@@ -659,7 +630,7 @@ server <- shinyServer(function(input, output, session) {
     epa.pm25 <- leaflet() %>%
       setView(lng = lon.center, lat = lat.center, zoom = zoom.no) %>%
       addProviderTiles(providers$Esri.WorldTopoMap) %>%
-      addRasterImage(epa.pm25.ras, colors = epa.pal.pm25, opacity = 0.8, method = "ngb") %>%
+      addRasterImage(epa.pm25.ras, colors = epa.pal.pm25, opacity = 0.6, method = "ngb") %>%
       addLegend(pal = epa.leg.pal.pm25, values = epa.vals.pm25, opacity = 1,
                 title = toString(f.titles.epa('PM2.5')), position = "topright",
                 labFormat = myLabelFormat()) %>%
@@ -687,7 +658,7 @@ server <- shinyServer(function(input, output, session) {
     epa.pm10 <- leaflet() %>%
       setView(lng = lon.center, lat = lat.center, zoom = zoom.no) %>%
       addProviderTiles(providers$Esri.WorldTopoMap) %>%
-      addRasterImage(epa.pm10.ras, colors = epa.pal.pm10, opacity = 0.8, method = "ngb") %>%
+      addRasterImage(epa.pm10.ras, colors = epa.pal.pm10, opacity = 0.6, method = "ngb") %>%
       addLegend(pal = epa.leg.pal.pm10, values = epa.vals.pm10, opacity = 1,
                 title = toString(f.titles.epa('PM10')), position = "topright",
                 labFormat = myLabelFormat()) %>%
@@ -715,7 +686,7 @@ server <- shinyServer(function(input, output, session) {
     epa.so2 <- leaflet() %>%
       setView(lng = lon.center, lat = lat.center, zoom = zoom.no) %>%
       addProviderTiles(providers$Esri.WorldTopoMap) %>%
-      addRasterImage(epa.so2.ras, colors = epa.pal.so2, opacity = 0.8, method = "ngb") %>%
+      addRasterImage(epa.so2.ras, colors = epa.pal.so2, opacity = 0.6, method = "ngb") %>%
       addLegend(pal = epa.leg.pal.so2, values = epa.vals.so2, opacity = 1,
                 title = toString(f.titles.epa('SO2')), position = "topright",
                 labFormat = myLabelFormat()) %>%
@@ -743,7 +714,7 @@ server <- shinyServer(function(input, output, session) {
     epa.o3 <- leaflet() %>%
       setView(lng = lon.center, lat = lat.center, zoom = zoom.no) %>%
       addProviderTiles(providers$Esri.WorldTopoMap) %>%
-      addRasterImage(epa.o3.ras, colors = epa.pal.o3, opacity = 0.8, method = "ngb") %>%
+      addRasterImage(epa.o3.ras, colors = epa.pal.o3, opacity = 0.6, method = "ngb") %>%
       addLegend(pal = epa.leg.pal.o3, values = epa.vals.o3, opacity = 1,
                 title = toString(f.titles.epa('O3')), position = "topright",
                 labFormat = myLabelFormat()) %>%
@@ -771,7 +742,7 @@ server <- shinyServer(function(input, output, session) {
     epa.no2 <- leaflet() %>%
       setView(lng = lon.center, lat = lat.center, zoom = zoom.no) %>%
       addProviderTiles(providers$Esri.WorldTopoMap) %>%
-      addRasterImage(epa.no2.ras, colors = epa.pal.no2, opacity = 0.8, method = "ngb") %>%
+      addRasterImage(epa.no2.ras, colors = epa.pal.no2, opacity = 0.6, method = "ngb") %>%
       addLegend(pal = epa.leg.pal.no2, values = epa.vals.no2, opacity = 1,
                 title = toString(f.titles.epa('NO2')), position = "topright",
                 labFormat = myLabelFormat()) %>%
@@ -799,7 +770,7 @@ server <- shinyServer(function(input, output, session) {
     epa.co <- leaflet() %>%
       setView(lng = lon.center, lat = lat.center, zoom = zoom.no) %>%
       addProviderTiles(providers$Esri.WorldTopoMap) %>%
-      addRasterImage(epa.co.ras, colors = epa.pal.co, opacity = 0.8, method = "ngb") %>%
+      addRasterImage(epa.co.ras, colors = epa.pal.co, opacity = 0.6, method = "ngb") %>%
       addLegend(pal = epa.leg.pal.co, values = epa.vals.co, opacity = 1,
                 title = toString(f.titles.epa('CO')), position = "topright",
                 labFormat = myLabelFormat()) %>%
@@ -896,7 +867,7 @@ server <- shinyServer(function(input, output, session) {
         map %>%
           clearImages() %>%
           removeMarker("null1") %>%
-          addRasterImage(map.layer, colors = pal, opacity = 0.8, method = "ngb") %>%
+          addRasterImage(map.layer, colors = pal, opacity = 0.6, method = "ngb") %>%
           addLegend(pal = leg.pal, values = vals, opacity = 1,
                     title = legend.title, position = "topright",
                     labFormat = labelFormat(transform = function(x) sort(x, decreasing = TRUE))) #%>%
@@ -942,7 +913,7 @@ server <- shinyServer(function(input, output, session) {
     #       map %>%
     #         clearImages() %>%
     #         removeMarker("null1") %>%
-    #         addRasterImage(map.layer, colors = pal, opacity = 0.8, method = "ngb") %>%
+    #         addRasterImage(map.layer, colors = pal, opacity = 0.6, method = "ngb") %>%
     #         addLegend(pal = leg.pal, values = vals, opacity = 1,
     #                   title = legend.title, position = "topright",
     #                   labFormat = labelFormat(transform = function(x) sort(x, decreasing = TRUE))) %>%
