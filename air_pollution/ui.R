@@ -26,7 +26,7 @@ shinyUI(fluidPage(
                "which established National Ambient Air Quality Standards (NAAQS) for six",
                a("criteria pollutants.", href="https://www3.epa.gov/airquality/cleanair.html"),
                "Reference monitors placed across the United States monitor compliance to air quality legislation.
-               The second and third tabs of this app show trends of PM2.5 and CO at eight locations in the United States."),
+               The second and third tabs of this app show trends of PM2.5 and CO at eight locations in the United States. To explore pollution trends across the country, please click the map below to access the Pollution-Associated Risk Geospatial Analysis SITE (PARGASITE) application."),
              div(style="display: inline-block;", tags$a(imageOutput("epa_monitor",height="280px",inline = T), href="http://pargasite.org/",target="_blank")),
              #div(style="display: inline-block;", tags$a(img(src="http://public.himeslab.org/k12_images/EPA_Monitors.png",height="280px",alt="EPA Monitors"), href="http://pargasite.org/",target="_blank")),
              
@@ -49,6 +49,9 @@ shinyUI(fluidPage(
 
     tabPanel("EPA Measures Map", br(),
              h3(p("PM2.5 measures in eight U.S. cities")),
+             p("Fine particulate matter (PM2.5) is an air pollutant that has an effect on human health at elevated levels. High levels of PM2.5 caused around 4.2 million premature deaths globally in 2015.
+               Thus, it is important to enforce PM2.5 ambient air quality standards to reduce the burden of disease and mortality. Optimum level of PM2.5 should be below 12 ug/m3, levels between 
+               35-200 ug/m3 are progessively unhealthy, and 250+ ug/m3 are hazardous."),br(),
              p("Select from among the cities of Philadelphia, New York, Los Angeles, Miami, Pierre, Billings, Standing Rock and Portland to see average PM2.5 data for September 2017. 
                More EPA data can be visualized with", a(href="http://pargasite.org/","pargasite.", target="_blank")),
              sidebarLayout(position="right",
@@ -95,6 +98,7 @@ shinyUI(fluidPage(
       br()),
     tabPanel("K12 Map",br(),
              mainPanel(
+               p("The map below displays the geospatial distribution of available sensor data gathered by high school teachers and students using portable low-cost pollution sensors."),
                leafletOutput("mymap", height = 700)),
              sidebarPanel(
                selectInput("type","Select Variable:", choices = c("PM2.5","CO") , selected = "PM2.5"),
@@ -103,7 +107,7 @@ shinyUI(fluidPage(
                uiOutput("Name"),
                downloadButton(outputId="selected_data_download", label="Download selected data"),br())),
     tabPanel("K12 Summary Plots",br(),
-             h3(p("Overall characterisitics of Crowdsourced Pollution Data")),
+             h3(p("Overall characterisitics of K-12 Crowdsourced Pollution Data")),
              h4(p("Univariate Plots - PM2.5")), 
              div(style="display: inline-block;",plotOutput("distBoxplot",height="300px",width = "300px")),
              div(style="display: inline-block;",plotOutput("disHist",height="300px",width = "500px")),br(),br(),hr(),
