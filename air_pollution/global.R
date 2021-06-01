@@ -267,7 +267,7 @@ mins <- as_datetime(hm('0:00')): as_datetime(hm('23:59')) %>%
 #Use UTC for online and New York for local
 
 sensor.measures <- c("Temperature", "Humidity", "PM1", "PM2.5", "PM10")
-other.measures <- c("Traffic") #"Crime", "Area Deprivation Index", 
+other.measures <- c("Traffic","CO") #"Crime", "Area Deprivation Index", 
 all.measures <- c(sensor.measures, other.measures)
 
 #Subscript version of measurements
@@ -278,10 +278,12 @@ all.measures.sub <- c(sensor.measures.sub, other.measures)
 titles.list <- c("Avg. Temp. (\u00B0C)", "Avg. Humidity (%)", 
                  "Avg. PM\u2081 Conc. (\u03BCg/m\u00B3)", 
                  "Avg. PM\u2082.\u2085 Conc. (\u03BCg/m\u00B3)", 
-                 "Avg. PM\u2081\u2080 Conc. (\u03BCg/m\u00B3)", "Avg. AADT")
+                 "Avg. PM\u2081\u2080 Conc. (\u03BCg/m\u00B3)", 
+                 "Avg. AADT",
+                 "Avg CO Conc. (ppm)")
                 # "# of Reported Crimes", "Avg. ADI", 
 
-suffix.list <- c(".t", ".h", ".pm1", ".pm2.5", ".pm10", ".tr") #".c", ".pov",
+suffix.list <- c(".t", ".h", ".pm1", ".pm2.5", ".pm10",".tr",".co") #".c", ".pov",
 
 titles.df <- data.frame(cbind(all.measures, titles.list, suffix.list))
 
@@ -351,8 +353,9 @@ our.sensors <- paste0("AirBeam:", our.sensors)
 
 sensor.names <- levels(app.data$Sensor.ID)
 
-county.borders <- shapefile("sapphirine_data/gpa_counties/gpa_counties.shp") %>%
+gpa.borders <- shapefile("sapphirine_data/gpa_counties/gpa_counties.shp") %>%
   spTransform(CRSobj = "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0")
+county.borders <- gpa.borders[gpa.borders$NAME == "Philadelphia",]
 
 city.border <- county.borders[county.borders$NAME == 'Philadelphia',]
 

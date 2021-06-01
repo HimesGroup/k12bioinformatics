@@ -1,4 +1,11 @@
 
+library(shiny)
+library(plyr)
+library(dplyr)
+library(RColorBrewer)
+library(ggplot2)
+library(shinyjs) 
+
 #########################
 ## Read in data files ##
 ########################

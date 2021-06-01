@@ -1,8 +1,3 @@
-library(shiny)
-library(plyr)
-library(dplyr)
-library(RColorBrewer)
-library(ggplot2)
 source("data_vis_global.R")
 
 # Define server logic required to draw a histogram
@@ -14,23 +9,45 @@ shinyServer(function(input, output){
     content=function(file){
       write.csv(iris_data, file, row.names = FALSE, quote = FALSE)})
   
-  #Chose dataset
-  data_load <- reactive({
-    if(!is.null(input$file1)){
-      df <- read.csv(input$file1$datapath, header = TRUE, sep = ",", na.strings=c("","NA"))
-    } else if (input$iris){
-      df <- iris_data
-    } else {NULL}
+  #Set data variable
+  data_load <- reactiveVal()
+  
+  #Reset
+  observeEvent(input$reset, {
+    reset('file1')
+    data_load(NULL)
   })
+  
+  #Iris data
+  observeEvent(input$iris, {
+    data_load(iris_data)
+  })
+  
+  #Data upload
+  observeEvent(input$file1, {
+    df <- read.csv(input$file1$datapath, header = TRUE, sep = ",", na.strings=c("","NA"))
+    data_load(df)
+  })
+  
+  #Chose dataset
+  # data_load <- reactive({
+  #   if(!is.null(input$file1)){
+  #     df <- read.csv(input$file1$datapath, header = TRUE, sep = ",", na.strings=c("","NA"))
+  #   } else if (input$iris){
+  #     df <- iris_data
+  #   } else {NULL}
+  # })
   
   ##Read in uploaded dataset
   contents <- reactive({if(!is.null(data_load())){
     df <- data_load()
     i <- sapply(df, is.character)
     df[i] <- lapply(df[i], as.factor)
-    na.omit(df)}
-    })
+    df
+    #na.omit(df)
+    }})
   output$contents <- renderDataTable({contents()}, options = list(pageLength=10, searching=FALSE))
+
   
   #Get discrete variables from uploaded dataset
   disc_var <- reactive({
