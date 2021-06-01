@@ -38,7 +38,7 @@ shinyUI(fluidPage(
              p("To analyse your own data, upload a csv file of your choice."),
              # Input: Select a file ----
              column(12,
-             fluidRow(useShinyjs(),
+             fluidRow(#useShinyjs(),
              fileInput("file1", "Upload CSV File:", multiple=F, accept=c("text/csv","text/comma-separated-values,text/plain",".csv")),
              actionButton('reset', 'Reset')),
              br(),
