@@ -27,6 +27,7 @@ shinyUI(fluidPage(
              p(h5("Iris Dataset")),
              p("In the absence of a user-provided file, an example csv file of the 'iris' R dataset can be downloaded from below. Iris is a famous dataset used commonly for pattern recognition analysis.
                The data set contains 3 classes of 50 instances each, where each class refers to a type of iris plant. The other attributes include length and width of sepal and petal."),
+             div(style="display: inline-block;", img(src="iris_dataset.png", height= "250px",inline = T)), br(),br(),
              column(12, downloadButton(outputId="iris_data_download", label="Download iris dataset file"), align="left"), 
              br(),br(),hr(),
              p(h4("Load data")),
@@ -37,7 +38,9 @@ shinyUI(fluidPage(
              p("To analyse your own data, upload a csv file of your choice."),
              # Input: Select a file ----
              column(12,
-             fluidRow(fileInput("file1", "Upload CSV File:", multiple=TRUE, accept=c("text/csv","text/comma-separated-values,text/plain",".csv"))),
+             fluidRow(useShinyjs(),
+             fileInput("file1", "Upload CSV File:", multiple=F, accept=c("text/csv","text/comma-separated-values,text/plain",".csv")),
+             actionButton('reset', 'Reset')),
              br(),
              dataTableOutput("contents")),
              br(),hr()),

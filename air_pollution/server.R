@@ -244,8 +244,17 @@ server <- shinyServer(function(input, output, session) {
   map.plot <- eventReactive(input$go, {
     
     #Creates base layer for raster layer to be added to map later
-    r <- raster(nrows = 64, ncols = 60, xmn = input$lon.range[1], 
-                xmx = input$lon.range[2], ymn = input$lat.range[1], ymx = input$lat.range[2])
+    # r <- raster(nrows = 64, ncols = 60, xmn = input$lon.range[1], 
+    #             xmx = input$lon.range[2], ymn = input$lat.range[1], ymx = input$lat.range[2])
+    
+    #Creates base layer for raster layer to be added to map later
+    r.shape <- extent(input$lon.range[1], input$lon.range[2], 
+                      input$lat.range[1], input$lat.range[2]) %>% as('SpatialPolygons')
+    crs(r.shape) <- CRS("+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0")
+    
+    r <- raster(nrows = 64, ncols = 60, xmn = xmin(r.shape), 
+                xmx = xmax(r.shape), ymn = ymin(r.shape), ymx = ymax(r.shape))
+    crs(r) <- CRS("+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0")
     
     lons <- xFromCell(r, 1:ncell(r))
     lats <- yFromCell(r, 1:ncell(r))
@@ -300,7 +309,7 @@ server <- shinyServer(function(input, output, session) {
     }
     
     # Value and density sensor rasters
-    for(i in 1:length(sensor.measures)){
+    for(i in 1:length(sensor.measures[1:6])){
       suffix <- f.suffix(sensor.measures[i])
       measure.data <- dplyr::filter(sensor.data, !is.na(eval(parse(text = sensor.measures[i]))))
       if(nrow(measure.data) > 0){
@@ -320,6 +329,18 @@ server <- shinyServer(function(input, output, session) {
       assign(paste0("map.layer", suffix, ".d"), density.raster, envir = .GlobalEnv)
       assign(paste0("map.layer", suffix, ".dlog"), 
              calc(density.raster, fun = function(x){log10(x)}), envir = .GlobalEnv)
+    }
+    
+    # CO raster
+    epa.dates <- input$dates[1]:input$dates[2]
+    epa.layer.co <- getEPAraster('CO', epa.dates) #Also returns epa.df for downloading data
+    epa.layer.co[epa.layer.co == -1] <- NA #Non-values are given as -1 by raster function
+    #epa.layer.co <- crop(epa.layer.co, extent(r.shape))
+    assign("map.layer.co", 
+           try(crop(epa.layer.co, extent(county.borders))%>% mask(county.borders), silent = TRUE),
+           envir = .GlobalEnv)
+    if(length(map.layer.co) == 1){
+      assign("map.layer.co", rasterize(data.frame(NA, NA), r, na.rm = TRUE), envir = .GlobalEnv)
     }
     
     ## Content format  -------------
@@ -364,6 +385,11 @@ server <- shinyServer(function(input, output, session) {
     pm10l[which(!is.na(values(map.layer.pm10)))] <- paste0("Avg. PM<sub>10</sub>: ","<b style = \"color:DodgerBlue\">", round(values(map.layer.pm10)[which(!is.na(values(map.layer.pm10)))], digits = 2)," \u03BCg/m\u00B3", "</b>"," (", values(map.layer.pm10.d)[which(!is.na(values(map.layer.pm10)))], ")","<br/>")
     pm10l[which(is.na(values(map.layer.pm10)))] <- paste0("Avg. PM<sub>10</sub>: ","<b style = \"color:Tomato\">", "no data", "</b>", " (0)", "<br/>")
     
+    #CO
+    col <- vector()
+    col[which(!is.na(values(map.layer.co)))] <- paste0("Avg. CO: ","<b style = \"color:DodgerBlue\">", round(values(map.layer.co)[which(!is.na(values(map.layer.co)))], digits = 1)," ppm ", "</b>"," (", ncell(map.layer.co), ")","<br/>")
+    col[which(is.na(values(map.layer.co)))] <- paste0("Avg. CO: ","<b style = \"color:Tomato\">", "no data", "</b>", " (0)", "<br/>")
+    
     # Traffic
     trafl <- vector()
     tpoints <- point.in.SpatialPolygons(
@@ -372,22 +398,22 @@ server <- shinyServer(function(input, output, session) {
       city.border)
     
     # NA
-    trafl[which(is.na(values(map.layer.tr)))] <- paste0("Avg. AADT: ","<b style = \"color:Tomato\">", "no data", "</b>","<br/>","</b>")
+    trafl[which(is.na(values(map.layer.tr)))] <- paste0("Avg. Traffic: ","<b style = \"color:Tomato\">", "no data", "</b>","<br/>","</b>")
     
     # tpoint = 1 and not NA
     indt1 <- intersect(which(!is.na(values(map.layer.tr))),which(tpoints==1))
-    trafl[indt1] <- paste0("Avg. AADT: ","<b style = \"color:DodgerBlue\">", round(values(map.layer.tr)[indt1], digits = 0), "</b>","<br/>","</b>")
+    trafl[indt1] <- paste0("Avg. Traffic: ","<b style = \"color:DodgerBlue\">", round(values(map.layer.tr)[indt1], digits = 0), " AADT ", "</b>","<br/>","</b>")
     
     # tpoint != 1 and not NA
     indt2 <- intersect(which(!is.na(values(map.layer.tr))),which(tpoints!=1))
-    trafl[indt2] <- paste0("Avg. AADT: ","<b style = \"color:DodgerBlue\">", round(values(map.layer.tr)[indt2], digits = 0), "</b>",
+    trafl[indt2] <- paste0("Avg. Traffic: ","<b style = \"color:DodgerBlue\">", round(values(map.layer.tr)[indt2], digits = 0), " AADT ", "</b>",
                            " (", "<b style = \"color:Tomato\">", "Phil. only", "</b>", ")","<br/>","</b>")
     
     ## Final content vector -------------
-    content <- paste0(lat_lon,gmaps,templ,humidl,pm1l,pm2.5l,pm10l,trafl) #crimel,povl,
+    content <- paste0(lat_lon,gmaps,templ,humidl,pm1l,pm2.5l,pm10l,col,trafl) #crimel,povl,
     
     #Remove big objects -------------
-    rm(lat_lon,gmaps,templ,humidl,pm1l,pm2.5l,pm10l,trafl)#crimel,povl,
+    rm(lat_lon,gmaps,templ,humidl,pm1l,pm2.5l,pm10l,col,trafl)#crimel,povl,
     
     #Indicies for removing popups with all NA
     inds.df <- cbind(values(map.layer.t),
@@ -397,6 +423,7 @@ server <- shinyServer(function(input, output, session) {
                      values(map.layer.pm10),
                      #values(map.layer.c),
                      #values(map.layer.pov),
+                     values(map.layer.co),
                      values(map.layer.tr)
     )
     
@@ -443,7 +470,7 @@ server <- shinyServer(function(input, output, session) {
       }
     }
     
-    for(i in 1:length(sensor.measures)){
+    for(i in 1:length(sensor.measures[1:6])){
       suffix <- f.suffix(sensor.measures[i])
       vals <- values(eval(parse(text = paste0("map.layer", suffix, ".dlog"))))
       if(!all(is.na(vals))){
@@ -608,6 +635,17 @@ server <- shinyServer(function(input, output, session) {
                 #group = "Measurement value",
                 labFormat = labelFormat(transform = function(x) sort(x, decreasing = TRUE)))
     
+    #Make CO raster
+    valsco <- values(map.layer.co)
+    co <- leaflet(content.df) %>%
+      setView(lng = lon.center, lat = lat.center, zoom = zoom.no) %>%
+      addProviderTiles(providers$Esri.WorldTopoMap) %>%
+      addRasterImage(map.layer.co, colors = pal.co, opacity = 0.6, group = "Measurement value", method = "ngb") %>%
+      addLegend(pal = leg.pal.co, values = valsco, opacity = 1,
+                title = toString(f.titles("CO")), position = "topright",
+                #group = "Measurement value",
+                labFormat = labelFormat(transform = function(x) sort(x, decreasing = TRUE)))
+    
     #####Make EPA maps
     epa.dates <- input$dates[1]:input$dates[2]
     
@@ -752,36 +790,44 @@ server <- shinyServer(function(input, output, session) {
       ))
     
     ##CO
-    epa.co.ras <- getEPAraster('CO', epa.dates) #Also returns epa.df for downloading data
-    epa.co.ras[epa.co.ras == -1] <- NA #Non-values are given as -1 by raster function
-    epa.co.ras <- crop(epa.co.ras, extent(county.borders)) %>% mask(county.borders)
-    epa.vals.co <- values(epa.co.ras)
+    # epa.co.ras <- getEPAraster('CO', epa.dates) #Also returns epa.df for downloading data
+    # epa.co.ras[epa.co.ras == -1] <- NA #Non-values are given as -1 by raster function
+    # epa.co.ras <- crop(epa.co.ras, extent(county.borders)) %>% mask(county.borders)
+    # epa.vals.co <- values(epa.co.ras)
+    # 
+    # epa.pal.co <- colorNumeric(palette = brewer.pal(7, "YlOrRd"),
+    #                            domain = epa.vals.co,
+    #                            na.color = "transparent"
+    # )
+    # epa.leg.pal.co <- colorNumeric(palette = brewer.pal(7, "YlOrRd"),
+    #                                domain = epa.vals.co,
+    #                                na.color = "transparent",
+    #                                reverse = TRUE
+    # )
+    # 
+    # epa.co <- leaflet() %>%
+    #   setView(lng = lon.center, lat = lat.center, zoom = zoom.no) %>%
+    #   addProviderTiles(providers$Esri.WorldTopoMap) %>%
+    #   addRasterImage(epa.co.ras, colors = epa.pal.co, opacity = 0.6, method = "ngb") %>%
+    #   addLegend(pal = epa.leg.pal.co, values = epa.vals.co, opacity = 1,
+    #             title = toString(f.titles.epa('CO')), position = "topright",
+    #             labFormat = myLabelFormat()) %>%
+    #   addEasyButton(easyButton(
+    #     icon = "fa-crosshairs", title = "Recenter",
+    #     onClick = JS(paste(button.js))
+    #   ))
+    # 
+    ##Assign
+    ##
+    # assign("map.layer.co", epa.co.ras)
+    # assign("pal.co", epa.pal.co)
+    # assign("leg.pal.co", epa.leg.pal.co)
     
-    epa.pal.co <- colorNumeric(palette = brewer.pal(7, "YlOrRd"),
-                               domain = epa.vals.co,
-                               na.color = "transparent"
-    )
-    epa.leg.pal.co <- colorNumeric(palette = brewer.pal(7, "YlOrRd"),
-                                   domain = epa.vals.co,
-                                   na.color = "transparent",
-                                   reverse = TRUE
-    )
-    
-    epa.co <- leaflet() %>%
-      setView(lng = lon.center, lat = lat.center, zoom = zoom.no) %>%
-      addProviderTiles(providers$Esri.WorldTopoMap) %>%
-      addRasterImage(epa.co.ras, colors = epa.pal.co, opacity = 0.6, method = "ngb") %>%
-      addLegend(pal = epa.leg.pal.co, values = epa.vals.co, opacity = 1,
-                title = toString(f.titles.epa('CO')), position = "topright",
-                labFormat = myLabelFormat()) %>%
-      addEasyButton(easyButton(
-        icon = "fa-crosshairs", title = "Recenter",
-        onClick = JS(paste(button.js))
-      ))
+    ##
     
     #make list of all maps #crime=crime, pov=pov,
-    maps <- list(main = content_map, pm25=pm25, pm1=pm1, pm10=pm10,temp=temp,humid=humid,tr=tr,epa.pm25 = epa.pm25,
-                 epa.pm10 = epa.pm10, epa.so2 = epa.so2,epa.no2 = epa.no2,epa.o3 = epa.o3, epa.co = epa.co)
+    maps <- list(main = content_map, pm25=pm25, pm1=pm1, pm10=pm10,temp=temp,humid=humid,tr=tr,co=co)
+    #epa.pm25 = epa.pm25,epa.pm10 = epa.pm10, epa.so2 = epa.so2,epa.no2 = epa.no2,epa.o3 = epa.o3, epa.co = epa.co
     maps
     
   }) #End eventReactive
@@ -974,11 +1020,21 @@ server <- shinyServer(function(input, output, session) {
     # }
     
     ##Save raster data for downloading
-    download.ras.df <- unique(na.omit(brick(map.layer) %>% rasterToPoints()))
+    #Save selections
+    date.range <- reactive({paste0(input$dates[1]," to ",input$dates[2])})
+    lon.range <- reactive({paste0(input$lon.range[1]," to ",input$lon.range[2])})
+    lat.range <- reactive({paste0(input$lat.range[1]," to ",input$lat.range[2])})
     
-    colnames(download.ras.df)[1:ncol(download.ras.df)] <- c("Longitude","Latitude",meas.text)
+    download.ras.df <- as.data.frame(unique(na.omit(brick(map.layer) %>% rasterToPoints())))
     
-    assign('download.ras.df', as_tibble(download.ras.df[,c(2,1,3)]), envir = .GlobalEnv)
+    colnames(download.ras.df) <- c("Longitude","Latitude",meas.text) #[1:ncol(download.ras.df)]
+    download.ras.df$Date_Range <- toString(date.range())
+    download.ras.df$Latitude_Range <- toString(lat.range())
+    download.ras.df$Longitude_Range <- toString(lon.range())
+    
+    # date.range.text <- date.range()
+    
+    assign('download.ras.df', as_tibble(download.ras.df[,c(2,1,3,4,5,6)]), envir = .GlobalEnv)
     
     #Download raster button
     output$downloadData <- downloadHandler(
