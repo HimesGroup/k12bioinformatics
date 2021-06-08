@@ -267,7 +267,7 @@ mins <- as_datetime(hm('0:00')): as_datetime(hm('23:59')) %>%
 #Use UTC for online and New York for local
 
 sensor.measures <- c("Temperature", "Humidity", "PM1", "PM2.5", "PM10")
-other.measures <- c("Traffic","CO") #"Crime", "Area Deprivation Index", 
+other.measures <- c("Traffic","CO (EPA)") #"Crime", "Area Deprivation Index", 
 all.measures <- c(sensor.measures, other.measures)
 
 #Subscript version of measurements

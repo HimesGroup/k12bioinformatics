@@ -207,12 +207,12 @@ shinyUI(fluidPage(
                                                         # "Crime" = "crime",
                                                         # "Area Deprivation Index" = 'pov',
                                                         "Traffic" = 'tr',
-                                                        "CO" = 'co'
-                                                        # "Int. EPA PM\u2082.\u2085 plot" = 'epa.pm25',
-                                                        # "Int. EPA PM\u2081\u2080 plot" = 'epa.pm10',
-                                                        # "Int. EPA SO\u2080\u2082 plot" = 'epa.so2',
-                                                        # "Int. EPA NO\u2080\u2082 plot" = 'epa.no2',
-                                                        # "Int. EPA O\u2083 plot" = 'epa.o3',
+                                                        "EPA CO" = 'co',
+                                                        "EPA PM\u2082.\u2085 plot" = 'epa.pm25',
+                                                        "EPA PM\u2081\u2080 plot" = 'epa.pm10',
+                                                        "EPA SO\u2080\u2082 plot" = 'epa.so2',
+                                                        "EPA NO\u2080\u2082 plot" = 'epa.no2',
+                                                        "EPA O\u2083 plot" = 'epa.o3'
                                                         # "Int. EPA CO plot" = 'epa.co'
                                                       ),
                                                       multiple = TRUE,
