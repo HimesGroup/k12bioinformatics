@@ -28,9 +28,9 @@ server <- shinyServer(function(input, output, session) {
      all_dates <- as.character(seq(as.Date(input$dates[1]), as.Date(input$dates[2]), by="days"))
      #check for group_status
      if (isFALSE(group_status)){
-       x <- tf %>% dplyr::filter(Date %in% all_dates, Name %in% input$name, Variables == input$type)
+       x <- tf %>% dplyr::filter(Date %in% all_dates, Variables == input$type, Site_Type %in% input$site) #Name %in% input$name, 
      } else if (isTRUE(group_status)){
-       x <- tf %>% dplyr::filter(Date %in% all_dates, Name %in% input$name, Variables == input$type, Group %in% input$group)
+       x <- tf %>% dplyr::filter(Date %in% all_dates, Variables == input$type, Group %in% input$group, Site_Type %in% input$site) #Name %in% input$name, 
      }
    })
    
@@ -140,6 +140,12 @@ server <- shinyServer(function(input, output, session) {
       output$Group <- renderUI({pickerInput("group","Select School:", choices=unique(as.character(all_crowdsourced_data$Group)), multiple=TRUE, selected="J R Masterman")})
     }})
   
+  #Select Site Type
+  output$Site <- renderUI({
+    pickerInput("site","Select Site Type:",choices = unique(as.character(all_crowdsourced_data$`Site_Type (Indoor, Outdoor)`)), multiple=T, selected="Indoor")
+  })
+
+
   #Name UI - select names to display accroding to group selected
   names_by_group <- reactive({
     if(isTRUE(group_status)){
@@ -152,8 +158,6 @@ server <- shinyServer(function(input, output, session) {
   output$Name <- renderUI({
     selectInput("name","Select Name:", choices=names_by_group(), multiple=TRUE, selected=unique(all_crowdsourced_data$Name))
   })
-  
-  
   
   ####################
   ## DATA DOWNLOAD ##
