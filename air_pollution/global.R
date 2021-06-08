@@ -361,6 +361,9 @@ city.border <- county.borders[county.borders$NAME == 'Philadelphia',]
 
 traffic.raster <- raster("sapphirine_data/traffic/traffic_raster.grd")
 
+zipcodes <- shapefile('sapphirine_data/zipcodes/gpa_zips.shp') %>%
+  spTransform(CRSobj = "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0")
+
 #Read in EPA data frames
 EPA_data <- read_feather('sapphirine_data/EPA_data.feather')
 

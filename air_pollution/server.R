@@ -1025,25 +1025,49 @@ server <- shinyServer(function(input, output, session) {
     lon.range <- reactive({paste0(input$lon.range[1]," to ",input$lon.range[2])})
     lat.range <- reactive({paste0(input$lat.range[1]," to ",input$lat.range[2])})
     
-    download.ras.df <- as.data.frame(unique(na.omit(brick(map.layer) %>% rasterToPoints())))
+    #download.ras.df <- as.data.frame(unique(na.omit(brick(map.layer) %>% rasterToPoints())))
+    #colnames(download.ras.df) <- c("Longitude","Latitude",meas.text) #[1:ncol(download.ras.df)]
     
-    colnames(download.ras.df) <- c("Longitude","Latitude",meas.text) #[1:ncol(download.ras.df)]
+    #Download sensor data
+    download.ras.df <- as.data.frame(unique(na.omit(brick(map.layer.pm2.5, map.layer.pm1, map.layer.pm10,
+                             map.layer.t, map.layer.h, map.layer.tr) %>% rasterToPoints())))
+    colnames(download.ras.df) <- c('Longitude','Latitude', 'PM2.5', 'PM1', 'PM10', 'Temperature','Humidity', 'Traffic')
     download.ras.df$Date_Range <- toString(date.range())
     download.ras.df$Latitude_Range <- toString(lat.range())
     download.ras.df$Longitude_Range <- toString(lon.range())
     
+    #Download EPA CO data
+    co.ras.df <- as.data.frame(unique(na.omit(brick(map.layer.co) %>% rasterToPoints())))
+    colnames(co.ras.df) <- c("Longitude","Latitude","CO")
+    co.ras.df$Date_Range <- toString(date.range())
+    co.ras.df$Latitude_Range <- toString(lat.range())
+    co.ras.df$Longitude_Range <- toString(lon.range())
+    
+    #download.ras.df <- merge(ras.df, co.ras.df, by = c("Longitude","Latitude"), all=T)
+    
     # date.range.text <- date.range()
     
-    assign('download.ras.df', as_tibble(download.ras.df[,c(2,1,3,4,5,6)]), envir = .GlobalEnv)
+    assign('download.ras', as_tibble(download.ras.df[,c(2,1,3,4,5,6,7,8)]), envir = .GlobalEnv)
+    assign('co.ras', as_tibble(co.ras.df[,c(2,1,3)]), envir = .GlobalEnv)
     
-    #Download raster button
+    #Download sensor data raster button
     output$downloadData <- downloadHandler(
       filename = function() {
-        paste0(strftime(Sys.time(), format = '%Y%m%d%H%M%S'), "-",meas.text,"-RasterData.csv")
+        paste0(strftime(Sys.time(), format = '%Y%m%d%H%M%S'), "-sensor-RasterData.csv") #"-",meas.text,
       },
       content = function(file) {
         withProgress(message = 'Preparing download...', 
-                     write.csv(download.ras.df, file, row.names = FALSE)
+                     write.csv(download.ras, file, row.names = FALSE)
+        )})
+    
+    #Download EPA data raster button
+    output$downloadEPAData <- downloadHandler(
+      filename = function() {
+        paste0(strftime(Sys.time(), format = '%Y%m%d%H%M%S'), "-EPA-RasterData.csv") #"-",meas.text,
+      },
+      content = function(file) {
+        withProgress(message = 'Preparing download...', 
+                     write.csv(co.ras, file, row.names = FALSE)
         )})
     
   }) #End observeEvent for switching between variables in map
@@ -1051,7 +1075,14 @@ server <- shinyServer(function(input, output, session) {
   #show download on Go
   observeEvent(input$go, {
     output$download.ras <- renderUI({
-      downloadButton("downloadData","Download Data",class = "btn-primary")
+      downloadButton("downloadData","Download Sensor Data",class = "btn-primary")
+    })
+  })
+  
+  #show EPA download on Go
+  observeEvent(input$go, {
+    output$co.ras <- renderUI({
+      downloadButton("downloadEPAData","Download EPA Data",class = "btn-primary")
     })
   })
   
