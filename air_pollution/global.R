@@ -34,7 +34,10 @@ library(ggiraph)
 ##Get groups with corresponding URLs
 #URL <- "https://docs.google.com/spreadsheets/d/1V5J_TuhfZTFBfPcg1JMavzFrbB2vavd3JMNX1f1oAQw/edit#gid=420394624"
 #URL <- "https://docs.google.com/spreadsheets/d/13-F4sAcX5Ph-IKp0W8uTRfT1RmUeEGbwtK7PMVUylws/edit#gid=0"
-gsheet_links <- read.csv("databases/gsheet_links_final.csv", as.is=TRUE) 
+gsheet_links <- read.csv("databases/gsheet_links_final.csv", as.is=TRUE)
+
+#gsheet_links <- read.csv("databases/gsheet_links_final_JS.csv", as.is=TRUE)[1:9,]
+#gsheet_links <- gsheet_links %>% dplyr::filter(!Group%in%c("J R Masterman 2020-2021","Maritime Academy Charter HS 2020-2021","Dock Mennonite Academy Offline 2020-2021"))
 message = NULL
 group_status = FALSE
 
@@ -44,6 +47,7 @@ get_gsheet_data <- function(link) {
   #Case: there is a problem with the google doc url or the column names 
   if(url.exists(link)){
     df <- gsheet2tbl(link)
+    #df <- df[,colSums(is.na(df))<nrow(df)]
     if(length(setdiff(c("Timestamp","Name","PM2.5","CO","Location (1,2,3,4)","Comments","Site_Type (Indoor, Outdoor)","Data_Collection_Time", "Location (Latitude, Longitude)"), names(df)))!= 0){
       curr_message = paste("Warning: the google sheet did not load properly so it will be skipped:", link)
     } 
@@ -63,6 +67,8 @@ for (i in c(1:dim(gsheet_links)[[1]])) {
     curr_data <- dplyr::mutate(curr_data, Group = gsheet_links[i, "Group"]) 
     curr_data <- curr_data[, -grep("Class", colnames(curr_data))]
     #curr_data$PM2.5 <- as.numeric(curr_data$PM2.5)
+    
+    #Set Name column
     curr_data$Name <- as.character(curr_data$Name)
     
     #Correct colnames format
@@ -72,6 +78,14 @@ for (i in c(1:dim(gsheet_links)[[1]])) {
     colnames(curr_data)[grepl("Group", names(curr_data))] <- "Group"
     colnames(curr_data)[grepl("Data Collection Time", names(curr_data))] <- "Data_Collection_Time"
     colnames(curr_data)[grepl("Raw Data", names(curr_data))] <- "Raw_Data"
+    
+    #Set Raw Data column 
+    # if(!is_empty(colnames(curr_data)[grepl("Raw Data", names(curr_data))])){
+    #   colnames(curr_data)[grepl("Raw Data", names(curr_data))] <- "Raw_Data"
+    # } else if(is_empty(colnames(curr_data)[grepl("Raw_Data", names(curr_data))])){
+    #   curr_data$Raw_Data <- NA
+    # }
+    
     all_crowdsourced_data <- bind_rows(all_crowdsourced_data, curr_data)
     all_crowdsourced_data <- na.omit(all_crowdsourced_data %>% dplyr::select(-Raw_Data))
   } else{
