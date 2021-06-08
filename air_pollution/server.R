@@ -235,7 +235,8 @@ server <- shinyServer(function(input, output, session) {
       addCircleMarkers(lng=~Longitude, lat=~Latitude, fillColor=~ppal(Measurement), stroke=TRUE, fillOpacity=0.5,color= "black", radius = 7,weight = 1.5, #lapply(input$name,function(x) color_status[[x]])
                        popup = paste("Name", mdata$Name, "<br>",
                                      "Timestamp:", mdata$Timestamp, "<br>",
-                                     paste0(input$type,":"), mdata$Measurement, "<br>")) 
+                                     paste0(input$type,":"), mdata$Measurement, "<br>",
+                                     "Site Type:",mdata$Site_Type, "<br>")) 
     
     m
   })
