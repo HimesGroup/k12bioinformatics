@@ -139,7 +139,7 @@ shinyUI(fluidPage(
              p("The panel below provides options to chose the sensors, and range of date, time, latitude and longitude. Adjust the parameters to your desired values, and then click \"Load Map\" to display the corresponding map. 
                Slider bars can be fine-tuned using arrow keys. Depending on your selections, the data will be selected to generate geospatial estimates for visualization."), br(), 
              wellPanel(fluidRow(
-               column(4,#Dropdown list for selecting data by sensor
+               column(6,#Dropdown list for selecting data by sensor
                       pickerInput("sensors",
                                   label = "Low-cost pollution sensors to include",
                                   choices = sensor.names,
@@ -147,7 +147,7 @@ shinyUI(fluidPage(
                                   selected = sensor.names,
                                   options = list(`actions-Box` = TRUE, `none-Selected-Text` = "None",
                                                  `selected-Text-Format`= "count"))), #End column 1
-                 column(4,#Dual textbox for entering in a date range
+                 column(6,#Dual textbox for entering in a date range
                         dateRangeInput("dates", label = "Date range", start = "2015-06-01", end = "2019-12-31", startview = "decade",
                                        min = "2015-06-01", max = "2019-12-31"),
                         #Slider bar for selecting a time-of-day-range
@@ -157,24 +157,24 @@ shinyUI(fluidPage(
                                         selected = c("00:00", "23:59"),
                                         force_edges = TRUE,
                                         width = "50%"
-                        )), #End column 2
-                 column(4,#Slider for selecting raster boundaries
-                        sliderInput("lat.range",
-                                    label = "Latitude Range",
-                                    min = 38.85,
-                                    max = 40.60,
-                                    value = c(39.87, 40.17),
-                                    step = 0.00001,
-                                    sep = ""
-                        ),
-                        sliderInput("lon.range",
-                                    label = "Longitude Range",
-                                    min = -76.40,
-                                    max = -74.40,
-                                    value = c(-75.28, -74.96),
-                                    step = 0.00001,
-                                    sep = ""
-                        )) )), #End column 3
+                        )))), #End wellpanel 
+                 # column(4,#Slider for selecting raster boundaries
+                 #        sliderInput("lat.range",
+                 #                    label = "Latitude Range",
+                 #                    min = 38.85,
+                 #                    max = 40.60,
+                 #                    value = c(39.87, 40.17),
+                 #                    step = 0.00001,
+                 #                    sep = ""
+                 #        ),
+                 #        sliderInput("lon.range",
+                 #                    label = "Longitude Range",
+                 #                    min = -76.40,
+                 #                    max = -74.40,
+                 #                    value = c(-75.28, -74.96),
+                 #                    step = 0.00001,
+                 #                    sep = ""
+                 #        )) )), #End wellpanel
              column(12,fluidRow(actionButton("go", "Load Map",class = "btn-warning")), align="center"), 
              br(), br(),
              tabsetPanel(tabPanel("Philadelphia Region Map", br(),
