@@ -253,8 +253,7 @@ server <- shinyServer(function(input, output, session) {
     #             xmx = input$lon.range[2], ymn = input$lat.range[1], ymx = input$lat.range[2])
     
     #Creates base layer for raster layer to be added to map later
-    r.shape <- extent(input$lon.range[1], input$lon.range[2], 
-                      input$lat.range[1], input$lat.range[2]) %>% as('SpatialPolygons')
+    r.shape <- extent(-75.28, -74.96, 39.87, 40.17) %>% as('SpatialPolygons')
     crs(r.shape) <- CRS("+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0")
     
     r <- raster(nrows = 64, ncols = 60, xmn = xmin(r.shape), 
@@ -264,8 +263,8 @@ server <- shinyServer(function(input, output, session) {
     lons <- xFromCell(r, 1:ncell(r))
     lats <- yFromCell(r, 1:ncell(r))
     
-    step.size.x <- (input$lon.range[2] - input$lon.range[1]) / 60
-    step.size.y <- (input$lat.range[2] - input$lat.range[1]) / 64
+    step.size.x <- (-74.96 - -75.28) / 60
+    step.size.y <- (40.17 - 39.87) / 64
     
     content <- vector()
     
@@ -507,9 +506,9 @@ server <- shinyServer(function(input, output, session) {
       }
     }
     
-    lon.center <- (input$lon.range[2] + input$lon.range[1]) / 2
-    lat.center <- (input$lat.range[2] + input$lat.range[1]) / 2
-    zoom.no <- f.zoom(input$lon.range[2] - input$lon.range[1], input$lat.range[2] - input$lat.range[1])
+    lon.center <- (-74.96 + -75.28) / 2
+    lat.center <- (40.17 + 39.87) / 2
+    zoom.no <- f.zoom(-74.96 - -75.28, 40.17 - 39.87)
     button.js <- paste0("function(btn, map){ map.setView([", lat.center, ", ", lon.center, "], ", zoom.no, "); }")
     
     vals <- values(map.layer.pm2.5)
@@ -647,7 +646,7 @@ server <- shinyServer(function(input, output, session) {
       addProviderTiles(providers$Esri.WorldTopoMap) %>%
       addRasterImage(map.layer.co, colors = pal.co, opacity = 0.6, group = "Measurement value", method = "ngb") %>%
       addLegend(pal = leg.pal.co, values = valsco, opacity = 1,
-                title = toString(f.titles("CO")), position = "topright",
+                title = toString(f.titles.epa("CO")), position = "topright",
                 #group = "Measurement value",
                 labFormat = labelFormat(transform = function(x) sort(x, decreasing = TRUE)))
     
@@ -831,8 +830,8 @@ server <- shinyServer(function(input, output, session) {
     ##
     
     #make list of all maps #crime=crime, pov=pov,
-    maps <- list(main = content_map, pm25=pm25, pm1=pm1, pm10=pm10,temp=temp,humid=humid,tr=tr,co=co)
-    #epa.pm25 = epa.pm25,epa.pm10 = epa.pm10, epa.so2 = epa.so2,epa.no2 = epa.no2,epa.o3 = epa.o3, epa.co = epa.co
+    maps <- list(main = content_map, pm25=pm25, pm1=pm1, pm10=pm10,temp=temp,humid=humid,tr=tr,co=co, 
+                 epa.pm25 = epa.pm25, epa.pm10 = epa.pm10, epa.so2 = epa.so2,epa.no2 = epa.no2,epa.o3 = epa.o3)
     maps
     
   }) #End eventReactive
@@ -1027,8 +1026,8 @@ server <- shinyServer(function(input, output, session) {
     ##Save raster data for downloading
     #Save selections
     date.range <- reactive({paste0(input$dates[1]," to ",input$dates[2])})
-    lon.range <- reactive({paste0(input$lon.range[1]," to ",input$lon.range[2])})
-    lat.range <- reactive({paste0(input$lat.range[1]," to ",input$lat.range[2])})
+    # lon.range <- reactive({paste0(-75.28," to ",-74.96)})
+    # lat.range <- reactive({paste0(39.87," to ",40.17)})
     
     #download.ras.df <- as.data.frame(unique(na.omit(brick(map.layer) %>% rasterToPoints())))
     #colnames(download.ras.df) <- c("Longitude","Latitude",meas.text) #[1:ncol(download.ras.df)]
@@ -1038,22 +1037,26 @@ server <- shinyServer(function(input, output, session) {
                              map.layer.t, map.layer.h, map.layer.tr) %>% rasterToPoints())))
     colnames(download.ras.df) <- c('Longitude','Latitude', 'PM2.5', 'PM1', 'PM10', 'Temperature','Humidity', 'Traffic')
     download.ras.df$Date_Range <- toString(date.range())
-    download.ras.df$Latitude_Range <- toString(lat.range())
-    download.ras.df$Longitude_Range <- toString(lon.range())
+    
+    # download.ras.df$Latitude_Range <- toString(lat.range())
+    # download.ras.df$Longitude_Range <- toString(lon.range())
+    #download.ras.df$Zipcode <- parallel::mcmapply(latlon2zip, download.ras.df$Latitude, download.ras.df$Longitude)
     
     #Download EPA CO data
     co.ras.df <- as.data.frame(unique(na.omit(brick(map.layer.co) %>% rasterToPoints())))
     colnames(co.ras.df) <- c("Longitude","Latitude","CO")
     co.ras.df$Date_Range <- toString(date.range())
-    co.ras.df$Latitude_Range <- toString(lat.range())
-    co.ras.df$Longitude_Range <- toString(lon.range())
+    
+    # co.ras.df$Latitude_Range <- toString(lat.range())
+    # co.ras.df$Longitude_Range <- toString(lon.range())
+    #co.ras.df$Zipcode <- parallel::mcmapply(latlon2zip, co.ras.df$Latitude, co.ras.df$Longitude)
     
     #download.ras.df <- merge(ras.df, co.ras.df, by = c("Longitude","Latitude"), all=T)
     
     # date.range.text <- date.range()
     
-    assign('download.ras', as_tibble(download.ras.df[,c(2,1,3,4,5,6,7,8)]), envir = .GlobalEnv)
-    assign('co.ras', as_tibble(co.ras.df[,c(2,1,3)]), envir = .GlobalEnv)
+    assign('download.ras', as_tibble(merge(download.ras.df, zipcodes, by = c("Latitude","Longitude"))), envir = .GlobalEnv)
+    assign('co.ras', as_tibble(merge(co.ras.df, zipcodes, by = c("Latitude","Longitude"))), envir = .GlobalEnv)
     
     #Download sensor data raster button
     output$downloadData <- downloadHandler(

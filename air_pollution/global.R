@@ -25,7 +25,9 @@ library(tidyverse)
 library(RColorBrewer)
 library(gdtools)
 library(ggiraph)
-
+library(RCurl)
+library(RJSONIO)
+library(parallel)
 
 ########################################
 ## Acquiring data from google sheets ##
@@ -375,8 +377,7 @@ city.border <- county.borders[county.borders$NAME == 'Philadelphia',]
 
 traffic.raster <- raster("sapphirine_data/traffic/traffic_raster.grd")
 
-zipcodes <- shapefile('sapphirine_data/zipcodes/gpa_zips.shp') %>%
-  spTransform(CRSobj = "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0")
+zipcodes <- read.csv("databases/zipcodes_lat_lon.csv")
 
 #Read in EPA data frames
 EPA_data <- read_feather('sapphirine_data/EPA_data.feather')
@@ -463,3 +464,11 @@ myLabelFormat = function(prefix = "", suffix = "", between = " &ndash; ", digits
     })(...))
   }
 }
+
+#Get Zipcodes from latitude and longitude
+latlon2zip <- function(lat, lon) {
+  url <- sprintf("http://nominatim.openstreetmap.org/reverse?format=json&lat=%f&lon=%f&zoom=18&addressdetails=1", lat, lon)
+  res <- fromJSON(url)
+  return(res[["address"]][["postcode"]])
+}
+
