@@ -14,7 +14,7 @@ server <- shinyServer(function(input, output, session) {
   ###################
   
   output$airqdata <- renderDataTable({all_crowdsourced_data %>%
-      dplyr::select("Group", "Name", "Date", "Time", "Site_Type (Indoor, Outdoor)", "Latitude", "Longitude", "PM2.5", "CO", "Comments")
+      dplyr::select("Group", "Name", "Date", "Time", "Site Type (Indoor/Outdoor)", "Latitude", "Longitude", "PM2.5", "CO", "Comments")
   }, options = list(pageLength=10, searching=FALSE))
    
    
@@ -137,12 +137,12 @@ server <- shinyServer(function(input, output, session) {
   ##Group UI
   observe({
     if(isTRUE(group_status)){
-      output$Group <- renderUI({pickerInput("group","Select School:", choices=unique(as.character(all_crowdsourced_data$Group)), multiple=TRUE, selected="J R Masterman")})
+      output$Group <- renderUI({pickerInput("group","Select School:", choices=unique(as.character(all_crowdsourced_data$Group)), multiple=TRUE, selected=unique(as.character(all_crowdsourced_data$Group)))})
     }})
   
   #Select Site Type
   output$Site <- renderUI({
-    pickerInput("site","Select Site Type:",choices = unique(as.character(all_crowdsourced_data$`Site_Type (Indoor, Outdoor)`)), multiple=T, selected="Indoor")
+    pickerInput("site","Select Site Type:",choices = unique(as.character(all_crowdsourced_data$`Site Type (Indoor/Outdoor)`)), multiple=T, selected="Indoor")
   })
 
 
