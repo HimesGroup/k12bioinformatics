@@ -36,7 +36,8 @@ library(parallel)
 ##Get groups with corresponding URLs
 #URL <- "https://docs.google.com/spreadsheets/d/1V5J_TuhfZTFBfPcg1JMavzFrbB2vavd3JMNX1f1oAQw/edit#gid=420394624"
 #URL <- "https://docs.google.com/spreadsheets/d/13-F4sAcX5Ph-IKp0W8uTRfT1RmUeEGbwtK7PMVUylws/edit#gid=0"
-gsheet_links <- read.csv("databases/gsheet_links_final.csv", as.is=TRUE)
+gsheet_links <- read.csv("databases/gsheet_links_final_JS_July28.csv", as.is=TRUE)
+#gsheet_links <- gsheet_links %>% dplyr::filter(Group!="J R Masterman 2020-2021")
 
 #gsheet_links <- read.csv("databases/gsheet_links_final_JS.csv", as.is=TRUE)[1:9,]
 #gsheet_links <- gsheet_links %>% dplyr::filter(!Group%in%c("J R Masterman 2020-2021","Maritime Academy Charter HS 2020-2021","Dock Mennonite Academy Offline 2020-2021"))
@@ -50,7 +51,7 @@ get_gsheet_data <- function(link) {
   if(url.exists(link)){
     df <- gsheet2tbl(link)
     #df <- df[,colSums(is.na(df))<nrow(df)]
-    if(length(setdiff(c("Timestamp","Name","PM2.5","CO","Location (1,2,3,4)","Comments","Site_Type (Indoor, Outdoor)","Data_Collection_Time", "Location (Latitude, Longitude)"), names(df)))!= 0){
+    if(length(setdiff(c("Timestamp","Name","PM2.5","CO","Location (1,2,3,4)","Comments","Site Type (Indoor/Outdoor)", "Location (Latitude, Longitude)"), names(df)))!= 0){ #"Data_Collection_Time",
       curr_message = paste("Warning: the google sheet did not load properly so it will be skipped:", link)
     } 
   } else if(!url.exists(URL)){
@@ -68,13 +69,18 @@ for (i in c(1:dim(gsheet_links)[[1]])) {
     group_status = TRUE
     curr_data <- dplyr::mutate(curr_data, Group = gsheet_links[i, "Group"]) 
     curr_data <- curr_data[, -grep("Class", colnames(curr_data))]
-    #curr_data$PM2.5 <- as.numeric(curr_data$PM2.5)
+    
+    #Set Pollutants
+    curr_data$PM2.5 <- as.numeric(curr_data$PM2.5)
+    curr_data$CO <- as.numeric(curr_data$CO)
+    curr_data$Temperature <- as.numeric(curr_data$Temperature)
+    curr_data$Humidity <- as.numeric(curr_data$Humidity)
     
     #Set Name column
     curr_data$Name <- as.character(curr_data$Name)
     
     #Correct colnames format
-    colnames(curr_data)[grepl("Site", names(curr_data))] <- "Site_Type (Indoor, Outdoor)"
+    colnames(curr_data)[grepl("Site", names(curr_data))] <- "Site Type (Indoor/Outdoor)"
     colnames(curr_data)[grepl("LongLat", names(curr_data))] <- "Location (Latitude, Longitude)"
     colnames(curr_data)[grepl("Location_1234", names(curr_data))] <- "Location (1,2,3,4)"
     colnames(curr_data)[grepl("Group", names(curr_data))] <- "Group"
@@ -82,12 +88,12 @@ for (i in c(1:dim(gsheet_links)[[1]])) {
     colnames(curr_data)[grepl("Raw Data", names(curr_data))] <- "Raw_Data"
     
     #Set Raw Data column 
-    # if(!is_empty(colnames(curr_data)[grepl("Raw Data", names(curr_data))])){
-    #   colnames(curr_data)[grepl("Raw Data", names(curr_data))] <- "Raw_Data"
-    # } else if(is_empty(colnames(curr_data)[grepl("Raw_Data", names(curr_data))])){
-    #   curr_data$Raw_Data <- NA
-    # }
-    
+    if(!is_empty(colnames(curr_data)[grepl("Raw Data", names(curr_data))])){
+      colnames(curr_data)[grepl("Raw Data", names(curr_data))] <- "Raw_Data"
+    } else if(is_empty(colnames(curr_data)[grepl("Raw_Data", names(curr_data))])){
+      curr_data$Raw_Data <- NA
+    }
+
     all_crowdsourced_data <- bind_rows(all_crowdsourced_data, curr_data)
     all_crowdsourced_data <- na.omit(all_crowdsourced_data %>% dplyr::select(-Raw_Data))
   } else{
@@ -105,7 +111,7 @@ if (dim(all_crowdsourced_data)[1]==0){
 all_crowdsourced_data <- tidyr::separate(data=all_crowdsourced_data,
                                          col="Location (Latitude, Longitude)",
                                          into=c("Latitude", "Longitude"),
-                                         sep=",",
+                                         sep=" ",
                                          remove=FALSE)
 all_crowdsourced_data$Latitude <- as.numeric(all_crowdsourced_data$Latitude)
 all_crowdsourced_data$Longitude <- as.numeric(all_crowdsourced_data$Longitude)
@@ -116,7 +122,7 @@ all_crowdsourced_data$Date <-  gsub("*.EDT","",strptime(as.character(all_crowdso
 all_crowdsourced_data <- filter(all_crowdsourced_data, PM2.5<500 & PM2.5>=0)
 
 #Dataframe with column names as row names for "Variables" column
-tf <- reshape2::melt(all_crowdsourced_data %>% dplyr::select(Group,Name,Latitude,Longitude,Date,Time,"Site_Type (Indoor, Outdoor)",Comments,PM2.5,CO), id=c("Group","Name","Latitude","Longitude","Date","Time","Site_Type (Indoor, Outdoor)","Comments"))
+tf <- reshape2::melt(all_crowdsourced_data %>% dplyr::select(Group,Name,Latitude,Longitude,Date,Time,"Site Type (Indoor/Outdoor)",Comments,PM2.5,CO), id=c("Group","Name","Latitude","Longitude","Date","Time","Site Type (Indoor/Outdoor)","Comments"))
 names(tf) <- c("Group", "Name", "Latitude", "Longitude", "Date", "Time", "Site_Type", "Comments", "Variables", "Measurement")
 clrs <- c("#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7","#7570B3", "#E7298A", "#66A61E", "#E6AB02", "#A6761D", "#666666","#8DD3C7","#BEBADA") #CB and Dark2
 
