@@ -65,6 +65,8 @@ all_crowdsourced_data <- NULL
 groups <- as.vector(gsheet_links$Group)
 for (i in c(1:dim(gsheet_links)[[1]])) {
   curr_data <- get_gsheet_data(gsheet_links[i, "URL"])
+  #debug
+  if ("X14" %in% names(curr_data)) {curr_data <- curr_data %>% dplyr::filter(is.na(X14)) %>% dplyr::select(-X14)}
   if(dim(curr_data)[1]!=0){
     group_status = TRUE
     curr_data <- dplyr::mutate(curr_data, Group = gsheet_links[i, "Group"]) 
